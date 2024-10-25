@@ -9,9 +9,45 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
-
 # Eclipse m2e generated files
 # Eclipse Core
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+# Maven build files
+.mvn/
+# Eclipse and IntelliJ project files
+*.class
+*.classpath
+*.settings/
+.idea/
+*.iml
+*.iws
+out/
+
+# Logs
+logs/
+*.log
+
+# Spring Boot specific
+*.war
+*.jar
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Application specific
+.env
+*.env
+*.jks
+application-*.yml
+application-*.properties
+.secret
+
