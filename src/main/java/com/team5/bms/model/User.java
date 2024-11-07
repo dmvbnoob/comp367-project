@@ -3,7 +3,7 @@ package com.team5.bms.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.smartcardio.Card;
+//import javax.smartcardio.Card;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -29,7 +29,7 @@ import jakarta.validation.constraints.NotNull;
 *
 * @author Leandro "The Project Manager" Mananquil
 */
- //please delete this comment. for test only to check commit and push working
+ 
 @Entity
 @Table(name="Users")
 @SuppressWarnings("common-java:DuplicatedBlocks")
