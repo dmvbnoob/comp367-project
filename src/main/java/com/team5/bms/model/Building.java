@@ -12,6 +12,8 @@ import jakarta.validation.constraints.NotNull;
 * This class represents the domain object model for a Building.
 *
 * @author Leandro "Project Manager, Software Development Engineer" Mananquil
+* 
+* updated today 11-07-2024
 */
 
 public class Building implements Serializable{
