@@ -43,7 +43,7 @@ public class Card implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "requests", "cards", "building" }, allowSetters = true)
-    private Uuser user;
+    private User user;
 
     public Long getId() {
         return this.id;
