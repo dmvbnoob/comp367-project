@@ -9,6 +9,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.team5.bms.model.enumeration.Roles;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
