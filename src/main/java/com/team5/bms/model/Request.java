@@ -200,17 +200,6 @@ public class Request implements Serializable {
         return getClass().hashCode();
     }
  
-    @Override
-    public String toString() {
-        return "Request{" +
-            "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", createDate='" + getCreateDate() + "'" +
-            ", progressDate='" + getProgressDate() + "'" +
-            ", updateDate='" + getUpdateDate() + "'" +
-            ", assignee='" + getAssignee() + "'" +
-            "}";
+    
     }
 }
