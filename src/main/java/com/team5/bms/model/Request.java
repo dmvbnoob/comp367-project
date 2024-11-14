@@ -23,7 +23,7 @@ import jakarta.validation.constraints.NotNull;
 
 /**
 * This class represents the domain object model for Service Requests.
-*test
+*
 * @author Alicia "Product Owner, Subject Matter Expert (SME), Software Quality" Singca
 */
 @Entity
