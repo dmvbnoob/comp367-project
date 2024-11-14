@@ -5,10 +5,11 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data JPA repository for the Building entity.
- *
- * @author Jasper "Principal Engineer and Software Architect" Belenzo 
- */
+* Spring Data JPA repository for the Request entity.
+*
+* @author Alicia "Product Owner, Subject Matter Expert (SME), Software Quality" Singca
+* @author Jasper "Principal Engineer and Software Architect" Belenzo
+*/
 @SuppressWarnings("unused")
 @Repository
-public interface BuildingRepository extends JpaRepository<Building, Long> {}
+public interface RequestRepository extends JpaRepository<Request, Long> {}
