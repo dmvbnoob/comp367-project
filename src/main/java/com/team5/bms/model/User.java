@@ -3,8 +3,6 @@ package com.team5.bms.model;
 import java.util.HashSet;
 import java.util.Set;
 
-//import javax.smartcardio.Card;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -29,8 +27,8 @@ import jakarta.validation.constraints.NotNull;
 * This class represents the domain object model for all User types.
 *
 * @author Leandro "The Project Manager" Mananquil
+* @author Jasper "Principal Software Engineer, Enterprise Solutions Architect" Belenzo
 */
- 
 @Entity
 @Table(name="Users")
 @SuppressWarnings("common-java:DuplicatedBlocks")
@@ -68,7 +66,7 @@ public class User {
     @Column(name = "role")
     private Roles role;
  
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buser")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
     private Set<Request> requests = new HashSet<>();
@@ -85,7 +83,7 @@ public class User {
         return this.id;
     }
  
-    public Buser id(Long id) {
+    public User id(Long id) {
         this.setId(id);
         return this;
     }
@@ -98,7 +96,7 @@ public class User {
         return this.username;
     }
  
-    public Buser username(String username) {
+    public User username(String username) {
         this.setUsername(username);
         return this;
     }
@@ -111,7 +109,7 @@ public class User {
         return this.password;
     }
  
-    public Buser password(String password) {
+    public User password(String password) {
         this.setPassword(password);
         return this;
     }
@@ -124,7 +122,7 @@ public class User {
         return this.firstname;
     }
  
-    public Buser firstname(String firstname) {
+    public ser firstname(String firstname) {
         this.setFirstname(firstname);
         return this;
     }
@@ -137,7 +135,7 @@ public class User {
         return this.lastname;
     }
  
-    public Buser lastname(String lastname) {
+    public User lastname(String lastname) {
         this.setLastname(lastname);
         return this;
     }
@@ -150,7 +148,7 @@ public class User {
         return this.email;
     }
  
-    public Buser email(String email) {
+    public User email(String email) {
         this.setEmail(email);
         return this;
     }
@@ -163,7 +161,7 @@ public class User {
         return this.phone;
     }
  
-    public Buser phone(String phone) {
+    public User phone(String phone) {
         this.setPhone(phone);
         return this;
     }
@@ -176,7 +174,7 @@ public class User {
         return this.role;
     }
  
-    public Buser role(Roles role) {
+    public User role(Roles role) {
         this.setRole(role);
         return this;
     }
@@ -199,20 +197,20 @@ public class User {
         this.requests = requests;
     }
  
-    public Buser requests(Set<Request> requests) {
+    public User requests(Set<Request> requests) {
         this.setRequests(requests);
         return this;
     }
  
-    public Buser addRequest(Request request) {
+    public User addRequest(Request request) {
         this.requests.add(request);
-        request.setBuser(this);
+        request.setUser(this);
         return this;
     }
  
-    public Buser removeRequest(Request request) {
+    public User removeRequest(Request request) {
         this.requests.remove(request);
-        request.setBuser(null);
+        request.setUser(null);
         return this;
     }
  
@@ -222,10 +220,10 @@ public class User {
  
     public void setCards(Set<Card> cards) {
         if (this.cards != null) {
-            this.cards.forEach(i -> i.setBuser(null));
+            this.cards.forEach(i -> i.setUser(null));
         }
         if (cards != null) {
-            cards.forEach(i -> i.setBuser(this));
+            cards.forEach(i -> i.setUser(this));
         }
         this.cards = cards;
     }
