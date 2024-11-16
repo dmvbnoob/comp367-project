@@ -123,7 +123,7 @@ public class User {
     }
  
     public User firstname(String firstname) {
-        this.setFirstname(firstname);
+        this.setFirstname(firstname); // Updated
         return this;
     }
  
