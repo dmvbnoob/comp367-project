@@ -110,7 +110,7 @@ public class Card implements Serializable {
         this.cvv = cvv;
     }
 
-    public Buser getUser() {
+    public User getUser() {
         return this.user;
     }
 
