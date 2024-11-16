@@ -20,7 +20,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.security.auth.message.callback.PrivateKeyCallback.Request;
+import com.team5.bms.model.Request;
 import jakarta.validation.constraints.NotNull;
  
 /**
