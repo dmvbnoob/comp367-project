@@ -122,7 +122,7 @@ public class User {
         return this.firstname;
     }
  
-    public ser firstname(String firstname) {
+    public User firstname(String firstname) {
         this.setFirstname(firstname);
         return this;
     }
