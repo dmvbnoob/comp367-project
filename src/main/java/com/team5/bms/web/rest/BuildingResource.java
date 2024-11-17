@@ -3,7 +3,7 @@ package com.team5.bms.web.rest;
 import com.team5.bms.model.Building;
 import com.team5.bms.repository.BuildingRepository;
 import com.team5.bms.service.BuildingService;
-import ccom.team5.bms.web.rest.errors.BadRequestAlertException;
+import com.team5.bms.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.net.URI;
@@ -27,7 +27,7 @@ import com.team5.bms.web.util.ResponseUtil;
 /**
  * REST controller for managing {@link com.team5.bms.model.Building}.
  *
- * @author
+ * @author Jasper Belenzo
  */
 @RestController
 @RequestMapping("/api/buildings")
