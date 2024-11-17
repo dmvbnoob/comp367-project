@@ -20,6 +20,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import com.team5.bms.web.util.HeaderUtil;
+import com.team5.bms.web.util.PaginationUtil;
+import com.team5.bms.web.util.ResponseUtil;
  
  
 /**
@@ -35,12 +38,12 @@ public class UserResource {
  
     private static final String ENTITY_NAME = "user";
  
-    private String applicationName = "bmsApp";
- 
     private final UserService userService;
  
     private final UserRepository userRepository;
- 
+    
+    private String applicationName = "bmsApp";
+
     public UserResource(UserService userService, UserRepository userRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
@@ -55,6 +58,7 @@ public class UserResource {
      */
     @PostMapping("")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) throws URISyntaxException {
+
         LOG.debug("REST request to save User : {}", user);
         if (user.getId() != null) {
             throw new BadRequestAlertException("A new user cannot already have an ID", ENTITY_NAME, "idexists");
@@ -63,6 +67,7 @@ public class UserResource {
         return ResponseEntity.created(new URI("/api/users/" + user.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, user.getId().toString()))
             .body(user);
+
     }
  
     /**
@@ -78,6 +83,7 @@ public class UserResource {
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable(value = "id", required = false) final Long id, @Valid @RequestBody User user)
         throws URISyntaxException {
+
         LOG.debug("REST request to update User : {}, {}", id, user);
         if (user.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -94,6 +100,7 @@ public class UserResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, user.getId().toString()))
             .body(user);
+
     }
  
     /**
@@ -108,10 +115,7 @@ public class UserResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<User> partialUpdateUser(
-        @PathVariable(value = "id", required = false) final Long id,
-        @NotNull @RequestBody User user
-    ) throws URISyntaxException {
+    public ResponseEntity<User> partialUpdateUser(@PathVariable(value = "id", required = false) final Long id, @NotNull @RequestBody User user) throws URISyntaxException {
         LOG.debug("REST request to partial update User partially : {}, {}", id, user);
         if (user.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -130,6 +134,7 @@ public class UserResource {
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, user.getId().toString())
         );
+
     }
  
     /**
@@ -140,10 +145,12 @@ public class UserResource {
      */
     @GetMapping("")
     public ResponseEntity<List<User>> getAllUsers(@org.springdoc.core.annotations.ParameterObject Pageable pageable) {
+
         LOG.debug("REST request to get a page of Users");
         Page<User> page = userService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+
     }
  
     /**
@@ -154,9 +161,11 @@ public class UserResource {
      */
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
+
         LOG.debug("REST request to get User : {}", id);
         Optional<User> user = userService.findOne(id);
         return ResponseUtil.wrapOrNotFound(user);
+
     }
  
     /**
@@ -167,10 +176,13 @@ public class UserResource {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
+
         LOG.debug("REST request to delete User : {}", id);
         userService.delete(id);
         return ResponseEntity.noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+
     }
+
 }
