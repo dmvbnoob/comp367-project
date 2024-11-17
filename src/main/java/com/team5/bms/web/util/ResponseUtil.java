@@ -23,9 +23,11 @@ public interface ResponseUtil {
      * @return response containing {@code maybeResponse} if present
      */
     static <X> ResponseEntity<X> wrapOrNotFound(Optional<X> maybeResponse, HttpHeaders header) {
+
         return maybeResponse
             .map(response -> ResponseEntity.ok().headers(header).body(response))
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            
     }
 	
     /**
@@ -37,7 +39,9 @@ public interface ResponseUtil {
      * @return response containing {@code maybeResponse} if present or {@link org.springframework.http.HttpStatus#NOT_FOUND}
      */
     static <X> ResponseEntity<X> wrapOrNotFound(Optional<X> maybeResponse) {
+
         return wrapOrNotFound(maybeResponse, null);
+
     }
 	
 }
