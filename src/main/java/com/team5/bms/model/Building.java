@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 * updated today 11-07-2024
 */
 @Entity
-@Table(name = "building")
+@Table(name = "buildings")
 /* @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")*/
 public class Building implements Serializable {

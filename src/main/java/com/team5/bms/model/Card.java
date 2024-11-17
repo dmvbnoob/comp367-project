@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 * @author Jasper "Principal Engineer and Software Architect" Belenzo
 */
 @Entity
-@Table(name = "card")
+@Table(name = "cards")
 /*@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")*/
 public class Card implements Serializable {
