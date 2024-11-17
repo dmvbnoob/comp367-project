@@ -1,12 +1,20 @@
 package com.team5.bms.model;
 
 import java.io.Serializable;
-
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
 * This class represents the domain object model for a Building.
@@ -15,8 +23,11 @@ import jakarta.validation.constraints.NotNull;
 * 
 * updated today 11-07-2024
 */
-
-public class Building implements Serializable{
+@Entity
+@Table(name = "building")
+/* @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")*/
+public class Building implements Serializable {
 	
 	   private static final long serialVersionUID = 1L;
 	   

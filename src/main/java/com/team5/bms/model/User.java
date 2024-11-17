@@ -31,8 +31,8 @@ import jakarta.validation.constraints.NotNull;
 */
 @Entity
 @Table(name="Users")
-@SuppressWarnings("common-java:DuplicatedBlocks")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+/* @SuppressWarnings("common-java:DuplicatedBlocks")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)*/
 public class User {
 	
     private static final long serialVersionUID = 1L;

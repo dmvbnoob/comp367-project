@@ -14,8 +14,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 */
 @Entity
 @Table(name = "card")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@SuppressWarnings("common-java:DuplicatedBlocks")
+/*@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")*/
 public class Card implements Serializable {
 
     private static final long serialVersionUID = 1L;
