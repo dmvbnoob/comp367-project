@@ -1,4 +1,4 @@
-package com.team5.bms.web.rest;
+package com.team5.bms.controller;
  
 import com.team5.bms.model.User;
 import org.springframework.stereotype.Controller;
