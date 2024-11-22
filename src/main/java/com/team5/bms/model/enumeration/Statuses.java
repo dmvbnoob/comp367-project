@@ -10,7 +10,7 @@ package com.team5.bms.model.enumeration;
  * 
  */
 public enum Statuses {
-	CREATED, IN_PROGRESS, COMPLETED,
+	CREATED, ASSIGNED, IN_PROGRESS, COMPLETED,
 	
 	//test123
 }
