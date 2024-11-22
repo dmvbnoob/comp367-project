@@ -12,4 +12,9 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/privacy")
+    public String showPrivacyPolicyPage() {
+        return "privacy";
+    }
+
 }
