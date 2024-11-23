@@ -18,14 +18,13 @@
                         <span b-c7vtn5ui3n="" class="navbar-toggler-icon"></span>
                     </button>
                     <div b-c7vtn5ui3n="" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul b-c7vtn5ui3n="" class="navbar-nav flex-grow-1">
+                        <ul b-c7vtn5ui3n="" class="navbar-nav flex-grow-1" th:if="${session.loggedInUser != null}">
                             <li b-c7vtn5ui3n="" class="nav-item">
                                 <a class="nav-link text-dark" href="/index">Home</a>
                             </li>
                             <li b-c7vtn5ui3n="" class="nav-item">
                                 <a class="nav-link text-dark" href="/privacy">Privacy</a>
                             </li>
-                            <!-- Only show this menu item for OWNER or ADMINISTRATOR -->
                             <li b-c7vtn5ui3n="" class="nav-item">
                                 <a class="nav-link text-dark" href="/user">Users</a>
                             </li>
