@@ -47,11 +47,45 @@
                 </div>
             </nav>
         </header>
+
         <div b-c7vtn5ui3n="" class="container">
-            <main b-c7vtn5ui3n="" role="main" class="pb-3">
-                <div class="text-center">
-                    <h1 class="display-4">Welcome</h1>
-                    <p>Welcome to Leandro Technologies' BMS Cloud!</p>
+            <main b-c7vtn5ui3n="" role="main" class="pb-3">  
+                <h1>Register User</h1>
+                <div class="row">
+                    <div class="col-md-4">
+                        <form id="registerForm" method="post" action="http://localhost:5087/Identity/Account/Register" novalidate="novalidate">
+                        <h2>Create a new account.</h2>
+                        <hr>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" type="email" data-val="true" data-val-email="The Email field is not a valid e-mail address." data-val-required="The Email field is required." id="Input_Email" name="Input.Email" value="">
+                            <label for="Input_Email">Email</label>
+                            <span class="text-danger field-validation-valid" data-valmsg-for="Input.Email" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" type="password" data-val="true" data-val-length="The Password must be at least 6 and at max 100 characters long." data-val-length-max="100" data-val-length-min="6" data-val-required="The Password field is required." id="Input_Password" maxlength="100" name="Input.Password" aria-autocomplete="list">
+                            <label for="Input_Password">Password</label>
+                            <span class="text-danger field-validation-valid" data-valmsg-for="Input.Password" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" type="password" data-val="true" data-val-equalto="The password and confirmation password do not match." data-val-equalto-other="*.Password" id="Input_ConfirmPassword" name="Input.ConfirmPassword">
+                            <label for="Input_ConfirmPassword">Confirm Password</label>
+                            <span class="text-danger field-validation-valid" data-valmsg-for="Input.ConfirmPassword" data-valmsg-replace="true"></span>
+                        </div>
+                        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8GraB8kkNyBHl8LDMGvYFzlDqmFCmzDL5Gfa8PZQcIAQGSIGIeSbSdOGicP3ZvB8YYuN8xgKzIvwjlLTAF878KFr8CT82jYovzAXKHYLmNoqftjbF8ew9ppJ-veK8w2HKRge0wbzrFTVlmgjSR3TYRE"></form>
+                    </div>
+                    <div class="col-md-6 col-md-offset-2">
+                        <section>
+                            <h3>Use another service to register.</h3>
+                            <hr>
+                            <div>
+                                <p>
+                                There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                                about setting up this ASP.NET application to support logging in via external services</a>.
+                                </p>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </main>
         </div>
