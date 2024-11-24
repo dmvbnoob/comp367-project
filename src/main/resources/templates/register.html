@@ -50,29 +50,76 @@
 
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">  
-                <h1>Register User</h1>
+                <h1>Register</h1>
                 <div class="row">
                     <div class="col-md-4">
-                        <form id="registerForm" method="post" action="http://localhost:5087/Identity/Account/Register" novalidate="novalidate">
-                        <h2>Create a new account.</h2>
-                        <hr>
-                        <div class="form-floating mb-3">
-                            <input class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" type="email" data-val="true" data-val-email="The Email field is not a valid e-mail address." data-val-required="The Email field is required." id="Input_Email" name="Input.Email" value="">
-                            <label for="Input_Email">Email</label>
-                            <span class="text-danger field-validation-valid" data-valmsg-for="Input.Email" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" type="password" data-val="true" data-val-length="The Password must be at least 6 and at max 100 characters long." data-val-length-max="100" data-val-length-min="6" data-val-required="The Password field is required." id="Input_Password" maxlength="100" name="Input.Password" aria-autocomplete="list">
-                            <label for="Input_Password">Password</label>
-                            <span class="text-danger field-validation-valid" data-valmsg-for="Input.Password" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" type="password" data-val="true" data-val-equalto="The password and confirmation password do not match." data-val-equalto-other="*.Password" id="Input_ConfirmPassword" name="Input.ConfirmPassword">
-                            <label for="Input_ConfirmPassword">Confirm Password</label>
-                            <span class="text-danger field-validation-valid" data-valmsg-for="Input.ConfirmPassword" data-valmsg-replace="true"></span>
-                        </div>
-                        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-                        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8GraB8kkNyBHl8LDMGvYFzlDqmFCmzDL5Gfa8PZQcIAQGSIGIeSbSdOGicP3ZvB8YYuN8xgKzIvwjlLTAF878KFr8CT82jYovzAXKHYLmNoqftjbF8ew9ppJ-veK8w2HKRge0wbzrFTVlmgjSR3TYRE"></form>
+                        <form id="registerForm" method="post" action="/register">
+                            <h2>Register Building</h2>
+                            <hr>
+                            <!-- Building details -->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="buildingName" name="building.name" placeholder="Building Name" type="text" required>
+                                <label for="buildingName">Building Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="buildingAddress" name="building.address" placeholder="Building Address" type="text" required>
+                                <label for="buildingAddress">Building Address</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="buildingPhone" name="building.phone" placeholder="Building Phone" type="text" required pattern="^\+?[1-9]\d{1,14}$" title="Please enter a valid phone number (e.g., +1234567890)">
+                                <label for="buildingPhone">Building Phone</label>
+                            </div>
+                            <h2>Register Card</h2>
+                            <hr>
+                            <!-- Card details -->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="cardNumber" name="card.number" placeholder="Card Number" type="text" required pattern="^\d{13,19}$" title="Card number should be between 13 and 19 digits.">
+                                <label for="cardNumber">Card Number</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="cardName" name="card.name" placeholder="Cardholder Name" type="text" required pattern="^[A-Za-z\s]+$" title="Cardholder name should only contain letters and spaces.">
+                                <label for="cardName">Cardholder Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="cardExpiry" name="card.expiry" placeholder="Expiry Date" type="month" required>
+                                <label for="cardExpiry">Expiry Date</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="cardCvv" name="card.cvv" placeholder="CVV" type="text" required maxlength="3" pattern="\d{3}" title="CVV should be exactly 3 digits.">
+                                <label for="cardCvv">CVV</label>
+                            </div>
+                            <h2>Register Building Owner User</h2>
+                            <hr>
+                            <!-- User Building Owner details -->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="username" name="user.username" placeholder="Username" type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="password" name="user.password" placeholder="Password" type="password" required minlength="6" title="Password should be at least 6 characters long.">
+                                <label for="password">Password</label>
+                            </div>
+                            <!-- TODO make another field here for CONFIRM PASSWORD-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="firstname" name="user.firstname" placeholder="First Name" type="text" required pattern="^[A-Za-z\s]+$" title="First name should only contain letters and spaces.">
+                                <label for="firstname">First Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="lastname" name="user.lastname" placeholder="Last Name" type="text" required pattern="^[A-Za-z\s]+$" title="Last name should only contain letters and spaces.">
+                                <label for="lastname">Last Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="email" name="user.email" placeholder="Email" type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address (e.g., example@domain.com)">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="phone" name="user.phone" placeholder="Phone Number" type="tel" pattern="^\+?[0-9]{10,15}$" title="Phone number should contain 10 to 15 digits and may start with a plus sign.">
+                                <label for="phone">Phone Number</label>
+                            </div>
+                            <input class="form-control" id="role" name="user.role" type="hidden" value="OWNER">
+                            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+                            <!-- <input name="__RequestVerificationToken" type="hidden" value="CfDJ8GraB8kkNyBHl8LDMGvYFzlDqmFCmzDL5Gfa8PZQcIAQGSIGIeSbSdOGicP3ZvB8YYuN8xgKzIvwjlLTAF878KFr8CT82jYovzAXKHYLmNoqftjbF8ew9ppJ-veK8w2HKRge0wbzrFTVlmgjSR3TYRE"> -->
+                        </form>
                     </div>
                     <div class="col-md-6 col-md-offset-2">
                         <section>
