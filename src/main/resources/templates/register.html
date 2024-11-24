@@ -62,7 +62,7 @@
                                 <label for="buildingName">Building Name</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="buildingAddress" name="building.address" placeholder="Building Address" type="text" required>
+                                <input class="form-control" id="buildingAddress" name="address" placeholder="Building Address" type="text" required>
                                 <label for="buildingAddress">Building Address</label>
                             </div>
                             <div class="form-floating mb-3">
@@ -73,7 +73,7 @@
                             <hr>
                             <!-- Card details -->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="cardNumber" name="card.number" placeholder="Card Number" type="text" required pattern="^\d{13,19}$" title="Card number should be between 13 and 19 digits.">
+                                <input class="form-control" id="cardNumber" name="number" placeholder="Card Number" type="text" required pattern="^\d{13,19}$" title="Card number should be between 13 and 19 digits.">
                                 <label for="cardNumber">Card Number</label>
                             </div>
                             <div class="form-floating mb-3">
@@ -81,19 +81,19 @@
                                 <label for="cardName">Cardholder Name</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="cardExpiry" name="card.expiry" placeholder="Expiry Date" type="month" required>
+                                <input class="form-control" id="cardExpiry" name="expiry" placeholder="Expiry Date" type="month" required>
                                 <label for="cardExpiry">Expiry Date</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="cardCvv" name="card.cvv" placeholder="CVV" type="text" required maxlength="3" pattern="\d{3}" title="CVV should be exactly 3 digits.">
+                                <input class="form-control" id="cardCvv" name="cvv" placeholder="CVV" type="text" required maxlength="3" pattern="\d{3}" title="CVV should be exactly 3 digits.">
                                 <label for="cardCvv">CVV</label>
                             </div>
                             <h2>Register Building Owner User</h2>
                             <hr>
                             <!-- User Building Owner details -->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="user.username" name="user.username" placeholder="Username" type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
-                                <label for="user.username">Username</label>
+                                <input class="form-control" id="username" name="username" placeholder="Username" type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
+                                <label for="username">Username</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="password" name="password" placeholder="Password" type="password" required minlength="6" title="Password should be at least 6 characters long.">
@@ -101,22 +101,22 @@
                             </div>
                             <!-- TODO make another field here for CONFIRM PASSWORD-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="firstname" name="user.firstname" placeholder="First Name" type="text" required pattern="^[A-Za-z\s]+$" title="First name should only contain letters and spaces.">
+                                <input class="form-control" id="firstname" name="firstname" placeholder="First Name" type="text" required pattern="^[A-Za-z\s]+$" title="First name should only contain letters and spaces.">
                                 <label for="firstname">First Name</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="lastname" name="user.lastname" placeholder="Last Name" type="text" required pattern="^[A-Za-z\s]+$" title="Last name should only contain letters and spaces.">
+                                <input class="form-control" id="lastname" name="lastname" placeholder="Last Name" type="text" required pattern="^[A-Za-z\s]+$" title="Last name should only contain letters and spaces.">
                                 <label for="lastname">Last Name</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="email" name="user.email" placeholder="Email" type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address (e.g., example@domain.com)">
+                                <input class="form-control" id="email" name="email" placeholder="Email" type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address (e.g., example@domain.com)">
                                 <label for="email">Email</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="phone" name="user.phone" placeholder="Phone Number" type="tel" pattern="^\+?[0-9]{10,15}$" title="Phone number should contain 10 to 15 digits and may start with a plus sign.">
+                                <input class="form-control" id="phone" name="phone" placeholder="Phone Number" type="tel" pattern="^\+?[0-9]{10,15}$" title="Phone number should contain 10 to 15 digits and may start with a plus sign.">
                                 <label for="phone">Phone Number</label>
                             </div>
-                            <input class="form-control" id="role" name="user.role" type="hidden" value="OWNER">
+                            <input class="form-control" id="role" name="role" type="hidden" value="OWNER">
                             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
                             <!-- <input name="__RequestVerificationToken" type="hidden" value="CfDJ8GraB8kkNyBHl8LDMGvYFzlDqmFCmzDL5Gfa8PZQcIAQGSIGIeSbSdOGicP3ZvB8YYuN8xgKzIvwjlLTAF878KFr8CT82jYovzAXKHYLmNoqftjbF8ew9ppJ-veK8w2HKRge0wbzrFTVlmgjSR3TYRE"> -->
                         </form>
