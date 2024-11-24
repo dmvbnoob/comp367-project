@@ -27,12 +27,10 @@ import jakarta.validation.constraints.NotNull;
 * This class represents the domain object model for all User types.
 *
 * @author Leandro "The Project Manager" Mananquil
-* @author Jasper "Principal Software Engineer, Enterprise Solutions Architect" Belenzo
+* @author Jasper Belenzo
 */
 @Entity
 @Table(name="Users")
-/* @SuppressWarnings("common-java:DuplicatedBlocks")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)*/
 public class User {
 	
     private static final long serialVersionUID = 1L;
@@ -59,8 +57,8 @@ public class User {
     @Column(name = "email")
     private String email;
  
-    @Column(name = "phone")
-    private String phone;
+    @Column(name = "userPhone")
+    private String userPhone;
  
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
@@ -157,17 +155,17 @@ public class User {
         this.email = email;
     }
  
-    public String getPhone() {
-        return this.phone;
+    public String getUserPhone() {
+        return this.userPhone;
     }
  
-    public User phone(String phone) {
-        this.setPhone(phone);
+    public User userPhone(String userPhone) {
+        this.setUserPhone(userPhone);
         return this;
     }
  
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
  
     public Roles getRole() {

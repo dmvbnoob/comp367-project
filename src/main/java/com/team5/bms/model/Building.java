@@ -20,13 +20,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 * This class represents the domain object model for a Building.
 *
 * @author Leandro "Project Manager, Software Development Engineer" Mananquil
+* @author Jasper Belenzo
 * 
-* updated today 11-07-2024
 */
 @Entity
 @Table(name = "buildings")
-/* @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@SuppressWarnings("common-java:DuplicatedBlocks")*/
 public class Building implements Serializable {
 	
 	   private static final long serialVersionUID = 1L;
@@ -37,16 +35,16 @@ public class Building implements Serializable {
 	   private Long id;
 	 
 	   @NotNull
-	   @Column(name = "name", nullable = false)
-	   private String name;
+	   @Column(name = "buildingName", nullable = false)
+	   private String buildingName;
 	 
 	   @NotNull
 	   @Column(name = "address", nullable = false)
 	   private String address;
 	 
 	   @NotNull
-	   @Column(name = "phone", nullable = false)
-	   private String phone;
+	   @Column(name = "buildingPhone", nullable = false)
+	   private String buildingPhone;
 	 
 	   public Long getId() {
 	       return this.id;
@@ -61,17 +59,17 @@ public class Building implements Serializable {
 	       this.id = id;
 	   }
 	 
-	   public String getName() {
-	       return this.name;
+	   public String getBuildingName() {
+	       return this.buildingName;
 	   }
 	 
-	   public Building name(String name) {
-	       this.setName(name);
+	   public Building buildingName(String buildingName) {
+	       this.setBuildingName(buildingName);
 	       return this;
 	   }
 	 
-	   public void setName(String name) {
-	       this.name = name;
+	   public void setBuildingName(String buildingName) {
+	       this.buildingName = buildingName;
 	   }
 	 
 	   public String getAddress() {
@@ -87,17 +85,17 @@ public class Building implements Serializable {
 	       this.address = address;
 	   }
 	 
-	   public String getPhone() {
-	       return this.phone;
+	   public String getBuildingPhone() {
+	       return this.buildingPhone;
 	   }
 	 
-	   public Building phone(String phone) {
-	       this.setPhone(phone);
+	   public Building buildingPhone(String buildingPhone) {
+	       this.setBuildingPhone(buildingPhone);
 	       return this;
 	   }
 	 
-	   public void setPhone(String phone) {
-	       this.phone = phone;
+	   public void setBuildingPhone(String buildingPhone) {
+	       this.buildingPhone = buildingPhone;
 	   }
 	 
 	   @Override
@@ -120,9 +118,9 @@ public class Building implements Serializable {
 	   public String toString() {
 	       return "Building{" +
 	           "id=" + getId() +
-	           ", name='" + getName() + "'" +
+	           ", buildingName='" + getName() + "'" +
 	           ", address='" + getAddress() + "'" +
-	           ", phone='" + getPhone() + "'" +
+	           ", buildingPhone='" + getBuildingPhone() + "'" +
 	           "}";
 	   }	
 

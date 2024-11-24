@@ -10,12 +10,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
 * This class represents the domain object model for the Bank Card of a Building Owner
 *
-* @author Jasper "Principal Engineer and Software Architect" Belenzo
+* @author Jasper Belenzo
 */
 @Entity
 @Table(name = "cards")
-/*@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@SuppressWarnings("common-java:DuplicatedBlocks")*/
 public class Card implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,8 +28,8 @@ public class Card implements Serializable {
     private String number;
 
     @NotNull
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "cardName", nullable = false)
+    private String cardName;
 
     @NotNull
     @Column(name = "expiry", nullable = false)
@@ -71,17 +69,17 @@ public class Card implements Serializable {
         this.number = number;
     }
 
-    public String getName() {
-        return this.name;
+    public String getCardName() {
+        return this.cardName;
     }
 
-    public Card name(String name) {
-        this.setName(name);
+    public Card cardName(String cardName) {
+        this.setCardName(cardName);
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
     }
 
     public String getExpiry() {
@@ -145,7 +143,7 @@ public class Card implements Serializable {
         return "Card{" +
             "id=" + getId() +
             ", number='" + getNumber() + "'" +
-            ", name='" + getName() + "'" +
+            ", cardName='" + getCardName() + "'" +
             ", expiry='" + getExpiry() + "'" +
             ", cvv='" + getCvv() + "'" +
             "}";
