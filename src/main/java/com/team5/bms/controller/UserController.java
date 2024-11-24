@@ -11,8 +11,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Controller
 public class UserController {
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
@@ -36,6 +50,27 @@ public class UserController {
 
         // Save Building Details
         System.out.println("UserController - POST - register - building -> " + building);
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Content-Type", "application/json");
+            HttpEntity<Building> entity = new HttpEntity<>(building, headers);
+            ResponseEntity<Building> response = restTemplate.exchange("/api/buildings", HttpMethod.POST, entity, Building.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+                Building createdBuilding = response.getBody();
+                System.out.println("Building created successfully: " + createdBuilding);
+                user.setBuilding(createdBuilding); 
+                //model.addAttribute("buildingId", createdBuilding.getId());
+            } else {
+                // Handle error if creation fails
+                model.addAttribute("message", "Failed to create building.");
+                return "register";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Error creating building: " + e.getMessage());
+            return "register";
+        }
 
         // Save Card Details
         System.out.println("UserController - POST - register - card -> " + card);
