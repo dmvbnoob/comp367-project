@@ -18,6 +18,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
 public class UserController {
@@ -27,6 +28,8 @@ public class UserController {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
 
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
@@ -54,7 +57,7 @@ public class UserController {
             HttpHeaders headers = new HttpHeaders();
             headers.set("Content-Type", "application/json");
             HttpEntity<Building> entity = new HttpEntity<>(building, headers);
-            ResponseEntity<Building> response = restTemplate.exchange("/api/buildings", HttpMethod.POST, entity, Building.class);
+            ResponseEntity<Building> response = restTemplate.exchange(baseUrl+"/api/buildings", HttpMethod.POST, entity, Building.class);
 
             if (response.getStatusCode().is2xxSuccessful()) {
                 Building createdBuilding = response.getBody();
