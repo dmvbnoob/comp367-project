@@ -1,10 +1,15 @@
 package com.team5.bms.controller;
  
-import com.team5.bms.model.User;
-import com.team5.bms.model.Building;
+import jakarta.validation.Valid;
 import com.team5.bms.model.Card;
+import com.team5.bms.model.User;
+import org.springframework.ui.Model;
+import com.team5.bms.model.Building;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
@@ -30,13 +35,13 @@ public class UserController {
         }
 
         // Save Building Details
-        System.out.prinln("UserController - POST - register - building -> " + building);
+        System.out.println("UserController - POST - register - building -> " + building);
 
         // Save Card Details
-        System.out.prinln("UserController - POST - register - card -> " + card);
+        System.out.println("UserController - POST - register - card -> " + card);
 
         // Save Building Owner User details with its Building and Card
-        System.out.prinln("UserController - POST - register - Building Owner - user -> " + user);
+        System.out.println("UserController - POST - register - Building Owner - user -> " + user);
 
         // Set the user’s building and card
         // user.setBuilding(building);
