@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class UserController {
