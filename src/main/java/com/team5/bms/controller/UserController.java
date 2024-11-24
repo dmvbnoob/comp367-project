@@ -51,24 +51,23 @@ public class UserController {
         Model model) {
         
         if (result.hasErrors()) {
-            return "register"; // returns the form view if there are validation errors
+            return "register"; // Returns the form view if there are validation errors
         }
 
-        // Save Building Details
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+
+        // Save Building Details first
         System.out.println("UserController - POST - register - building -> " + building);
         try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Content-Type", "application/json");
             HttpEntity<Building> entity = new HttpEntity<>(building, headers);
             ResponseEntity<Building> response = restTemplate.exchange(baseUrl+"/api/buildings", HttpMethod.POST, entity, Building.class);
-
             if (response.getStatusCode().is2xxSuccessful()) {
                 Building createdBuilding = response.getBody();
-                System.out.println("Building created successfully: " + createdBuilding);
+                System.out.println("UserController - POST - register - BUILDING CREATE SUCCESSFULLY -> createdBuilding -> " + createdBuilding);
                 user.setBuilding(createdBuilding); 
-                //model.addAttribute("buildingId", createdBuilding.getId());
+                building = createdBuilding;
             } else {
-                // Handle error if creation fails
                 model.addAttribute("message", "Failed to create building.");
                 return "register";
             }
@@ -78,22 +77,51 @@ public class UserController {
             return "register";
         }
 
-        // Save Card Details
+        // Save Card Details second
         System.out.println("UserController - POST - register - card -> " + card);
+        try {
+            HttpEntity<Card> entity = new HttpEntity<>(card, headers);
+            ResponseEntity<Card> response = restTemplate.exchange(baseUrl+"/api/cards", HttpMethod.POST, entity, Card.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                Card createdCard = response.getBody();
+                System.out.println("UserController - POST - register - CARD created SUCCESSFULLY -> createdCard -> " + createdCard);
+                user.addCard(createdCard); 
+                card = createdCard;
+            } else {
+                model.addAttribute("message", "Failed to create card.");
+                return "register";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Error creating card: " + e.getMessage());
+            return "register";
+        }
 
         // Save Building Owner User details with its Building and Card
         System.out.println("UserController - POST - register - Building Owner - user -> " + user);
+        try {
+            HttpEntity<User> entity = new HttpEntity<>(user, headers);
+            ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.POST, entity, User.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                User createdBusinessOwner = response.getBody();
+                System.out.println("UserController - POST - register - Business Owner USER created SUCCESSFULLY -> createdBusinessOwner -> " + createdBusinessOwner);
+                card.setUser(createdBusinessOwner);
+                user.setBuilding(building);
+            } else {
+                model.addAttribute("message", "Failed to create Business Owner user.");
+                return "register";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Error creating Business Owner user: " + e.getMessage());
+            return "register";
+        }
 
-        // Set the user’s building and card
-        // user.setBuilding(building);
-        // card.setUser(user);
-
-        // Save the user and card (and building if necessary)
-        // userService.save(user); // Assuming you have a service to save the entities
-        // userService.saveCard(card);
-
+        model.addAttribute("building", building);
+        model.addAttribute("card", card);
+        model.addAttribute("user", user);
         model.addAttribute("message", "Registration successful!");
-        return "redirect:/login"; // redirect to login page after successful registration
+        return "registered";
     }
 
     @GetMapping("/login")
