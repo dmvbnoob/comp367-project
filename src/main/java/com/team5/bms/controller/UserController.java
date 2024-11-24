@@ -29,20 +29,14 @@ public class UserController {
     @Autowired
     private ObjectMapper objectMapper;
 
-    // String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-
     private String baseUrl;
 
-    public UserController() {
-        // This will throw an exception if there is no HTTP request context
-        this.baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
-    }
-
     @GetMapping("/register")
-    public String showRegisterPage(Model model) {
+    public String showRegisterPage(HttpServletRequest request, Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("building", new Building());
         model.addAttribute("card", new Card());
+        baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
         return "register";
     }
 
