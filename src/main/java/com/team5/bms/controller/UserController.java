@@ -64,7 +64,7 @@ public class UserController {
             ResponseEntity<Building> response = restTemplate.exchange(baseUrl+"/api/buildings", HttpMethod.POST, entity, Building.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 Building createdBuilding = response.getBody();
-                System.out.println("UserController - POST - register - BUILDING CREATE SUCCESSFULLY -> createdBuilding -> " + createdBuilding);
+                System.out.println("UserController - POST - register - BUILDING created SUCCESSFULLY -> createdBuilding -> " + createdBuilding);
                 user.setBuilding(createdBuilding); 
                 building = createdBuilding;
             } else {
