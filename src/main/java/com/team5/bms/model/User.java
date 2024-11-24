@@ -281,7 +281,7 @@ public class User {
             ", firstname='" + getFirstname() + "'" +
             ", lastname='" + getLastname() + "'" +
             ", email='" + getEmail() + "'" +
-            ", phone='" + getPhone() + "'" +
+            ", userPhone='" + getUserPhone() + "'" +
             ", role='" + getRole() + "'" +
             "}";
     }

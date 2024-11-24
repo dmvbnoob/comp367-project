@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Service Implementation for managing {@link com.team5.bms.model.Card}.
  * 
- * @author Jasper "Principal Engineer and Software Architect" Belenzo
+ * @author Jasper Belenzo
  */
 @Service
 @Transactional
@@ -50,8 +50,8 @@ public class CardServiceImpl implements CardService {
                 if (card.getNumber() != null) {
                     existingCard.setNumber(card.getNumber());
                 }
-                if (card.getName() != null) {
-                    existingCard.setName(card.getName());
+                if (card.getCardName() != null) {
+                    existingCard.setCardName(card.getCardName());
                 }
                 if (card.getExpiry() != null) {
                     existingCard.setExpiry(card.getExpiry());

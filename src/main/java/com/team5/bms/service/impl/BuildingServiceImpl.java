@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Service Implementation for managing {@link com.team5.bms.model.Building}.
  *
- * @author
+ * @author Jasper Belenzo
  */
 @Service
 @Transactional
@@ -47,14 +47,14 @@ public class BuildingServiceImpl implements BuildingService {
         return buildingRepository
             .findById(building.getId())
             .map(existingBuilding -> {
-                if (building.getName() != null) {
-                    existingBuilding.setName(building.getName());
+                if (building.getBuildingName() != null) {
+                    existingBuilding.setBuildingName(building.getBuildingName());
                 }
                 if (building.getAddress() != null) {
                     existingBuilding.setAddress(building.getAddress());
                 }
-                if (building.getPhone() != null) {
-                    existingBuilding.setPhone(building.getPhone());
+                if (building.getBuildingPhone() != null) {
+                    existingBuilding.setBuildingPhone(building.getBuildingPhone());
                 }
 
                 return existingBuilding;

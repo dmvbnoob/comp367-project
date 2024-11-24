@@ -118,7 +118,7 @@ public class Building implements Serializable {
 	   public String toString() {
 	       return "Building{" +
 	           "id=" + getId() +
-	           ", buildingName='" + getName() + "'" +
+	           ", buildingName='" + getBuildingName() + "'" +
 	           ", address='" + getAddress() + "'" +
 	           ", buildingPhone='" + getBuildingPhone() + "'" +
 	           "}";

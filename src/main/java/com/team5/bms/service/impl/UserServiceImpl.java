@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 * Service Implementation for managing {@link com.team5.bms.model.User}.
 *
 * @author Leandro "The Project Manager" Mananquil
+* @author Jasper Belenzo
 */
 @Service
 @Transactional
@@ -62,8 +63,8 @@ public class UserServiceImpl implements UserService {
                 if (user.getEmail() != null) {
                     existingUser.setEmail(user.getEmail());
                 }
-                if (user.getPhone() != null) {
-                    existingUser.setPhone(user.getPhone());
+                if (user.getUserPhone() != null) {
+                    existingUser.setUserPhone(user.getUserPhone());
                 }
                 if (user.getRole() != null) {
                     existingUser.setRole(user.getRole());
