@@ -117,7 +117,7 @@ public class UserController {
                 System.out.println("UserController - PUT - register - Building Owner USER updated SUCCESSFULLY -> buildingOwner -> " + buildingOwner);
                 card.setUser(buildingOwner);
                 buildingOwner.setBuilding(building);
-                buildingOwner.setBuildingId(building.getId());
+                //buildingOwner.setBuildingId(building.getId());
                 user = buildingOwner;
             } else {
                 model.addAttribute("message", "Failed to create Business Owner user.");
