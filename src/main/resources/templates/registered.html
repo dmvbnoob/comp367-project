@@ -61,7 +61,7 @@
                                 <label for="buildingName">Building Name</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="text" th:text="${building.address}" readonly class="form-control" />
+                                <input type="text" th:value="*{building.address}" readonly class="form-control" />
                                 <label for="buildingAddress">Building Address</label>
                             </div>
                             <div class="form-floating mb-3">
