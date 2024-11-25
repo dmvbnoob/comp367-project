@@ -99,24 +99,26 @@ public class UserController {
             HttpEntity<User> entity = new HttpEntity<>(user, headers);
             ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.POST, entity, User.class);
             if (response.getStatusCode().is2xxSuccessful()) {
-                User createdBusinessOwner = response.getBody();
-                System.out.println("UserController - POST - register - Business Owner USER created SUCCESSFULLY -> createdBusinessOwner -> " + createdBusinessOwner);
-                card.setUser(createdBusinessOwner);
-                user.setBuilding(building);
-                user.setBuildingId(building.getId());
+                User createdBuildingOwner = response.getBody();
+                System.out.println("UserController - POST - register - Building Owner USER created SUCCESSFULLY -> createdBuildingOwner -> " + createdBuildingOwner);
+                card.setUser(createdBuildingOwner);
+                createdBuildingOwner.setBuilding(building);
+                createdBuildingOwner.setBuildingId(building.getId());
+                user = createdBuildingOwner;
             } else {
                 model.addAttribute("message", "Failed to create Business Owner user.");
                 return "register";
             }
 
-            HttpEntity<User> saveEntity = new HttpEntity<>(user, headers);
-            ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.POST, saveEntity, User.class);
+            entity = new HttpEntity<>(user, headers);
+            response = restTemplate.exchange(baseUrl+"/api/users/"+user.getId(), HttpMethod.PUT, entity, User.class);
             if (response.getStatusCode().is2xxSuccessful()) {
-                User createdBusinessOwner = response.getBody();
-                System.out.println("UserController - POST - register - Business Owner USER created SUCCESSFULLY -> createdBusinessOwner -> " + createdBusinessOwner);
-                card.setUser(createdBusinessOwner);
-                user.setBuilding(building);
-                user.setBuildingId(building.getId());
+                User buildingOwner = response.getBody();
+                System.out.println("UserController - PUT - register - Building Owner USER updated SUCCESSFULLY -> buildingOwner -> " + buildingOwner);
+                card.setUser(buildingOwner);
+                buildingOwner.setBuilding(building);
+                buildingOwner.setBuildingId(building.getId());
+                user = buildingOwner;
             } else {
                 model.addAttribute("message", "Failed to create Business Owner user.");
                 return "register";
@@ -142,7 +144,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String registerUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, BindingResult result, Model model) {
+    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, BindingResult result, Model model) {
         
         if (result.hasErrors()) {
             return "login"; // Returns the form view if there are validation errors
@@ -163,7 +165,7 @@ public class UserController {
                 User loggedInUser = response.getBody();
                 System.out.println("UserController - POST - login - USER logged in SUCCESSFULLY -> loggedInUser -> " + loggedInUser);
                 session.setAttribute("loggedInUser", loggedInUser);
-                // session.setAttribute("buildingId", loggedInUser.getBuildingId()); // Test later
+                session.setAttribute("buildingId", loggedInUser.getBuildingId()); // Test later
             } else {
                 model.addAttribute("message", "Username and Password are incorrect");
                 return "login";
