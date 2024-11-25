@@ -80,7 +80,7 @@ public class User {
     //@ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "building_id")
-    @JsonIgnore
+    @JsonManagedReference 
     private Building building;
  
     public Long getId() {
