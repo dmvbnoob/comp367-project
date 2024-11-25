@@ -57,7 +57,7 @@
                     <div class="col-md-4">
                             <!-- Building details -->
                             <div class="form-floating mb-3" th:with="buildingName=${building.buildingName}">
-                                <input type="text" value="*{buildingName}" readonly class="form-control" />
+                                <input type="text" th:value="*{buildingName}" readonly class="form-control" />
                                 <label for="buildingName">Building Name</label>
                             </div>
                             <div class="form-floating mb-3">
