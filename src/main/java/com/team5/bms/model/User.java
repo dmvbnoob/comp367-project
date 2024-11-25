@@ -7,6 +7,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.team5.bms.model.enumeration.Roles;
 
 import jakarta.persistence.Column;
@@ -22,6 +23,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import com.team5.bms.model.Request;
 import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.JoinColumn;
  
 /**
 * This class represents the domain object model for all User types.
