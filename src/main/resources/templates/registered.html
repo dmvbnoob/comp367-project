@@ -56,12 +56,12 @@
                 <div class="row">
                     <div class="col-md-4">
                             <!-- Building details -->
-                            <div class="form-floating mb-3">
-                                <input type="text" id="buildingName" name="buildingName" value="${building.buildingName}" readonly class="form-control" />
+                            <div class="form-floating mb-3" th:with="buildingName=${building.buildingName}">
+                                <input type="text" value="${buildingName}" readonly class="form-control" />
                                 <label for="buildingName">Building Name</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="text" th:text="${building.buildingPhone}" readonly class="form-control" />
+                                <input type="text" th:text="${building.address}" readonly class="form-control" />
                                 <label for="buildingAddress">Building Address</label>
                             </div>
                             <div class="form-floating mb-3">
