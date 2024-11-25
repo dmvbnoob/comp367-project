@@ -50,35 +50,59 @@
 
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">  
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header text-center">
-                                <h3>Registration Successful!</h3>
-                            </div>
-                            <div class="card-body">
-                                <h4>BUILDING OWNER User Registration details:</h4>
-                                
-                                <h5>Building Information</h5>
+                <h2>Registration Successful</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                            <h3>Building Details</h3>
+                            <hr>
+                            <!-- Building details -->
+                            <div class="form-floating mb-3">
                                 <p><strong>Building Name:</strong> <span th:text="${building.buildingName}">Building Name</span></p>
-                                <p><strong>Address:</strong> <span th:text="${building.address}">Building Address</span></p>
-                                <p><strong>Phone:</strong> <span th:text="${building.buildingPhone}">Building Phone</span></p>
-                                
-                                <h5>Card Information</h5>
-                                <p><strong>Card Number:</strong> <span th:text="${card.number}">Card Number</span></p>
-                                <p><strong>Cardholder Name:</strong> <span th:text="${card.cardName}">Cardholder Name</span></p>
-                                <p><strong>Expiry Date:</strong> <span th:text="${card.expiry}">Expiry Date</span></p>
-                                
-                                <h5>Building Owner User Information</h5>
-                                <p><strong>Username:</strong> <span th:text="${user.username}">Username</span></p>
-                                <p><strong>Name:</strong> <span th:text="${user.firstname}">First Name</span> <span th:text="${user.lastname}">Last Name</span></p>
-                                <p><strong>Email:</strong> <span th:text="${user.email}">Email</span></p>
-                                <p><strong>Phone:</strong> <span th:text="${user.userPhone}">User Phone</span></p>
-                                
-                                <hr>
-                                <a href="/index" class="btn btn-primary w-100">Go to Home</a>
+                                <label for="buildingName">Building Name</label>
                             </div>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <p><strong>Address:</strong> <span th:text="${building.address}">Building Address</span></p>
+                                <label for="buildingAddress">Building Address</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <p><strong>Phone:</strong> <span th:text="${building.buildingPhone}">Building Phone</span></p>
+                                <label for="buildingPhone">Building Phone</label>
+                            </div>
+                            <h3>Card Details</h2>
+                            <hr>
+                            <!-- Card details -->
+                            <div class="form-floating mb-3">
+                                <p><strong>Card Number:</strong> <span th:text="${card.number}">Card Number</span></p>
+                                <label for="cardNumber">Card Number</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <p><strong>Cardholder Name:</strong> <span th:text="${card.cardName}">Cardholder Name</span></p>
+                                <label for="cardName">Cardholder Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="cardExpiry" name="expiry" placeholder="Expiry Date" type="month" required>
+                                <label for="cardExpiry">Expiry Date</label>
+                            </div>
+                            <h3>Building Owner Details</h3>
+                            <hr>
+                            <!-- Building Owner Details -->
+                            <div class="form-floating mb-3">
+                                <p><strong>Username:</strong> <span th:text="${user.username}">Username</span></p>
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <p><strong>Name:</strong> <span th:text="${user.firstname}">First Name</span> <span th:text="${user.lastname}">Last Name</span></p>
+                                <label for="firstname">Full Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <p><strong>Email:</strong> <span th:text="${user.email}">Email</span></p>
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <p><strong>Phone:</strong> <span th:text="${user.userPhone}">User Phone</span></p>
+                                <label for="userPhone">Phone Number</label>
+                            </div>
+                            <a href="/login" id="goToLogin" class="w-100 btn btn-lg btn-primary">Go to Login</a>
                     </div>
                 </div>
             </main>
