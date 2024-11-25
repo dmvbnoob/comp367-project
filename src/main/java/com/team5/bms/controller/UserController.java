@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -60,7 +60,8 @@ public class UserController {
             if (response.getStatusCode().is2xxSuccessful()) {
                 Building createdBuilding = response.getBody();
                 System.out.println("UserController - POST - register - BUILDING created SUCCESSFULLY -> createdBuilding -> " + createdBuilding);
-                user.setBuilding(createdBuilding); 
+                user.setBuilding(createdBuilding);
+                user.setBuildingId(createdBuilding.getId());
                 building = createdBuilding;
             } else {
                 model.addAttribute("message", "Failed to create building.");
@@ -102,6 +103,20 @@ public class UserController {
                 System.out.println("UserController - POST - register - Business Owner USER created SUCCESSFULLY -> createdBusinessOwner -> " + createdBusinessOwner);
                 card.setUser(createdBusinessOwner);
                 user.setBuilding(building);
+                user.setBuildingId(building.getId());
+            } else {
+                model.addAttribute("message", "Failed to create Business Owner user.");
+                return "register";
+            }
+
+            HttpEntity<User> saveEntity = new HttpEntity<>(user, headers);
+            ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.POST, saveEntity, User.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                User createdBusinessOwner = response.getBody();
+                System.out.println("UserController - POST - register - Business Owner USER created SUCCESSFULLY -> createdBusinessOwner -> " + createdBusinessOwner);
+                card.setUser(createdBusinessOwner);
+                user.setBuilding(building);
+                user.setBuildingId(building.getId());
             } else {
                 model.addAttribute("message", "Failed to create Business Owner user.");
                 return "register";
@@ -138,15 +153,17 @@ public class UserController {
 
         System.out.println("UserController - POST - login - username -> " + username);
         System.out.println("UserController - POST - login - password -> " + password);
+        User loginUser = new User();
+        loginUser.setUsername(username);
+        loginUser.setPassword(password);;
         try {
-            HttpEntity<User> entity = new HttpEntity<>(user, headers);
+            HttpEntity<User> entity = new HttpEntity<>(loginUser, headers);
             ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users/login", HttpMethod.POST, entity, User.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 User loggedInUser = response.getBody();
                 System.out.println("UserController - POST - login - USER logged in SUCCESSFULLY -> loggedInUser -> " + loggedInUser);
                 session.setAttribute("loggedInUser", loggedInUser);
-                // card.setUser(createdBusinessOwner);
-                // user.setBuilding(building);
+                // session.setAttribute("buildingId", loggedInUser.getBuildingId()); // Test later
             } else {
                 model.addAttribute("message", "Username and Password are incorrect");
                 return "login";
@@ -157,8 +174,6 @@ public class UserController {
             return "login";
         }
 
-        //model.addAttribute("building", building);
-        //model.addAttribute("card", card);
         model.addAttribute("user", user);
         model.addAttribute("message", "Login successful!");
         return "logged";
