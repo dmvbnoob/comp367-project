@@ -177,7 +177,7 @@ public class UserController {
             return "login";
         }
 
-        model.addAttribute("user", loggedInUser);
+        model.addAttribute("user", loginUser);
         model.addAttribute("message", "Login successful!");
         return "logged";
     }
