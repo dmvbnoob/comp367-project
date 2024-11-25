@@ -57,11 +57,11 @@
                     <div class="col-md-4">
                             <!-- Building details -->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="buildingName" name="buildingName" type="text" disabled><span th:text="${building.buildingName}"/>/input>
+                                <input type="text" id="buildingName" name="buildingName" value="${building.buildingName}" readonly class="form-control" />
                                 <label for="buildingName">Building Name</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="text" value="${building.address}" readonly class="form-control" />
+                                <input type="text" th:text="${building.buildingPhone}" readonly class="form-control" />
                                 <label for="buildingAddress">Building Address</label>
                             </div>
                             <div class="form-floating mb-3">
