@@ -165,7 +165,7 @@ public class UserController {
                 User loggedInUser = response.getBody();
                 System.out.println("UserController - POST - login - USER logged in SUCCESSFULLY -> loggedInUser -> " + loggedInUser);
                 session.setAttribute("loggedInUser", loggedInUser);
-                session.setAttribute("buildingId", loggedInUser.getBuildingId()); // Test later
+                session.setAttribute("buildingId", loggedInUser.getBuilding().getId()); // Test later
                 loginUser = loggedInUser;
             } else {
                 model.addAttribute("message", "Username and Password are incorrect");
