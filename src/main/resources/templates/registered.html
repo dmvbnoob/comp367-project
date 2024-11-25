@@ -50,14 +50,14 @@
 
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">  
-                <h2>Registration Successful</h2>
+                <h1>Registration Successful</h1>
+                <h4>Business Owner User Registered.</h4>
+                <hr/>
                 <div class="row">
                     <div class="col-md-4">
-                            <h3>Building Details</h3>
-                            <hr>
                             <!-- Building details -->
                             <div class="form-floating mb-3">
-                                <p><strong>Building Name:</strong> <span th:text="${building.buildingName}">Building Name</span></p>
+                                <input class="form-control" id="buildingName" name="buildingName" placeholder="Building Name" type="text" disabled><p><strong>Building Name:</strong> <span th:text="${building.buildingName}">Building Name</span></p></input>
                                 <label for="buildingName">Building Name</label>
                             </div>
                             <div class="form-floating mb-3">
@@ -80,7 +80,7 @@
                                 <label for="cardName">Cardholder Name</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="cardExpiry" name="expiry" placeholder="Expiry Date" type="month" required>
+                                <p><strong>Expiry Date:</strong> <span th:text="${card.expiry}">Expiry Date</span></p>
                                 <label for="cardExpiry">Expiry Date</label>
                             </div>
                             <h3>Building Owner Details</h3>
