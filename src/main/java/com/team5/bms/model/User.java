@@ -77,7 +77,10 @@ public class User {
     @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
     private Set<Card> cards = new HashSet<>();
  
-    @ManyToOne(fetch = FetchType.LAZY)
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "building_id")
+    @JsonIgnore
     private Building building;
  
     public Long getId() {
