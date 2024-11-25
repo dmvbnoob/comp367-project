@@ -94,4 +94,11 @@ public class UserServiceImpl implements UserService {
         LOG.debug("Request to delete User : {}", id);
         userRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<User> findByUsernameAndPassword(String username, String password) {
+        LOG.debug("Request to find User by username and password : {} / {}", username, password);
+        return userRepository.findByUsernameAndPassword(username, password);
+    }
 }

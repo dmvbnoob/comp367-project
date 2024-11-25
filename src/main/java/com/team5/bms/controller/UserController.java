@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -28,7 +29,7 @@ public class UserController {
     private RestTemplate restTemplate;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper; // This is NOT needed
 
     private String baseUrl;
 
@@ -123,6 +124,44 @@ public class UserController {
         model.addAttribute("user", new User());
         baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String registerUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, BindingResult result, Model model) {
+        
+        if (result.hasErrors()) {
+            return "login"; // Returns the form view if there are validation errors
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+
+        System.out.println("UserController - POST - login - username -> " + username);
+        System.out.println("UserController - POST - login - password -> " + password);
+        try {
+            HttpEntity<User> entity = new HttpEntity<>(user, headers);
+            ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users/login", HttpMethod.POST, entity, User.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                User loggedInUser = response.getBody();
+                System.out.println("UserController - POST - login - USER logged in SUCCESSFULLY -> loggedInUser -> " + loggedInUser);
+                session.setAttribute("loggedInUser", loggedInUser);
+                // card.setUser(createdBusinessOwner);
+                // user.setBuilding(building);
+            } else {
+                model.addAttribute("message", "Username and Password are incorrect");
+                return "login";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Error logging in user: " + e.getMessage());
+            return "login";
+        }
+
+        //model.addAttribute("building", building);
+        //model.addAttribute("card", card);
+        model.addAttribute("user", user);
+        model.addAttribute("message", "Login successful!");
+        return "logged";
     }
 
 }

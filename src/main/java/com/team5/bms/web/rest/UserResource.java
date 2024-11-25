@@ -69,6 +69,11 @@ public class UserResource {
             .body(user);
 
     }
+
+    @PostMapping("/login")
+    public Optional<User> getUserByUsernameAndPassword(@Valid @RequestBody User user) {
+        return userService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+    }
  
     /**
      * {@code PUT  /users/:id} : Updates an existing user.

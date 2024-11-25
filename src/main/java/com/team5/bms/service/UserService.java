@@ -60,4 +60,13 @@ public interface UserService {
      */
     void delete(Long id);	
 
+    /**
+     * Get the "username" and "password" user.
+     *
+     * @param username the username of the entity.
+     * @param password the password of the entity.
+     * @return the entity.
+     */
+    Optional<User> findByUsernameAndPassword(String username, String password);
+
 }
