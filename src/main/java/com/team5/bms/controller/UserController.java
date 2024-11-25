@@ -61,7 +61,7 @@ public class UserController {
                 Building createdBuilding = response.getBody();
                 System.out.println("UserController - POST - register - BUILDING created SUCCESSFULLY -> createdBuilding -> " + createdBuilding);
                 user.setBuilding(createdBuilding);
-                user.setBuildingId(createdBuilding.getId());
+                //user.setBuildingId(createdBuilding.getId());
                 building = createdBuilding;
             } else {
                 model.addAttribute("message", "Failed to create building.");
@@ -103,7 +103,7 @@ public class UserController {
                 System.out.println("UserController - POST - register - Building Owner USER created SUCCESSFULLY -> createdBuildingOwner -> " + createdBuildingOwner);
                 card.setUser(createdBuildingOwner);
                 createdBuildingOwner.setBuilding(building);
-                createdBuildingOwner.setBuildingId(building.getId());
+                //createdBuildingOwner.setBuildingId(building.getId());
                 user = createdBuildingOwner;
             } else {
                 model.addAttribute("message", "Failed to create Business Owner user.");
