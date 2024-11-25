@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-// import javax.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -43,12 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(
-        @Valid @ModelAttribute("user") User user, 
-        @Valid @ModelAttribute("building") Building building, 
-        @Valid @ModelAttribute("card") Card card, 
-        BindingResult result, 
-        Model model) {
+    public String registerUser(@Valid @ModelAttribute("user") User user, @Valid @ModelAttribute("building") Building building, @Valid @ModelAttribute("card") Card card, BindingResult result, Model model) {
         
         if (result.hasErrors()) {
             return "register"; // Returns the form view if there are validation errors
@@ -125,7 +119,9 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLoginPage() {
+    public String showLoginPage(HttpServletRequest request, Model model) {
+        model.addAttribute("user", new User());
+        baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
         return "login";
     }
 
