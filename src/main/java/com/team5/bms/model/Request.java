@@ -28,8 +28,8 @@ import jakarta.validation.constraints.NotNull;
 */
 @Entity
 @Table(name = "Requests")
-/* @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@SuppressWarnings("common-java:DuplicatedBlocks")*/
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class Request implements Serializable {
 	private static final long serialVersionUID = 1L;
 	 

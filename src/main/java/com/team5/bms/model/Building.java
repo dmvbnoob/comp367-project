@@ -25,6 +25,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 */
 @Entity
 @Table(name = "buildings")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class Building implements Serializable {
 	
 	   private static final long serialVersionUID = 1L;

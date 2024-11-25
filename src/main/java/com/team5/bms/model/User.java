@@ -33,6 +33,8 @@ import jakarta.persistence.JoinColumn;
 */
 @Entity
 @Table(name="Users")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class User {
 	
     private static final long serialVersionUID = 1L;

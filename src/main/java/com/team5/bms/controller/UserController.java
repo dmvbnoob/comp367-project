@@ -110,7 +110,7 @@ public class UserController {
                 return "register";
             }
 
-            entity = new HttpEntity<>(user, headers);
+            /* entity = new HttpEntity<>(user, headers);
             response = restTemplate.exchange(baseUrl+"/api/users/"+user.getId(), HttpMethod.PUT, entity, User.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 User buildingOwner = response.getBody();
@@ -122,7 +122,7 @@ public class UserController {
             } else {
                 model.addAttribute("message", "Failed to create Business Owner user.");
                 return "register";
-            }
+            } */
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("message", "Error creating Business Owner user: " + e.getMessage());
