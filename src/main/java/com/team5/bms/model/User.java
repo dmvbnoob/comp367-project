@@ -40,8 +40,8 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "buildingId")
-    private Long buildingId;
+    //@Column(name = "buildingId")
+    //private Long buildingId;
  
     @NotNull
     @Column(name = "username", nullable = false)
@@ -93,13 +93,13 @@ public class User {
         this.id = id;
     }
 
-    public Long getBuildingId() {
+    /*public Long getBuildingId() {
         return this.buildingId;
     }
 
     public void setBuildingId(Long buildingId) {
         this.buildingId = buildingId;
-    }
+    }*/
  
     public String getUsername() {
         return this.username;
