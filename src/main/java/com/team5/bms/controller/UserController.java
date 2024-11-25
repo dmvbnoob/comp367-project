@@ -166,6 +166,7 @@ public class UserController {
                 System.out.println("UserController - POST - login - USER logged in SUCCESSFULLY -> loggedInUser -> " + loggedInUser);
                 session.setAttribute("loggedInUser", loggedInUser);
                 session.setAttribute("buildingId", loggedInUser.getBuildingId()); // Test later
+                loginUser = loggedInUser;
             } else {
                 model.addAttribute("message", "Username and Password are incorrect");
                 return "login";
@@ -176,7 +177,7 @@ public class UserController {
             return "login";
         }
 
-        model.addAttribute("user", user);
+        model.addAttribute("user", loggedInUser);
         model.addAttribute("message", "Login successful!");
         return "logged";
     }
