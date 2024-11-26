@@ -190,4 +190,38 @@ public class UserController {
         return "logged";
     }
 
+    @GetMapping("/user/{id}")
+    public String getUserDetails(@PathVariable Long id, Model model) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        User user = new User();
+        user.setId(id);
+        System.out.println("UserController - GET - getUserDetails - request - user.getId() -> " + user.getId());
+
+        try {
+
+            HttpEntity<User> entity = new HttpEntity<>(user, headers);
+            ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users/"+user.getId(), HttpMethod.GET, entity, User.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                user = response.getBody();
+                System.out.println("UserController - GET - getUserDetails - response -> user -> " + user);
+                session.setAttribute("loggedInUser", loggedInUser);
+                session.setAttribute("buildingId", loggedInUser.getBuilding().getId()); // Test later
+                loginUser = loggedInUser;
+            } else {
+                model.addAttribute("message", "Username and Password are incorrect");
+                return "login";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Error logging in user: " + e.getMessage());
+            return "login";
+        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("message", "Get User Details by Id successful!");
+        return "user";
+    }
+
 }

@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Users - BMS</title>
+        <title>User - BMS</title>
         <link rel="icon" type="image/x-icon" href="/favicon.png">
         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/site.css">
@@ -52,36 +52,34 @@
         </header>
 
         <div b-c7vtn5ui3n="" class="container">
-            <main b-c7vtn5ui3n="" role="main" class="pb-3">
-                <h1>Users</h1>
-                <p>
-                    <a href="/user/create">Create New User</a>
-                </p>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Role</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Iterate over the list of users -->
-                        <tr th:each="user : ${users}">
-                            <td th:text="${user.username}">Username</td>
-                            <td th:text="${user.firstname}">FirstName</td>
-                            <td th:text="${user.lastname}">LastName</td>
-                            <td th:text="${user.role}">Role</td>
-                            <td>
-                                <a th:href="@{/user/edit/{id}(id=${user.id})}">Edit</a> |
-                                <a th:href="@{/user/{id}(id=${user.id})}">Details</a> |
-                                <a th:href="@{/user/delete/{id}(id=${user.id})}">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <main b-c7vtn5ui3n="" role="main" class="pb-3">  
+                <h2>Details</h2>
+                <div>
+                    <h4>User</h4>
+                    <hr>
+                    <dl class="row">
+                        <dt class="col-sm-2">Username</dt>
+                        <dd class="col-sm-10" th:text="${user.username}"></dd>
+                        <!-- <dt class="col-sm-2">Password</dt>
+                        <dd class="col-sm-10" th:text="${user.password}"></dd> -->
+                        <dt class="col-sm-2">First Name</dt>
+                        <dd class="col-sm-10" th:text="${user.firstname}"></dd>
+                        <dt class="col-sm-2">Last Name</dt>
+                        <dd class="col-sm-10" th:text="${user.lastname}"></dd>
+                        <dt class="col-sm-2">Role</dt>
+                        <dd class="col-sm-10" th:text="${user.role}"></dd>
+                        <dt class="col-sm-2">Phone</dt>
+                        <dd class="col-sm-10" th:text="${user.userPhone}"></dd>
+                        <dt class="col-sm-2">Email</dt>
+                        <dd class="col-sm-10">
+                            <a href="mailto:{user.email}" th:text="${user.email}"></a>
+                        </dd>
+                    </dl>
+                </div>
+                <div>
+                    <a href="#" th:href="@{/users/edit/{id}(id=${user.id})}">Edit</a> |
+                    <a href="#" th:href="@{/users}">Back to List</a>
+                </div>
             </main>
         </div>
 
