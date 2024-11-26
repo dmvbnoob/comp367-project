@@ -22,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class UserController {
@@ -206,9 +207,7 @@ public class UserController {
             if (response.getStatusCode().is2xxSuccessful()) {
                 user = response.getBody();
                 System.out.println("UserController - GET - getUserDetails - response -> user -> " + user);
-                session.setAttribute("loggedInUser", loggedInUser);
-                session.setAttribute("buildingId", loggedInUser.getBuilding().getId()); // Test later
-                loginUser = loggedInUser;
+                model.addAttribute("user", user);
             } else {
                 model.addAttribute("message", "Username and Password are incorrect");
                 return "login";
@@ -219,7 +218,6 @@ public class UserController {
             return "login";
         }
 
-        model.addAttribute("user", user);
         model.addAttribute("message", "Get User Details by Id successful!");
         return "user";
     }
