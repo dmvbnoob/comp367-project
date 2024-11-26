@@ -18,10 +18,12 @@ public class BmsApplication implements CommandLineRunner {
 	@Autowired
 	private BuildingRepository buildingRepository;
 
+	@Autowired
+	private CardRepository cardRepository;
+
 	public static void main(String[] args) {
 		logger.info("Hello BMS!");
 		SpringApplication.run(BmsApplication.class, args);
-		
 	}
 
 	@Override
@@ -35,6 +37,12 @@ public class BmsApplication implements CommandLineRunner {
 		buildingRepository.save(team5Tower);
 		Optional<Building> optionalTeam5Tower = buildingRepository.findById(Long.valueOf(1L));
 		System.out.println("BmsApplication - run - team5Tower - id -> " + optionalTeam5Tower.get().getId());
+
+		Card cardOfBuildingOwner = new Card();
+		cardOfBuildingOwner.setCardName("Alicia Singca");
+		cardOfBuildingOwner.setExpiry("12/99");
+		cardOfBuildingOwner.setCvv("777");
+		cardRepository.save(cardOfBuildingOwner);
 	
 	}
 
