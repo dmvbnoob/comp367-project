@@ -50,6 +50,7 @@ public class BmsApplication implements CommandLineRunner {
 		buildingOwner.setEmail("alicia@sing.ca");
 		buildingOwner.setFirstname("Alicia");
 		buildingOwner.setLastname("Singca");
+		buildingOwner.setUserPhone("+12345678901");
 		buildingOwner.setRole(Roles.OWNER);
 		buildingOwner.setBuilding(team5Tower);
 		userRepository.save(buildingOwner);
@@ -67,18 +68,77 @@ public class BmsApplication implements CommandLineRunner {
 		Optional<Card> optionalCardOfBuildingOwner = cardRepository.findById(Long.valueOf(1L));
 		System.out.println("BmsApplication - run - cardOfBuildingOwner - id -> " + optionalCardOfBuildingOwner.get().getId());
 
-		// Add ALICIA SINGCA Building Owner
+		// Add DONALDA ZHUGA Building Administrator
 		User buildingAdministrator = new User();
 		buildingAdministrator.setUsername("DonaldaZhuga");
 		buildingAdministrator.setPassword("password");
 		buildingAdministrator.setEmail("donalda@zhu.ga");
-		buildingAdministrator.setFirstname("Alicia");
-		buildingAdministrator.setLastname("Singca");
-		buildingAdministrator.setRole(Roles.OWNER);
+		buildingAdministrator.setFirstname("Donalda");
+		buildingAdministrator.setLastname("Zhuga");
+		buildingAdministrator.setUserPhone("+19876543210");
+		buildingAdministrator.setRole(Roles.ADMINISTRATOR);
 		buildingAdministrator.setBuilding(team5Tower);
 		userRepository.save(buildingAdministrator);
 		Optional<User> optionalBuildingAdministrator = userRepository.findById(Long.valueOf(2L));
 		System.out.println("BmsApplication - run - buildingAdministrator - id -> " + optionalBuildingAdministrator.get().getId());
+
+		// Add STEPHANIE SANTOS Tenant
+		User tenantUser = new User();
+		tenantUser.setUsername("StepanieSantos");
+		tenantUser.setPassword("password");
+		tenantUser.setEmail("santos@stepha.nie");
+		tenantUser.setFirstname("Stephanie");
+		tenantUser.setLastname("Santos");
+		tenantUser.setUserPhone("+12345678910");
+		tenantUser.setRole(Roles.TENANT);
+		tenantUser.setBuilding(team5Tower);
+		userRepository.save(tenantUser);
+		Optional<User> optionalTenantUser = userRepository.findById(Long.valueOf(3L));
+		System.out.println("BmsApplication - run - tenantUser - id -> " + optionalTenantUser.get().getId());
+
+		// Add JOPHIEL SERRANO SuperIntendent
+		User superIntendent = new User();
+		superIntendent.setUsername("JophielSerrano");
+		superIntendent.setPassword("password");
+		superIntendent.setEmail("jophiel@serr.ano");
+		superIntendent.setFirstname("Jophiel");
+		superIntendent.setLastname("Serrano");
+		superIntendent.setUserPhone("+19876543219");
+		superIntendent.setRole(Roles.SUPERINTENDENT);
+		superIntendent.setBuilding(team5Tower);
+		userRepository.save(superIntendent);
+		Optional<User> optionalSuperIntendent = userRepository.findById(Long.valueOf(4L));
+		System.out.println("BmsApplication - run - superIntendent - id -> " + optionalSuperIntendent.get().getId());
+
+		// Add LEANDRO MANANQUIL Tenant
+		User tenantUser2 = new User();
+		tenantUser2.setUsername("LeandroMananquil");
+		tenantUser2.setPassword("password");
+		tenantUser2.setEmail("mananquil@lean.dro");
+		tenantUser2.setFirstname("Leandro");
+		tenantUser2.setLastname("Mananquil");
+		tenantUser2.setUserPhone("+13876543213");
+		tenantUser2.setRole(Roles.TENANT);
+		tenantUser2.setBuilding(team5Tower);
+		userRepository.save(tenantUser2);
+		Optional<User> optionalTenantUser2 = userRepository.findById(Long.valueOf(5L));
+		System.out.println("BmsApplication - run - tenantUser2 - id -> " + optionalTenantUser2.get().getId());
+
+		// Add JASPER BELENZO SuperIntendent
+		User superIntendent2 = new User();
+		superIntendent2.setUsername("JasperBelenzo");
+		superIntendent2.setPassword("password");
+		superIntendent2.setEmail("jasper@bele.nzo");
+		superIntendent2.setFirstname("Jasper");
+		superIntendent2.setLastname("Belenzo");
+		superIntendent2.setUserPhone("+19876587219");
+		superIntendent2.setRole(Roles.SUPERINTENDENT);
+		superIntendent2.setBuilding(team5Tower);
+		userRepository.save(superIntendent2);
+		Optional<User> optionalSuperIntendent2 = userRepository.findById(Long.valueOf(6L));
+		System.out.println("BmsApplication - run - superIntendent2 - id -> " + optionalSuperIntendent2.get().getId());
+
+		// TODOs Create Requests
 	
 	}
 
