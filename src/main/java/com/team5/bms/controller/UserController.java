@@ -131,11 +131,10 @@ public class UserController {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         System.out.println("UserController - GET - request - users");
-        List<User> users;
         try {
             ResponseEntity<List> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.GET, null, List.class);
             if (response.getStatusCode().is2xxSuccessful()) {
-                users = response.getBody();
+                List<User> users = response.getBody();
                 System.out.println("UserController - GET - response -> users -> " + users);
                 model.addAttribute("users", users);
                 return "users";
@@ -148,9 +147,6 @@ public class UserController {
             model.addAttribute("message", "Error getting all users: " + e.getMessage());
             return "index";
         }
-        model.addAttribute("users", users);
-        return "users";
-
     }
 
     @PostMapping("/login")
