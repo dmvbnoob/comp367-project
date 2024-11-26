@@ -8,6 +8,7 @@ import com.team5.bms.repository.*;
 import com.team5.bms.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import java.util.Optional;
 
 @SpringBootApplication
 public class BmsApplication implements CommandLineRunner {
@@ -32,8 +33,8 @@ public class BmsApplication implements CommandLineRunner {
 		team5Tower.setAddress("300 Borough Drive, Scarborough, ON, M1P 4P5");
 		team5Tower.setBuildingPhone("+19876543210");
 		buildingRepository.save(team5Tower);
-		team5Tower = buildingRepository.findById(Long.valueOf(1L));
-		System.out.println("BmsApplication - run - team5Tower - id -> " + team5Tower.getId());
+		Optional<Building> optionalTeam5Tower = buildingRepository.findById(Long.valueOf(1L));
+		System.out.println("BmsApplication - run - team5Tower - id -> " + optionalTeam5Tower.get().getId());
 	
 	}
 
