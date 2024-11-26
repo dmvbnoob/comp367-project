@@ -42,6 +42,7 @@ public class BmsApplication implements CommandLineRunner {
 		cardOfBuildingOwner.setCardName("Alicia Singca");
 		cardOfBuildingOwner.setExpiry("12/99");
 		cardOfBuildingOwner.setCvv("777");
+		cardOfBuildingOwner.setNumber("4321567890321");
 		cardRepository.save(cardOfBuildingOwner);
 	
 	}
