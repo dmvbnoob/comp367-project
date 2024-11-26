@@ -54,7 +54,7 @@ public class BmsApplication implements CommandLineRunner {
 		buildingOwner.setBuilding(team5Tower);
 		userRepository.save(buildingOwner);
 		Optional<User> optionalBuildingOwner = userRepository.findById(Long.valueOf(1L));
-		System.out.println("BmsApplication - run - optionalBuildingOwner - id -> " + optionalBuildingOwner.get().getId());
+		System.out.println("BmsApplication - run - buildingOwner - id -> " + optionalBuildingOwner.get().getId());
 
 		// Add Credit Card of Building Owner Alicia Singca
 		Card cardOfBuildingOwner = new Card();
@@ -68,17 +68,17 @@ public class BmsApplication implements CommandLineRunner {
 		System.out.println("BmsApplication - run - cardOfBuildingOwner - id -> " + optionalCardOfBuildingOwner.get().getId());
 
 		// Add ALICIA SINGCA Building Owner
-		User buildingAdmin = new User();
-		buildingAdmin.setUsername("DonaldaZhuga");
-		buildingAdmin.setPassword("password");
-		buildingAdmin.setEmail("donalda@zhu.ga");
-		buildingAdmin.setFirstname("Alicia");
-		buildingAdmin.setLastname("Singca");
-		buildingAdmin.setRole(Roles.OWNER);
-		buildingAdmin.setBuilding(team5Tower);
-		userRepository.save(buildingAdmin);
-		Optional<User> optionalBuildingAdmin = userRepository.findById(Long.valueOf(2L));
-		System.out.println("BmsApplication - run - buildingAdmin - id -> " + optionalBuildingAdmin.get().getId());
+		User buildingAdministrator = new User();
+		buildingAdministrator.setUsername("DonaldaZhuga");
+		buildingAdministrator.setPassword("password");
+		buildingAdministrator.setEmail("donalda@zhu.ga");
+		buildingAdministrator.setFirstname("Alicia");
+		buildingAdministrator.setLastname("Singca");
+		buildingAdministrator.setRole(Roles.OWNER);
+		buildingAdministrator.setBuilding(team5Tower);
+		userRepository.save(buildingAdministrator);
+		Optional<User> optionalBuildingAdministrator = userRepository.findById(Long.valueOf(2L));
+		System.out.println("BmsApplication - run - buildingAdministrator - id -> " + optionalBuildingAdministrator.get().getId());
 	
 	}
 
