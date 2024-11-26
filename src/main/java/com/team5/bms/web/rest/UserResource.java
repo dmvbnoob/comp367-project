@@ -26,9 +26,10 @@ import com.team5.bms.web.util.ResponseUtil;
  
  
 /**
-* REST controller for managing {@link ca.test.bms.domain.User}.
+* REST controller for managing {@link com.team5.bms.domain.User}.
 * 
 * @author Leandro "The Project Manager" Mananquil
+* @author Jasper Belenzo
 */
 @RestController
 @RequestMapping("/api/users")

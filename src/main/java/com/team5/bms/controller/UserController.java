@@ -125,11 +125,35 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/users")
+    public String getAllUsers(Model model) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        System.out.println("UserController - GET - request - users");
+        try {
+            ResponseEntity<List<User>> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.GET, null, List.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                List<User> users = response.getBody();
+                System.out.println("UserController - GET - response -> users -> " + users);
+                model.addAttribute("users", users);
+                return "users";
+            } else {
+                model.addAttribute("message", "Get all users failed.");
+                return "index";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Error getting all users: " + e.getMessage());
+            return "index";
+        }
+
+    }
+
     @PostMapping("/login")
     public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model/* , BindingResult result*/) {
         
         // if (result.hasErrors()) {
-            // return "login"; // Returns the form view if there are validation errors
+            // return "login";
         //}
 
         HttpHeaders headers = new HttpHeaders();
