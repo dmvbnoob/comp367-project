@@ -43,7 +43,9 @@
                                 <a class="nav-link text-dark" href="/profile" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
                             </li>
                             <li class="nav-item" th:if="${session.loggedInUser != null}">
-                                <a class="nav-link text-dark" href="/logout">Logout</a>
+                                <form id="logoutForm" action="/logout" method="post">
+                                    <a href="#" onclick="document.getElementById('logoutForm').submit();" class="nav-link text-dark">Logout</p>
+                                </form>
                             </li>
                         </ul>
                     </div>

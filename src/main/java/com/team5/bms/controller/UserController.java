@@ -226,6 +226,7 @@ public class UserController {
     public String logoutUser(HttpSession session, Model model) {
         session.invalidate();
         model.addAttribute("message", "You have been logged out successfully.");
+        System.out.println("UserController - POST - logout");
         return "redirect:/index";
     }
 
