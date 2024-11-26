@@ -71,8 +71,8 @@
                         <!-- Iterate over the list of users -->
                         <tr th:each="user : ${users}">
                             <td th:text="${user.username}">Username</td>
-                            <td th:text="${user.firstName}">FirstName</td>
-                            <td th:text="${user.lastName}">LastName</td>
+                            <td th:text="${user.firstname}">FirstName</td>
+                            <td th:text="${user.lastname}">LastName</td>
                             <td th:text="${user.role}">Role</td>
                             <td>
                                 <a th:href="@{/user/edit/{id}(id=${user.id})}">Edit</a> |
