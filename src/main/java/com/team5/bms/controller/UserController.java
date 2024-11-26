@@ -93,7 +93,8 @@ public class UserController {
             return "register";
         }
 
-        // Save Building Owner User details with its Building and Card
+        // Add newly created Building to User about to be created.
+        user.setBuilding(building);
         System.out.println("UserController - POST - register - Building Owner - user -> " + user);
         try {
             HttpEntity<User> entity = new HttpEntity<>(user, headers);
@@ -102,9 +103,7 @@ public class UserController {
                 User createdBuildingOwner = response.getBody();
                 System.out.println("UserController - POST - register - Building Owner USER created SUCCESSFULLY -> createdBuildingOwner -> " + createdBuildingOwner);
                 System.out.println("UserController - POST - register - Building Owner Building Id -> createdBuildingOwner.getBuilding().getId() -> " + createdBuildingOwner.getBuilding().getId());
-                card.setUser(createdBuildingOwner);
-                createdBuildingOwner.setBuilding(building);
-                //createdBuildingOwner.setBuildingId(building.getId());
+
                 user = createdBuildingOwner;
             } else {
                 model.addAttribute("message", "Failed to create Business Owner user.");
