@@ -101,6 +101,7 @@ public class UserController {
             if (response.getStatusCode().is2xxSuccessful()) {
                 User createdBuildingOwner = response.getBody();
                 System.out.println("UserController - POST - register - Building Owner USER created SUCCESSFULLY -> createdBuildingOwner -> " + createdBuildingOwner);
+                System.out.println("UserController - POST - register - Building Owner Building Id -> createdBuildingOwner.getBuilding().getId() -> " + createdBuildingOwner.getBuilding().getId());
                 card.setUser(createdBuildingOwner);
                 createdBuildingOwner.setBuilding(building);
                 //createdBuildingOwner.setBuildingId(building.getId());
@@ -144,7 +145,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, BindingResult result, Model model) {
+    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model, BindingResult result) {
         
         if (result.hasErrors()) {
             return "login"; // Returns the form view if there are validation errors
