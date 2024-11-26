@@ -81,10 +81,9 @@ public class User {
     @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
     private Set<Card> cards = new HashSet<>();
  
-    //@ManyToOne
-    //@JoinColumn(name = "building_id")
-    //@JsonManagedReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    /* @ManyToOne(fetch = FetchType.LAZY) */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "building_id")
     private Building building;
  
     public Long getId() {
