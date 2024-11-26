@@ -222,7 +222,7 @@ public class UserController {
         return "user";
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logoutUser(HttpSession session, Model model) {
         session.invalidate();
         model.addAttribute("message", "You have been logged out successfully.");

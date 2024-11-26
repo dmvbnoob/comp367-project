@@ -76,7 +76,7 @@
                             <td th:text="${user.role}">Role</td>
                             <td>
                                 <a th:href="@{/user/edit/{id}(id=${user.id})}" class="btn btn-warning btn-sm">Edit</a>
-                                <a th:href="@{/user/{id}(id=${user.id})}" class="btn btn-info btn-sm">Details</a>
+                                <a th:href="@{/user/{id}(id=${user.id})}" class="btn btn-info btn-sm">Details</a> |
                                 <a th:href="@{/user/delete/{id}(id=${user.id})}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
