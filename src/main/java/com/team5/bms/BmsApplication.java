@@ -43,6 +43,7 @@ public class BmsApplication implements CommandLineRunner {
 		Optional<Building> optionalTeam5Tower = buildingRepository.findById(Long.valueOf(1L));
 		System.out.println("BmsApplication - run - team5Tower - id -> " + optionalTeam5Tower.get().getId());
 
+		// Add ALICIA SINGCA Building Owner
 		User buildingOwner = new User();
 		buildingOwner.setUsername("AliciaSingca");
 		buildingOwner.setPassword("password");
@@ -65,6 +66,19 @@ public class BmsApplication implements CommandLineRunner {
 		cardRepository.save(cardOfBuildingOwner);
 		Optional<Card> optionalCardOfBuildingOwner = cardRepository.findById(Long.valueOf(1L));
 		System.out.println("BmsApplication - run - cardOfBuildingOwner - id -> " + optionalCardOfBuildingOwner.get().getId());
+
+		// Add ALICIA SINGCA Building Owner
+		User buildingAdmin = new User();
+		buildingAdmin.setUsername("DonaldaZhuga");
+		buildingAdmin.setPassword("password");
+		buildingAdmin.setEmail("donalda@zhu.ga");
+		buildingAdmin.setFirstname("Alicia");
+		buildingAdmin.setLastname("Singca");
+		buildingAdmin.setRole(Roles.OWNER);
+		buildingAdmin.setBuilding(team5Tower);
+		userRepository.save(buildingAdmin);
+		Optional<User> optionalBuildingAdmin = userRepository.findById(Long.valueOf(2L));
+		System.out.println("BmsApplication - run - buildingAdmin - id -> " + optionalBuildingAdmin.get().getId());
 	
 	}
 
