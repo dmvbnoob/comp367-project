@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.team5.bms.repository.*;
 import com.team5.bms.model.*;
+import com.team5.bms.model.enumeration.Roles;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import java.util.Optional;
@@ -20,6 +22,9 @@ public class BmsApplication implements CommandLineRunner {
 
 	@Autowired
 	private CardRepository cardRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	public static void main(String[] args) {
 		logger.info("Hello BMS!");
@@ -38,12 +43,28 @@ public class BmsApplication implements CommandLineRunner {
 		Optional<Building> optionalTeam5Tower = buildingRepository.findById(Long.valueOf(1L));
 		System.out.println("BmsApplication - run - team5Tower - id -> " + optionalTeam5Tower.get().getId());
 
+		User buildingOwner = new User();
+		buildingOwner.setUsername("AliciaSingca");
+		buildingOwner.setPassword("password");
+		buildingOwner.setEmail("alicia@sing.ca");
+		buildingOwner.setFirstname("Alicia");
+		buildingOwner.setLastname("Singca");
+		buildingOwner.setRole(Roles.OWNER);
+		buildingOwner.setBuilding(team5Tower);
+		userRepository.save(buildingOwner);
+		Optional<User> optionalBuildingOwner = userRepository.findById(Long.valueOf(1L));
+		System.out.println("BmsApplication - run - optionalBuildingOwner - id -> " + optionalBuildingOwner.get().getId());
+
+		// Add Credit Card of Building Owner Alicia Singca
 		Card cardOfBuildingOwner = new Card();
 		cardOfBuildingOwner.setCardName("Alicia Singca");
-		cardOfBuildingOwner.setExpiry("12/99");
+		cardOfBuildingOwner.setExpiry("2099-12");
 		cardOfBuildingOwner.setCvv("777");
 		cardOfBuildingOwner.setNumber("4321567890321");
+		cardOfBuildingOwner.setUser(buildingOwner);
 		cardRepository.save(cardOfBuildingOwner);
+		Optional<Card> optionalCardOfBuildingOwner = cardRepository.findById(Long.valueOf(1L));
+		System.out.println("BmsApplication - run - cardOfBuildingOwner - id -> " + optionalCardOfBuildingOwner.get().getId());
 	
 	}
 
