@@ -25,7 +25,7 @@
                             <li b-c7vtn5ui3n="" class="nav-item">
                                 <a class="nav-link text-dark" href="/privacy">Privacy</a>
                             </li>
-                            <li b-c7vtn5ui3n="" class="nav-item">
+                            <li b-c7vtn5ui3n="" class="nav-item" th:if="${(session.loggedInUser.role.name() == 'OWNER' or session.loggedInUser.role.name() == 'ADMINISTRATOR')}">
                                 <a class="nav-link text-dark" href="/user">Users</a>
                             </li>
                             <li b-c7vtn5ui3n="" class="nav-item">
