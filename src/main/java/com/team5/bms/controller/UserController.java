@@ -53,15 +53,14 @@ public class UserController {
         headers.set("Content-Type", "application/json");
 
         // Save Building Details first
-        System.out.println("UserController - POST - register - building -> " + building);
+        System.out.println("UserController - POST - register - request - building -> " + building);
         try {
             HttpEntity<Building> entity = new HttpEntity<>(building, headers);
             ResponseEntity<Building> response = restTemplate.exchange(baseUrl+"/api/buildings", HttpMethod.POST, entity, Building.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 Building createdBuilding = response.getBody();
-                System.out.println("UserController - POST - register - BUILDING created SUCCESSFULLY -> createdBuilding -> " + createdBuilding);
-                user.setBuilding(createdBuilding);
-                //user.setBuildingId(createdBuilding.getId());
+                System.out.println("UserController - POST - register - response -> createdBuilding -> " + createdBuilding);
+                user.setBuilding(createdBuilding); // Set Building of User
                 building = createdBuilding;
             } else {
                 model.addAttribute("message", "Failed to create building.");
@@ -74,13 +73,13 @@ public class UserController {
         }
 
         // Save Card Details second
-        System.out.println("UserController - POST - register - card -> " + card);
+        System.out.println("UserController - POST - register - request - card -> " + card);
         try {
             HttpEntity<Card> entity = new HttpEntity<>(card, headers);
             ResponseEntity<Card> response = restTemplate.exchange(baseUrl+"/api/cards", HttpMethod.POST, entity, Card.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 Card createdCard = response.getBody();
-                System.out.println("UserController - POST - register - CARD created SUCCESSFULLY -> createdCard -> " + createdCard);
+                System.out.println("UserController - POST - register - response - createdCard -> " + createdCard);
                 user.addCard(createdCard); 
                 card = createdCard;
             } else {
@@ -93,36 +92,19 @@ public class UserController {
             return "register";
         }
 
-        // Add newly created Building to User about to be created.
-        user.setBuilding(building);
-        System.out.println("UserController - POST - register - Building Owner - user -> " + user);
+        System.out.println("UserController - POST - register - request - Building Owner - user -> " + user);
         try {
             HttpEntity<User> entity = new HttpEntity<>(user, headers);
             ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.POST, entity, User.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 User createdBuildingOwner = response.getBody();
-                System.out.println("UserController - POST - register - Building Owner USER created SUCCESSFULLY -> createdBuildingOwner -> " + createdBuildingOwner);
-                System.out.println("UserController - POST - register - Building Owner Building Id -> createdBuildingOwner.getBuilding().getId() -> " + createdBuildingOwner.getBuilding().getId());
-
+                System.out.println("UserController - POST - register - response - createdBuildingOwner -> " + createdBuildingOwner);
+                System.out.println("UserController - POST - register - response -> createdBuildingOwner.getBuilding().getId() -> " + createdBuildingOwner.getBuilding().getId());
                 user = createdBuildingOwner;
             } else {
                 model.addAttribute("message", "Failed to create Business Owner user.");
                 return "register";
             }
-
-            /* entity = new HttpEntity<>(user, headers);
-            response = restTemplate.exchange(baseUrl+"/api/users/"+user.getId(), HttpMethod.PUT, entity, User.class);
-            if (response.getStatusCode().is2xxSuccessful()) {
-                User buildingOwner = response.getBody();
-                System.out.println("UserController - PUT - register - Building Owner USER updated SUCCESSFULLY -> buildingOwner -> " + buildingOwner);
-                card.setUser(buildingOwner);
-                buildingOwner.setBuilding(building);
-                //buildingOwner.setBuildingId(building.getId());
-                user = buildingOwner;
-            } else {
-                model.addAttribute("message", "Failed to create Business Owner user.");
-                return "register";
-            } */
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("message", "Error creating Business Owner user: " + e.getMessage());
@@ -144,26 +126,28 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model, BindingResult result) {
+    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model/* , BindingResult result*/) {
         
-        if (result.hasErrors()) {
-            return "login"; // Returns the form view if there are validation errors
-        }
+        // if (result.hasErrors()) {
+            // return "login"; // Returns the form view if there are validation errors
+        //}
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
 
-        System.out.println("UserController - POST - login - username -> " + username);
-        System.out.println("UserController - POST - login - password -> " + password);
+        System.out.println("UserController - POST - login - request - username -> " + username);
+        System.out.println("UserController - POST - login - request - password -> " + password);
         User loginUser = new User();
         loginUser.setUsername(username);
-        loginUser.setPassword(password);;
+        loginUser.setPassword(password);
+        
         try {
             HttpEntity<User> entity = new HttpEntity<>(loginUser, headers);
             ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users/login", HttpMethod.POST, entity, User.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 User loggedInUser = response.getBody();
-                System.out.println("UserController - POST - login - USER logged in SUCCESSFULLY -> loggedInUser -> " + loggedInUser);
+                System.out.println("UserController - POST - login - response -> loggedInUser -> " + loggedInUser);
+                System.out.println("UserController - POST - login - response -> loggedInUser.getBuilding().getId() -> " + loggedInUser.getBuilding().getId());
                 session.setAttribute("loggedInUser", loggedInUser);
                 session.setAttribute("buildingId", loggedInUser.getBuilding().getId()); // Test later
                 loginUser = loggedInUser;
