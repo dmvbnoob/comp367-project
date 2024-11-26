@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -131,7 +132,7 @@ public class UserController {
         headers.set("Content-Type", "application/json");
         System.out.println("UserController - GET - request - users");
         try {
-            ResponseEntity<List<User>> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.GET, null, List.class);
+            ResponseEntity<List> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.GET, null, List.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 List<User> users = response.getBody();
                 System.out.println("UserController - GET - response -> users -> " + users);
