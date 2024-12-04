@@ -1,5 +1,6 @@
 package com.team5.bms.service;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +10,7 @@ import com.team5.bms.model.User;
 * Service Interface for managing {@link com.team5.bms.domain.User}.
 *
 * @author Leandro "The Project Manager" Mananquil
+* @author Jasper Belenzo
 */
 
 public interface UserService {
@@ -68,5 +70,7 @@ public interface UserService {
      * @return the entity.
      */
     Optional<User> findByUsernameAndPassword(String username, String password);
+    
+    List<User> findByBuildingId(Long buildingId);
 
 }

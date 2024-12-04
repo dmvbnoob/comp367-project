@@ -40,7 +40,7 @@
                                 <a class="nav-link text-dark" href="/login">Login</a>
                             </li>
                             <li class="nav-item" th:if="${session.loggedInUser != null}">
-                                <a class="nav-link text-dark" href="/profile" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
+                                <a class="nav-link text-dark" th:href="@{/edit-user/{id}(id=${session.loggedInUser.id})}" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
                             </li>
                             <li class="nav-item" th:if="${session.loggedInUser != null}">
                                 <a class="nav-link text-dark" href="/logout">Logout</a>
@@ -54,8 +54,12 @@
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">
                 <h1>Users</h1>
+                <div class="alert alert-success alert-dismissible" role="alert">
+        		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        		If message is in model, then use message in this dismissible alert!
+    			</div>
                 <p>
-                    <a href="/user/create">Create New User</a>
+                    <a th:href="@{/create-user}" class="btn btn-success btn-sm">Create New User</a>
                 </p>
                 <table class="table">
                     <thead>
@@ -68,16 +72,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Iterate over the list of users -->
-                        <tr th:each="user : ${users}">
+                        <!-- Iterate over the list of users, exclude -->
+                        <tr th:each="user : ${users}" th:if="${user.role != 'OWNER'}">
                             <td th:text="${user.username}">Username</td>
                             <td th:text="${user.firstname}">FirstName</td>
                             <td th:text="${user.lastname}">LastName</td>
                             <td th:text="${user.role}">Role</td>
                             <td>
-                                <a th:href="@{/user/edit/{id}(id=${user.id})}" class="btn btn-warning btn-sm">Edit</a>
+                                <a th:href="@{/edit-user/{id}(id=${user.id})}" class="btn btn-warning btn-sm">Edit</a>
                                 <a th:href="@{/user/{id}(id=${user.id})}" class="btn btn-info btn-sm">Details</a>
-                                <a th:href="@{/user/delete/{id}(id=${user.id})}" class="btn btn-danger btn-sm">Delete</a>
+                                <a th:href="@{/delete-user/{id}(id=${user.id})}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     </tbody>

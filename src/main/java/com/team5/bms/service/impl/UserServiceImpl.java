@@ -3,6 +3,8 @@ package com.team5.bms.service.impl;
 import com.team5.bms.model.User;
 import com.team5.bms.repository.UserRepository;
 import com.team5.bms.service.UserService;
+
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,4 +103,13 @@ public class UserServiceImpl implements UserService {
         LOG.debug("Request to find User by username and password : {} / {}", username, password);
         return userRepository.findByUsernameAndPassword(username, password);
     }
+
+	@Override
+	public List<User> findByBuildingId(Long buildingId) {
+		// TODO Auto-generated method stub
+		// return null;
+		
+	   LOG.debug("Request to get all Users by buildingId : {}", buildingId);
+	  return userRepository.findByBuildingId(buildingId);
+	}
 }

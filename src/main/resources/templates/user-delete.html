@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login - BMS</title>
+        <title>Delete User - BMS</title>
         <link rel="icon" type="image/x-icon" href="/favicon.png">
         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/site.css">
@@ -43,7 +43,7 @@
                                 <a class="nav-link text-dark" th:href="@{/edit-user/{id}(id=${session.loggedInUser.id})}" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
                             </li>
                             <li class="nav-item" th:if="${session.loggedInUser != null}">
-                                <a href="/logout" class="nav-link text-dark">Logout</a>
+                                <a class="nav-link text-dark" href="/logout">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -53,38 +53,51 @@
 
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">  
-                <h2>Login</h2>
+                <h2>Delete</h2>
                 <div class="row">
-                    <div class="col-md-4">
-                        <form id="loginForm" method="post" action="/login">
-                            <h3>Use an account to log in.</h3>
+                    <div class="col-md-4">                
+                    	<form id="deleteUserForm" method="post" action="/delete-user">
+                            <h3>Delete BMS User?</h3>
                             <hr>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="username" name="username" placeholder="Username" type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
+                                <input th:value="*{user.username}" readonly class="form-control"  placeholder="Username" id="username" name="username" type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
                                 <label for="username">Username</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="password" name="password" placeholder="Password" type="password" required minlength="6" title="Password should be at least 6 characters long.">
+                                <input th:value="*{user.password}" readonly class="form-control"  placeholder="Password" id="password" name="password" type="password" required minlength="6" title="Password should be at least 6 characters long.">
                                 <label for="password">Password</label>
                             </div>
-                            <button id="loginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-                        </form>
-                    </div>
-                    <!-- <div class="col-md-6 col-md-offset-2">
-                        <section>
-                            <h3>Building Owner User Registration</h3>
-                            <hr>
-                            <div>
-                                <p>
-                                Please register your Building, Credit Card and User Account details to get started!</a>.
-                                </p>
+                            <div class="form-floating mb-3">
+                                <input th:value="*{user.firstname}" readonly class="form-control" placeholder="First Name" id="firstname" name="firstname" type="text" required pattern="^[A-Za-z\s]+$" title="First name should only contain letters and spaces.">
+                                <label for="firstname">First Name</label>
                             </div>
-                        </section>
-                    </div> -->
+                          	<div class="form-floating mb-3">
+                                <input th:value="*{user.lastname}" readonly class="form-control" id="lastname" name="lastname" placeholder="Last Name" type="text" required pattern="^[A-Za-z\s]+$" title="Last name should only contain letters and spaces.">
+                                <label for="lastname">Last Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input th:value="*{user.email}" readonly class="form-control" id="email" name="email" placeholder="Email" type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address (e.g., example@domain.com)">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input th:value="*{user.userPhone}" readonly class="form-control" id="userPhone" name="userPhone" placeholder="Phone Number" type="tel" required pattern="^\+?[0-9]{10,15}$" title="Phone number should contain 10 to 15 digits and may start with a plus sign.">
+                                <label for="userPhone">Phone Number</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="role" name="role" disabled readonly required>
+                                    <option value="" disabled selected>Select Role</option>
+                                    <option th:each="role : ${roles}" th:value="${role}" th:text="${role.name()}" th:if="${role != 'OWNER'}" th:selected="${role == user.role}"></option>
+                                </select>
+                                <label for="role">Role</label>
+                            </div>
+                            <input th:value="*{user.id}" type="hidden" id="id" name="id">
+                            <button id="editSubmit" type="submit" class="w-100 btn btn-lg btn-danger">Delete BMS User</button>
+                    	</form>
+                    </div>
                 </div>
             </main>
         </div>
-
+       
         <footer b-c7vtn5ui3n="" class="border-top footer text-muted">
             <div b-c7vtn5ui3n="" class="container">
                 © 2024 - BMS - <a href="/privacy">Privacy</a>

@@ -103,6 +103,7 @@ public class UserResource {
         }
  
         user = userService.update(user);
+        System.out.println("JASPER - PUT - UPDATE - USER ID --> " + id);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, user.getId().toString()))
             .body(user);
@@ -189,6 +190,13 @@ public class UserResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
 
+    }
+    
+    @GetMapping("/building/{buildingId}")
+    public ResponseEntity<List<User>> getUsersByBuildingId(@PathVariable Long buildingId) {
+        LOG.debug("REST request to get Users by buildingId : {}", buildingId);
+        List<User> users = userService.findByBuildingId(buildingId);
+        return ResponseEntity.ok().body(users);
     }
 
 }

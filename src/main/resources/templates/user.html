@@ -40,7 +40,7 @@
                                 <a class="nav-link text-dark" href="/login">Login</a>
                             </li>
                             <li class="nav-item" th:if="${session.loggedInUser != null}">
-                                <a class="nav-link text-dark" href="/profile" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
+                                <a class="nav-link text-dark" th:href="@{/edit-user/{id}(id=${session.loggedInUser.id})}" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
                             </li>
                             <li class="nav-item" th:if="${session.loggedInUser != null}">
                                 <a class="nav-link text-dark" href="/logout">Logout</a>
@@ -56,6 +56,10 @@
                 <h2>Details</h2>
                 <div>
                     <h4>User</h4>
+                    <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
+        				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        				<span th:text="${message}"></span>
+    				</div>
                     <hr>
                     <dl class="row">
                         <dt class="col-sm-2">Username</dt>
@@ -77,8 +81,10 @@
                     </dl>
                 </div>
                 <div>
-                    <a href="#" th:href="@{/users/edit/{id}(id=${user.id})}">Edit</a> |
-                    <a href="#" th:href="@{/users}">Back to List</a>
+                    <!-- <a href="#" th:href="@{/edit-user/{id}(id=${user.id})}">Edit</a>  -->
+                    <a th:href="@{/edit-user/{id}(id=${user.id})}" class="btn btn-warning btn-sm">Edit</a>
+                    <!-- <a href="#" th:href="@{/users}">Back to List</a>  -->
+                    <a th:href="@{/users}" class="btn btn-secondary btn-sm">Back to List</a>
                 </div>
             </main>
         </div>

@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login - BMS</title>
+        <title>Create User - BMS</title>
         <link rel="icon" type="image/x-icon" href="/favicon.png">
         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/site.css">
@@ -53,12 +53,13 @@
 
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">  
-                <h2>Login</h2>
+                <h2>Create</h2>
                 <div class="row">
                     <div class="col-md-4">
-                        <form id="loginForm" method="post" action="/login">
-                            <h3>Use an account to log in.</h3>
+                        <form id="createUserForm" method="post" action="/create-user">
+                            <h3>BMS User Details</h3>
                             <hr>
+                            <!-- BMS User Details -->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="username" name="username" placeholder="Username" type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
                                 <label for="username">Username</label>
@@ -67,20 +68,45 @@
                                 <input class="form-control" id="password" name="password" placeholder="Password" type="password" required minlength="6" title="Password should be at least 6 characters long.">
                                 <label for="password">Password</label>
                             </div>
-                            <button id="loginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                            <!-- TODO make another field here for CONFIRM PASSWORD-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="firstname" name="firstname" placeholder="First Name" type="text" required pattern="^[A-Za-z\s]+$" title="First name should only contain letters and spaces.">
+                                <label for="firstname">First Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="lastname" name="lastname" placeholder="Last Name" type="text" required pattern="^[A-Za-z\s]+$" title="Last name should only contain letters and spaces.">
+                                <label for="lastname">Last Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="email" name="email" placeholder="Email" type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address (e.g., example@domain.com)">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="userPhone" name="userPhone" placeholder="Phone Number" type="tel" required pattern="^\+?[0-9]{10,15}$" title="Phone number should contain 10 to 15 digits and may start with a plus sign.">
+                                <label for="userPhone">Phone Number</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="role" name="role" required>
+                                    <option value="" disabled selected>Select Role</option>
+                                    <option th:each="role : ${roles}" th:value="${role}" th:text="${role.name()}" th:if="${role != 'OWNER'}"></option>
+                                </select>
+                                <label for="role">Role</label>
+                            </div>
+                            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Create BMS User</button>
+                            <!-- <input name="__RequestVerificationToken" type="hidden" value="CfDJ8GraB8kkNyBHl8LDMGvYFzlDqmFCmzDL5Gfa8PZQcIAQGSIGIeSbSdOGicP3ZvB8YYuN8xgKzIvwjlLTAF878KFr8CT82jYovzAXKHYLmNoqftjbF8ew9ppJ-veK8w2HKRge0wbzrFTVlmgjSR3TYRE"> -->
                         </form>
                     </div>
                     <!-- <div class="col-md-6 col-md-offset-2">
                         <section>
-                            <h3>Building Owner User Registration</h3>
+                            <h3>Create a BMS User</h3>
                             <hr>
                             <div>
                                 <p>
-                                Please register your Building, Credit Card and User Account details to get started!</a>.
+                                Create a BMS User (Building Administrators, SuperIntendents and Tenants)</a>.
                                 </p>
                             </div>
                         </section>
-                    </div> -->
+                    </div>  -->
                 </div>
             </main>
         </div>

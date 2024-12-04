@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login - BMS</title>
+        <title>User Created - BMS</title>
         <link rel="icon" type="image/x-icon" href="/favicon.png">
         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/site.css">
@@ -43,7 +43,7 @@
                                 <a class="nav-link text-dark" th:href="@{/edit-user/{id}(id=${session.loggedInUser.id})}" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
                             </li>
                             <li class="nav-item" th:if="${session.loggedInUser != null}">
-                                <a href="/logout" class="nav-link text-dark">Logout</a>
+                                <a class="nav-link text-dark" href="/logout">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -53,37 +53,67 @@
 
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">  
-                <h2>Login</h2>
+                <h2>Creation Successful</h2>
+                <h3>BMS User Created</h3>
+                <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
+        		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        			<span th:text="${message}"></span>
+    			</div>
+                <hr/>
                 <div class="row">
                     <div class="col-md-4">
-                        <form id="loginForm" method="post" action="/login">
-                            <h3>Use an account to log in.</h3>
+                            <h4>BMS User Details</h4>
                             <hr>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="username" name="username" placeholder="Username" type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
+                                <input type="text" th:value="*{user.username}" readonly class="form-control" />
                                 <label for="username">Username</label>
                             </div>
+                            <div class="form-floating mb-3" th:with="fullname=${user.firstname + ' ' + user.lastname}">
+                                <input type="text" th:value="*{fullname}" readonly class="form-control" />
+                                <label for="firstname">Full Name</label>
+                            </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="password" name="password" placeholder="Password" type="password" required minlength="6" title="Password should be at least 6 characters long.">
-                                <label for="password">Password</label>
+                                <input type="text" th:value="*{user.role}" readonly class="form-control" />
+                                <label for="role">Role</label>
                             </div>
-                            <button id="loginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-                        </form>
+                            <div class="form-floating mb-3">
+                                <input type="text" th:value="*{user.email}" readonly class="form-control" />
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" th:value="*{user.userPhone}" readonly class="form-control" />
+                                <label for="userPhone">Phone Number</label>
+                            </div>
+                            <a href="/create-user" class="w-100 btn btn-lg btn-primary">Create Another New BMS User</a>
+                            <!-- <a th:href="@{/create-user}" class="w-100 btn btn-success btn-lg">Create New User</a> -->
                     </div>
-                    <!-- <div class="col-md-6 col-md-offset-2">
-                        <section>
-                            <h3>Building Owner User Registration</h3>
-                            <hr>
-                            <div>
-                                <p>
-                                Please register your Building, Credit Card and User Account details to get started!</a>.
-                                </p>
-                            </div>
-                        </section>
-                    </div> -->
                 </div>
             </main>
         </div>
+        
+		<!-- <div b-c7vtn5ui3n="" class="container">
+        	<main b-c7vtn5ui3n="" role="main" class="pb-3" >
+            	<h2>User Created Successfully!</h2>
+            	<div class="row">
+                	<div class="col-md-6">
+                    	<div class="alert alert-success" role="alert">
+                        	<h4 class="alert-heading">Success!</h4>
+                        	<p>Your user account has been created successfully.</p>
+                        	<hr>
+                        	<p class="mb-0">You can now <a href="/login">login</a> with your new credentials.</p>
+                    	</div>
+                	</div>
+                	<div class="col-md-6">
+                    	<h3>Next Steps</h3>
+                    	<ul>
+                        	<li><a href="/profile">View Profile</a></li>
+                        	<li><a href="/users">Manage Users (If you are an admin)</a></li>
+                    	</ul>
+                	</div>
+            	</div>
+        	</main>
+    	</div> -->
+        
 
         <footer b-c7vtn5ui3n="" class="border-top footer text-muted">
             <div b-c7vtn5ui3n="" class="container">
