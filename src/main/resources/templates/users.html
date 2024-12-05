@@ -54,9 +54,9 @@
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">
                 <h1>Users</h1>
-                <div class="alert alert-success alert-dismissible" role="alert">
+                <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
         		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        		If message is in model, then use message in this dismissible alert!
+        			<span th:text="${message}"></span>
     			</div>
                 <p>
                     <a th:href="@{/create-user}" class="btn btn-success btn-sm">Create New User</a>

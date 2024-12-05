@@ -50,7 +50,7 @@ public class UserController {
     	baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
-        System.out.println("UserController - GET - showDeleteUserPage - user.id" + id);
+        System.out.println("UserController - GET - showDeleteUserPage - id" + id);
 
         try {
             ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users/" + id, HttpMethod.GET, null, User.class);
@@ -119,13 +119,13 @@ public class UserController {
     	baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
-        System.out.println("UserController - GET - request - user.id" + id);
+        System.out.println("UserController - GET - showEditUserPage - id -> " + id);
 
         try {
             ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users/" + id, HttpMethod.GET, null, User.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 User user = response.getBody();
-                System.out.println("UserController - GET - response -> user -> " + user);
+                System.out.println("UserController - GET - showEditUserPage -> user -> " + user);
                 model.addAttribute("user", user);
                 // List<Roles> roles = Arrays.asList(Roles.values());
                 List<Roles> roles = Arrays.stream(Roles.values())
@@ -134,12 +134,12 @@ public class UserController {
                 model.addAttribute("roles", roles);
                 return "user-edit";
             } else {
-                model.addAttribute("message", "Get user by id failed.");
+                model.addAttribute("message", "Get User By Id failed.");
                 return "users";
             }
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("message", "Error getting user by id: " + e.getMessage());
+            model.addAttribute("message", "Error on Get User By Id: " + e.getMessage());
             return "users";
         }
               
@@ -273,26 +273,6 @@ public class UserController {
             return "register";
         }
 
-        // Save Card Details second
-        System.out.println("UserController - POST - register - request - card -> " + card);
-        try {
-            HttpEntity<Card> entity = new HttpEntity<>(card, headers);
-            ResponseEntity<Card> response = restTemplate.exchange(baseUrl+"/api/cards", HttpMethod.POST, entity, Card.class);
-            if (response.getStatusCode().is2xxSuccessful()) {
-                Card createdCard = response.getBody();
-                System.out.println("UserController - POST - register - response - createdCard -> " + createdCard);
-                user.addCard(createdCard); 
-                card = createdCard;
-            } else {
-                model.addAttribute("message", "Failed to create card.");
-                return "register";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("message", "Error creating card: " + e.getMessage());
-            return "register";
-        }
-
         System.out.println("UserController - POST - register - request - Building Owner - user -> " + user);
         try {
             HttpEntity<User> entity = new HttpEntity<>(user, headers);
@@ -300,6 +280,7 @@ public class UserController {
             if (response.getStatusCode().is2xxSuccessful()) {
                 User createdBuildingOwner = response.getBody();
                 System.out.println("UserController - POST - register - response - createdBuildingOwner -> " + createdBuildingOwner);
+                card.setUser(createdBuildingOwner);
                 System.out.println("UserController - POST - register - response -> createdBuildingOwner.getBuilding().getId() -> " + createdBuildingOwner.getBuilding().getId());
                 user = createdBuildingOwner;
             } else {
@@ -309,6 +290,27 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("message", "Error creating Business Owner user: " + e.getMessage());
+            return "register";
+        }
+        
+        // Save Card Details second
+        System.out.println("UserController - POST - register - request - card -> " + card);
+        try {
+            HttpEntity<Card> entity = new HttpEntity<>(card, headers);
+            ResponseEntity<Card> response = restTemplate.exchange(baseUrl+"/api/cards", HttpMethod.POST, entity, Card.class);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                Card createdCard = response.getBody();
+                System.out.println("UserController - POST - register - response - createdCard -> " + createdCard);
+                //user.addCard(createdCard); 
+                createdCard.setUser(user);
+                card = createdCard;
+            } else {
+                model.addAttribute("message", "Failed to create card.");
+                return "register";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "Error creating card: " + e.getMessage());
             return "register";
         }
 
