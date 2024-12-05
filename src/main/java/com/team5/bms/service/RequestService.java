@@ -9,8 +9,13 @@ import org.springframework.data.domain.Pageable;
  * Service Interface for managing {@link com.team5.bms.model.Request;}.
  * 
  * @author Jasper Belenzo
+ * 
  */
 public interface RequestService {
+
+    List<Request> getRequestsByBuildingAndUser(Long buildingId, Long userId);
+
+    List<Request> getRequestsByBuilding(Long buildingId, Long userId);
 	
     /**
      * Save a request.

@@ -152,6 +152,22 @@ public class RequestResource {
 		
     }
 
+    @GetMapping("/building/{buildingId}/user/{userId}")
+    public ResponseEntity<List<Request>> getRequestsByBuildingAndUser(@PathVariable("buildingId") Long buildingId, @PathVariable("userId") Long userId) {
+        
+        List<Request> requests = requestService.getRequestsByBuildingAndUser(buildingId, userId);
+        return ResponseEntity.ok().body(requests);
+
+    }
+
+    @GetMapping("/building/{buildingId}")
+    public ResponseEntity<List<Request>> getRequestsByBuilding(@PathVariable("buildingId") Long buildingId) {
+        
+        List<Request> requests = requestService.getRequestsByBuilding(buildingId);
+        return ResponseEntity.ok().body(requests);
+
+    }
+
     /**
      * {@code GET  /requests/:id} : get the "id" request.
      *

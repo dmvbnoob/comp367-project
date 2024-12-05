@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service Implementation for managing {@link com.team5.bms.model.Request}.
+ * 
+ *  @author Jasper Belenzo
+ * 
  */
 @Service
 @Transactional
@@ -24,6 +27,16 @@ public class RequestServiceImpl implements RequestService {
 
     public RequestServiceImpl(RequestRepository requestRepository) {
         this.requestRepository = requestRepository;
+    }
+
+    @Override
+    public List<Request> getRequestsByBuildingAndUser(Long buildingId, Long userId) {
+        return requestRepository.findByBuildingIdAndUserId(buildingId, userId);
+    }
+
+    @Override
+    public List<Request> getRequestsByBuilding(Long buildingId) {
+        return requestRepository.findByBuildingId(buildingId);
     }
 
     @Override

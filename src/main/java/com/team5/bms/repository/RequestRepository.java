@@ -9,7 +9,17 @@ import org.springframework.stereotype.Repository;
 *
 * @author Jophiel John "FullStack ChatGPT Summoner" Serrano
 * @author Leandro Mananquil "The Project Manager"
+* @author Jasper Belenzo
+*
 */
 @SuppressWarnings("unused")
 @Repository
-public interface RequestRepository extends JpaRepository<Request, Long> {}
+public interface RequestRepository extends JpaRepository<Request, Long> {
+
+    @Query("SELECT r FROM Request r WHERE r.user.building.id = :buildingId AND r.user.id = :userId")
+    List<Request> findByBuildingIdAndUserId(Long buildingId, Long userId);
+
+    @Query("SELECT r FROM Request r WHERE r.user.building.id = :buildingId")
+    List<Request> findByBuildingId(Long buildingId);
+
+}
