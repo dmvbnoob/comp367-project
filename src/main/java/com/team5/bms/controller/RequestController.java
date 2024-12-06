@@ -49,6 +49,45 @@ public class RequestController {
 
     private String baseUrl;
     
+    @GetMapping("/requests")
+    public String getRequests(HttpSession session, Model model) {
+    	
+    	baseUrl = (String) session.getAttribute("baseUrl");
+    	User loggedInUser = (User) session.getAttribute("loggedInUser");
+    	String roleOfLoggedInUser = loggedInUser.getRole().name();
+    	LOG.info("RequestController - GET - getRequests -> roleOfLoggedInUser -> " + roleOfLoggedInUser);
+        Long buildingIdOfLoggedInUser = (Long) session.getAttribute("buildingIdOfLoggedInUser");
+        LOG.info("RequestController - GET - getRequests -> buildingIdOfLoggedInUser -> " + buildingIdOfLoggedInUser);
+        Building buildingOfLoggedInUser = (Building) session.getAttribute("buildingOfLoggedInUser");
+          
+    	
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        
+        if (roleOfLoggedInUser.equals(Roles.OWNER.name()) || roleOfLoggedInUser.equals(Roles.ADMINISTRATOR.name())) {
+            try {
+                ResponseEntity<List> response = restTemplate.exchange(baseUrl+"/api/requests/building/" + buildingIdOfLoggedInUser, HttpMethod.GET, null, List.class);
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    List<Request> requests = response.getBody();
+                    System.out.println("RequestController - GET - getRequests -> requests -> " + requests);
+                    model.addAttribute("message", "Get Requests successful!");
+                    model.addAttribute("requests", requests);
+                    model.addAttribute("user", loggedInUser);
+                    model.addAttribute("building", buildingOfLoggedInUser);
+                    return "requests";
+                } else {
+                    model.addAttribute("message", "Get Requests failed.");
+                    return "redirect:/index";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                model.addAttribute("message", "Error on Get Requests " + e.getMessage());
+                return "redirect:/index";
+            }
+        } 
+        return "requests";
+    }
+    
     /** @GetMapping("/delete-user/{id}")
     public String showDeleteUserPage(@PathVariable("id") Long id, HttpServletRequest request, Model model) {
     	
@@ -238,106 +277,7 @@ public class RequestController {
         
     } **/
 
-    /** @GetMapping("/register")
-    public String showRegisterPage(HttpServletRequest request, Model model) {
-    	
-        model.addAttribute("user", new User());
-        model.addAttribute("building", new Building());
-        model.addAttribute("card", new Card());
-        baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
-        return "register";
-        
-    } **/
-
-    /** @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") User user, @Valid @ModelAttribute("building") Building building, @Valid @ModelAttribute("card") Card card, BindingResult result, Model model) {
-        
-        if (result.hasErrors()) {
-            return "register"; // Returns the form view if there are validation errors
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
-
-        // Save Building Details first
-        System.out.println("UserController - POST - register - request - building -> " + building);
-        try {
-            HttpEntity<Building> entity = new HttpEntity<>(building, headers);
-            ResponseEntity<Building> response = restTemplate.exchange(baseUrl+"/api/buildings", HttpMethod.POST, entity, Building.class);
-            if (response.getStatusCode().is2xxSuccessful()) {
-                Building createdBuilding = response.getBody();
-                System.out.println("UserController - POST - register - response -> createdBuilding -> " + createdBuilding);
-                user.setBuilding(createdBuilding); // Set Building of User
-                building = createdBuilding;
-            } else {
-                model.addAttribute("message", "Failed to create building.");
-                return "register";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("message", "Error creating building: " + e.getMessage());
-            return "register";
-        }
-
-        System.out.println("UserController - POST - register - request - Building Owner - user -> " + user);
-        try {
-            HttpEntity<User> entity = new HttpEntity<>(user, headers);
-            ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.POST, entity, User.class);
-            if (response.getStatusCode().is2xxSuccessful()) {
-                User createdBuildingOwner = response.getBody();
-                System.out.println("UserController - POST - register - response - createdBuildingOwner -> " + createdBuildingOwner);
-                card.setUser(createdBuildingOwner);
-                System.out.println("UserController - POST - register - response -> createdBuildingOwner.getBuilding().getId() -> " + createdBuildingOwner.getBuilding().getId());
-                user = createdBuildingOwner;
-            } else {
-                model.addAttribute("message", "Failed to create Business Owner user.");
-                return "register";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("message", "Error creating Business Owner user: " + e.getMessage());
-            return "register";
-        }
-        
-        // Save Card Details second
-        System.out.println("UserController - POST - register - request - card -> " + card);
-        try {
-            HttpEntity<Card> entity = new HttpEntity<>(card, headers);
-            ResponseEntity<Card> response = restTemplate.exchange(baseUrl+"/api/cards", HttpMethod.POST, entity, Card.class);
-            if (response.getStatusCode().is2xxSuccessful()) {
-                Card createdCard = response.getBody();
-                System.out.println("UserController - POST - register - response - createdCard -> " + createdCard);
-                //user.addCard(createdCard); 
-                createdCard.setUser(user);
-                card = createdCard;
-            } else {
-                model.addAttribute("message", "Failed to create card.");
-                return "register";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("message", "Error creating card: " + e.getMessage());
-            return "register";
-        }
-
-        model.addAttribute("building", building);
-        model.addAttribute("card", card);
-        model.addAttribute("user", user);
-        model.addAttribute("message", "Registration Successful!");
-        return "registered";
-        
-    } **/
-
-    /** @GetMapping("/login")
-    public String showLoginPage(HttpServletRequest request, Model model) {
-    	
-        model.addAttribute("user", new User());
-        baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
-        return "login";
-        
-    } **/
-
-    @GetMapping("/requests")
+    @GetMapping("/requests/all")
     public String getAllRequests(HttpSession session, Model model) {
     	
     	baseUrl = (String) session.getAttribute("baseUrl");
@@ -354,6 +294,7 @@ public class RequestController {
         	
             ResponseEntity<List> response = restTemplate.exchange(baseUrl+"/api/requests", HttpMethod.GET, null, List.class);
             if (response.getStatusCode().is2xxSuccessful()) {
+            	
                 List<Request> requests = response.getBody();
                 System.out.println("RequestController - GET - getAllRequests -> requests -> " + requests);
                 model.addAttribute("message", "All Requests retrieved successfully");
@@ -379,52 +320,6 @@ public class RequestController {
         }
     }
 
-    /** @PostMapping("/login")
-    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model/* , BindingResult result*/ /*) { */
-        
-        // if (result.hasErrors()) {
-            // return "login";
-        //}
-
-        /** HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
-
-        System.out.println("UserController - POST - login - request - username -> " + username);
-        System.out.println("UserController - POST - login - request - password -> " + password);
-        User loginUser = new User();
-        loginUser.setUsername(username);
-        loginUser.setPassword(password);
-        Building buildingOfLoggerUser = new Building();
-        
-        try {
-            HttpEntity<User> userEntity = new HttpEntity<>(loginUser, headers);
-            ResponseEntity<User> responseUser = restTemplate.exchange(baseUrl+"/api/users/login", HttpMethod.POST, userEntity, User.class);
-            if (responseUser.getStatusCode().is2xxSuccessful()) {
-                User loggedInUser = responseUser.getBody();
-                System.out.println("UserController - POST - login - response -> loggedInUser -> " + loggedInUser);
-                System.out.println("UserController - POST - login - response -> loggedInUser.getBuilding().getId() -> " + loggedInUser.getBuilding().getId());
-                session.setAttribute("loggedInUser", loggedInUser);
-                session.setAttribute("buildingIdOfLoggedInUser", loggedInUser.getBuilding().getId()); // Test later
-                session.setAttribute("buildingOfLoggedInUser", loggedInUser.getBuilding()); // Test later
-                loginUser = loggedInUser;
-                buildingOfLoggerUser = loggedInUser.getBuilding();
-            } else {
-                model.addAttribute("message", "Username and Password are Incorrect");
-                return "login";
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("message", "Error in Login: " + e.getMessage());
-            return "login";
-        }
-
-        model.addAttribute("user", loginUser);
-        model.addAttribute("building", buildingOfLoggerUser);
-        model.addAttribute("message", "Login Successful!");
-        return "logged";
-        
-    } **/
 
     @GetMapping("/request/{id}")
     public String getRequestDetails(@PathVariable Long id, Model model) {
@@ -461,15 +356,5 @@ public class RequestController {
         return "request";
         
     }
-
-    /** @GetMapping("/logout")
-    public String logoutUser(HttpSession session, Model model) {
-    	
-        session.invalidate();
-        model.addAttribute("message", "You have been logged out successfully.");
-        System.out.println("UserController - POST - logout");
-        return "redirect:/index";
-        
-    } **/
 
 }

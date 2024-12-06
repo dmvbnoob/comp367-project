@@ -60,6 +60,9 @@ public class Request implements Serializable {
     @Column(name = "update_date")
     private Instant updateDate;
  
+    @Column(name = "assigneeId")
+    private Long assigneeId;
+    
     @Column(name = "assignee")
     private String assignee;
     
@@ -178,6 +181,19 @@ public class Request implements Serializable {
     public void setUpdateDate(Instant updateDate) {
         this.updateDate = updateDate;
     }
+    
+    public Long getAssigneeId() {
+        return this.assigneeId;
+    }
+ 
+    public Request assigneeId(Long assigneeId) {
+        this.setAssigneeId(assigneeId);
+        return this;
+    }
+ 
+    public void setAssigneeId(Long assigneeId) {
+        this.assigneeId = assigneeId;
+    }
  
     public String getAssignee() {
         return this.assignee;
@@ -231,6 +247,7 @@ public class Request implements Serializable {
             ", createDate='" + getCreateDate() + "'" +
             ", progressDate='" + getProgressDate() + "'" +
             ", updateDate='" + getUpdateDate() + "'" +
+            ", assigneeId='" + getAssigneeId() + "'" +
             ", assignee='" + getAssignee() + "'" +
             "}";
     
