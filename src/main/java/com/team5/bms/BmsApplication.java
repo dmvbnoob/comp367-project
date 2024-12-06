@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.team5.bms.repository.*;
 import com.team5.bms.model.*;
+import com.team5.bms.model.enumeration.Priorities;
 import com.team5.bms.model.enumeration.Roles;
 import com.team5.bms.model.enumeration.Statuses;
 
@@ -151,6 +152,7 @@ public class BmsApplication implements CommandLineRunner {
 		request1.setDescription("Kitchen Sink needs repair as soon as possible. Water is leaking.");
 		request1.setCreateDate(Instant.now());
 		request1.setStatus(Statuses.CREATED);
+		request1.setPriority(Priorities.LOW);
 		requestRepository.save(request1);
 		Optional<Request> optionalRequest1 = requestRepository.findById(Long.valueOf(1L));
 		System.out.println("BmsApplication - run - tenantUser1 - request1 - id -> " + optionalRequest1.get().getId());
