@@ -1,6 +1,8 @@
 package com.team5.bms.service;
 
 import com.team5.bms.model.Request;
+
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +17,7 @@ public interface RequestService {
 
     List<Request> getRequestsByBuildingAndUser(Long buildingId, Long userId);
 
-    List<Request> getRequestsByBuilding(Long buildingId, Long userId);
+    List<Request> getRequestsByBuilding(Long buildingId);
 	
     /**
      * Save a request.

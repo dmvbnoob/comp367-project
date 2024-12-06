@@ -2,6 +2,7 @@ package com.team5.bms.controller;
  
 import jakarta.validation.Valid;
 import com.team5.bms.model.Card;
+import com.team5.bms.model.Request;
 import com.team5.bms.model.User;
 import com.team5.bms.model.enumeration.Roles;
 
@@ -23,6 +24,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +38,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class RequestController {
+	
+    private static final Logger LOG = LoggerFactory.getLogger(RequestController.class);
 
     @Autowired
     private RestTemplate restTemplate;
@@ -44,7 +49,7 @@ public class RequestController {
 
     private String baseUrl;
     
-    @GetMapping("/delete-user/{id}")
+    /** @GetMapping("/delete-user/{id}")
     public String showDeleteUserPage(@PathVariable("id") Long id, HttpServletRequest request, Model model) {
     	
     	baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
@@ -74,9 +79,9 @@ public class RequestController {
             return "redirect:/users";
         }
               
-    }
+    } **/
     
-    @PostMapping("/delete-user")
+    /** @PostMapping("/delete-user")
     public String deleteUser(@Valid @ModelAttribute("user") User user, HttpSession session, BindingResult result, Model model) {
         
         if (result.hasErrors()) {
@@ -110,10 +115,10 @@ public class RequestController {
         // return "user-deleted";
         return "redirect:/users";
         
-    }
+    } **/
     
     
-    @GetMapping("/edit-user/{id}")
+    /** @GetMapping("/edit-user/{id}")
     public String showEditUserPage(@PathVariable("id") Long id, HttpServletRequest request, Model model) {
     	
     	baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
@@ -143,9 +148,9 @@ public class RequestController {
             return "users";
         }
               
-    }
+    } **/
     
-    @PostMapping("/edit-user")
+    /** @PostMapping("/edit-user")
     public String editUser(@Valid @ModelAttribute("user") User user, HttpSession session, BindingResult result, Model model) {
         
         if (result.hasErrors()) {
@@ -179,9 +184,9 @@ public class RequestController {
         model.addAttribute("user", user);
         model.addAttribute("message", "BMS User edited successful!");
         return "user-edited";
-    }
+    } **/
     
-    @GetMapping("/create-user")
+    /** @GetMapping("/create-user")
     public String showCreateUserPage(HttpServletRequest request, Model model) {
     	
         model.addAttribute("user", new User());
@@ -193,9 +198,9 @@ public class RequestController {
         model.addAttribute("roles", roles);
         return "user-create";
         
-    }
+    } **/
     
-    @PostMapping("/create-user")
+    /** @PostMapping("/create-user")
     public String createUser(@Valid @ModelAttribute("user") User user, HttpSession session, BindingResult result, Model model) {
         
         if (result.hasErrors()) {
@@ -230,9 +235,10 @@ public class RequestController {
         model.addAttribute("user", user);
         model.addAttribute("message", "BMS User created successful!");
         return "user-created";
-    }
+        
+    } **/
 
-    @GetMapping("/register")
+    /** @GetMapping("/register")
     public String showRegisterPage(HttpServletRequest request, Model model) {
     	
         model.addAttribute("user", new User());
@@ -241,9 +247,9 @@ public class RequestController {
         baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
         return "register";
         
-    }
+    } **/
 
-    @PostMapping("/register")
+    /** @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") User user, @Valid @ModelAttribute("building") Building building, @Valid @ModelAttribute("card") Card card, BindingResult result, Model model) {
         
         if (result.hasErrors()) {
@@ -320,50 +326,62 @@ public class RequestController {
         model.addAttribute("message", "Registration Successful!");
         return "registered";
         
-    }
+    } **/
 
-    @GetMapping("/login")
+    /** @GetMapping("/login")
     public String showLoginPage(HttpServletRequest request, Model model) {
     	
         model.addAttribute("user", new User());
         baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
         return "login";
         
-    }
+    } **/
 
-    @GetMapping("/users")
-    public String getAllUsers(HttpSession session, Model model) {
+    @GetMapping("/requests")
+    public String getAllRequests(HttpSession session, Model model) {
+    	
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
-        System.out.println("UserController - GET - request - users");
-        Long buildingId = (Long) session.getAttribute("buildingIdOfLoggedInUser");
+        System.out.println("RequestController - GET - getAllRequests");
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        Building buildingOfLoggedInUser = (Building) session.getAttribute("buildingOfLoggedInUser");
+        Long buildingIdOfLoggedInUser = (Long) session.getAttribute("buildingIdOfLoggedInUser");    		
         
         try {
-            ResponseEntity<List> response = restTemplate.exchange(baseUrl+"/api/users/building/" + buildingId, HttpMethod.GET, null, List.class);
+        	
+            ResponseEntity<List> response = restTemplate.exchange(baseUrl+"/api/requests", HttpMethod.GET, null, List.class);
             if (response.getStatusCode().is2xxSuccessful()) {
-                List<User> users = response.getBody();
-                System.out.println("UserController - GET - response -> users -> " + users);
-                model.addAttribute("users", users);
-                return "users";
+                List<Request> requests = response.getBody();
+                System.out.println("RequestController - GET - getAllRequests -> requests -> " + requests);
+                model.addAttribute("message", "All Requests retrieved successfully");
+                model.addAttribute("requests", requests);
+                return "requests";
+                
             } else {
+            	
                 model.addAttribute("message", "Get all users failed.");
-                return "index";
+                // return "index";
+                return "redirect:/index";
+                
             }
         } catch (Exception e) {
+        	
             e.printStackTrace();
             model.addAttribute("message", "Error getting all users: " + e.getMessage());
-            return "index";
+            // return "index";
+            return "redirect:/index";
+            
         }
     }
 
-    @PostMapping("/login")
-    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model/* , BindingResult result*/) {
+    /** @PostMapping("/login")
+    public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model/* , BindingResult result*/ /*) { */
         
         // if (result.hasErrors()) {
             // return "login";
         //}
 
-        HttpHeaders headers = new HttpHeaders();
+        /** HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
 
         System.out.println("UserController - POST - login - request - username -> " + username);
@@ -401,43 +419,45 @@ public class RequestController {
         model.addAttribute("message", "Login Successful!");
         return "logged";
         
-    }
+    } **/
 
-    @GetMapping("/user/{id}")
-    public String getUserDetails(@PathVariable Long id, Model model) {
+    @GetMapping("/request/{id}")
+    public String getRequestDetails(@PathVariable Long id, Model model) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
-        User user = new User();
-        user.setId(id);
-        System.out.println("UserController - GET - getUserDetails - request - user.getId() -> " + user.getId());
+        Request request = new Request();
+        request.setId(id);
+        System.out.println("RequestController - GET - getRequestDetails- request.getId() -> " + request.getId());
 
         try {
 
-            HttpEntity<User> entity = new HttpEntity<>(user, headers);
-            ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users/"+user.getId(), HttpMethod.GET, entity, User.class);
+            HttpEntity<Request> entity = new HttpEntity<>(request, headers);
+            ResponseEntity<Request> response = restTemplate.exchange(baseUrl+"/api/users/"+request.getId(), HttpMethod.GET, entity, Request.class);
             if (response.getStatusCode().is2xxSuccessful()) {
-                user = response.getBody();
-                System.out.println("UserController - GET - getUserDetails - response -> user -> " + user);
-                model.addAttribute("user", user);
+                request = response.getBody();
+                System.out.println("UserController - GET - getRequestDetails -> request -> " + request);
+                model.addAttribute("request", request);
             } else {
-                model.addAttribute("message", "Failed to Get User Details By Id");
-                // return "login";
+            	
+                model.addAttribute("message", "Failed to Get Request Details By Id");
                 return "redirect:/index";
+                
             }
         } catch (Exception e) {
+        	
             e.printStackTrace();
-            model.addAttribute("message", "Error in Get User By Id: " + e.getMessage());
-            // return "login";
+            model.addAttribute("message", "Error in Get Request By Id: " + e.getMessage());
             return "redirect:/index";
+            
         }
 
-        model.addAttribute("message", "Get User Details By Id is Successful!");
-        return "user";
+        model.addAttribute("message", "Get Request Details By Id is Successful!");
+        return "request";
         
     }
 
-    @GetMapping("/logout")
+    /** @GetMapping("/logout")
     public String logoutUser(HttpSession session, Model model) {
     	
         session.invalidate();
@@ -445,6 +465,6 @@ public class RequestController {
         System.out.println("UserController - POST - logout");
         return "redirect:/index";
         
-    }
+    } **/
 
 }

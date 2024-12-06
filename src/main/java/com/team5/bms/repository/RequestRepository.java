@@ -1,6 +1,9 @@
 package com.team5.bms.repository;
  
 import com.team5.bms.model.Request;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
  

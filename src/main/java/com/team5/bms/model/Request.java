@@ -7,6 +7,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.team5.bms.model.enumeration.Priorities;
 import com.team5.bms.model.enumeration.Statuses;
 
 import jakarta.persistence.Column;
@@ -61,6 +62,10 @@ public class Request implements Serializable {
  
     @Column(name = "assignee")
     private String assignee;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "priority")
+    private Priorities priority;
  
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = { "requests", "cards", "building" }, allowSetters = true)
@@ -116,6 +121,19 @@ public class Request implements Serializable {
  
     public void setStatus(Statuses status) {
         this.status = status;
+    }
+    
+    public Priorities getPriority() {
+        return this.priority;
+    }
+ 
+    public Request priority(Priorities priority) {
+        this.setPriority(priority);
+        return this;
+    }
+ 
+    public void setPriority(Priorities priority) {
+        this.priority = priority;
     }
  
     public Instant getCreateDate() {
@@ -205,6 +223,7 @@ public class Request implements Serializable {
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
             ", status='" + getStatus() + "'" +
+            ", priority='" + getPriority() + "'" +
             ", createDate='" + getCreateDate() + "'" +
             ", progressDate='" + getProgressDate() + "'" +
             ", updateDate='" + getUpdateDate() + "'" +

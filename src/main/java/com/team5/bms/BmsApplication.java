@@ -7,9 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.team5.bms.repository.*;
 import com.team5.bms.model.*;
 import com.team5.bms.model.enumeration.Roles;
+import com.team5.bms.model.enumeration.Statuses;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+
+import java.time.Instant;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -25,6 +28,9 @@ public class BmsApplication implements CommandLineRunner {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private RequestRepository requestRepository;
 
 	public static void main(String[] args) {
 		logger.info("Hello BMS!");
@@ -139,6 +145,15 @@ public class BmsApplication implements CommandLineRunner {
 		System.out.println("BmsApplication - run - superIntendent2 - id -> " + optionalSuperIntendent2.get().getId());
 
 		// TODOs Create Requests
+		Request request1 = new Request();
+		request1.setUser(tenantUser2);
+		request1.setTitle("Kitchen Sink Repair");
+		request1.setDescription("Kitchen Sink needs repair as soon as possible. Water is leaking.");
+		request1.setCreateDate(Instant.now());
+		request1.setStatus(Statuses.CREATED);
+		requestRepository.save(request1);
+		Optional<Request> optionalRequest1 = requestRepository.findById(Long.valueOf(1L));
+		System.out.println("BmsApplication - run - tenantUser1 - request1 - id -> " + optionalRequest1.get().getId());
 	
 	}
 
