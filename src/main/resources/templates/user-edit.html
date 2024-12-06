@@ -60,7 +60,7 @@
                             <h3>BMS User Details</h3>
                             <hr>
                             <div class="form-floating mb-3">
-                                <input th:value="*{user.username}" class="form-control"  placeholder="Username" id="username" name="username" type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
+                                <input th:value="*{user.username}" class="form-control"  placeholder="Username" id="username" name="username" readonly type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
                                 <label for="username">Username</label>
                             </div>
                             <div class="form-floating mb-3">
@@ -68,7 +68,7 @@
                                 <label for="password">Password</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input th:value="*{user.firstname}" class="form-control" placeholder="First Name" id="firstname" name="firstname" type="text" required pattern="^[A-Za-z\s]+$" title="First name should only contain letters and spaces.">
+                                <input th:value="*{user.firstname}" class="form-control" placeholder="First Name" id="firstname" name="firstname" readonly type="text" required pattern="^[A-Za-z\s]+$" title="First name should only contain letters and spaces.">
                                 <label for="firstname">First Name</label>
                             </div>
                           	<div class="form-floating mb-3">
