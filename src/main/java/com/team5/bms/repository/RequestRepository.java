@@ -18,6 +18,9 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
+	
+    @Query("SELECT r FROM Request r WHERE r.user.building.id = :buildingId AND r.assigneeId = :assigneeId")
+    List<Request> findByBuildingIdAndAssigneeId(Long buildingId, Long assigneeId);
 
     @Query("SELECT r FROM Request r WHERE r.user.building.id = :buildingId AND r.user.id = :userId")
     List<Request> findByBuildingIdAndUserId(Long buildingId, Long userId);

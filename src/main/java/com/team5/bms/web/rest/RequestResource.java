@@ -151,6 +151,14 @@ public class RequestResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
 		
     }
+    
+    @GetMapping("/building/{buildingId}/assigned/{assigneeId}")
+    public ResponseEntity<List<Request>> getRequestsByBuildingAndAssignedSuperIntendent(@PathVariable("buildingId") Long buildingId, @PathVariable("assigneeId") Long assigneeId) {
+        
+        List<Request> requests = requestService.getRequestsByBuildingAndSuperIntendent(buildingId, assigneeId);
+        return ResponseEntity.ok().body(requests);
+
+    }
 
     @GetMapping("/building/{buildingId}/user/{userId}")
     public ResponseEntity<List<Request>> getRequestsByBuildingAndUser(@PathVariable("buildingId") Long buildingId, @PathVariable("userId") Long userId) {

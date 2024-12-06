@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
  * 
  */
 public interface RequestService {
+	
+	List<Request> getRequestsByBuildingAndSuperIntendent(Long buildingId, Long assigneeId);
 
     List<Request> getRequestsByBuildingAndUser(Long buildingId, Long userId);
 

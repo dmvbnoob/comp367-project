@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import com.team5.bms.model.Card;
 import com.team5.bms.model.Request;
 import com.team5.bms.model.User;
+import com.team5.bms.model.enumeration.Priorities;
 import com.team5.bms.model.enumeration.Roles;
 
 import org.springframework.ui.Model;
@@ -68,7 +69,7 @@ public class RequestController {
         } else if (roleOfLoggedInUser.equals(Roles.TENANT.name())) {
         	requestUrl = baseUrl + "/api/requests/building/" + buildingIdOfLoggedInUser + "/user/" + loggedInUser.getId();
         } else {
-        	// SUPERINTENDENT
+        	requestUrl = baseUrl + "/api/requests/building/" + buildingIdOfLoggedInUser + "/assigned/" + loggedInUser.getId();
         }
         
         // if (roleOfLoggedInUser.equals(Roles.OWNER.name()) || roleOfLoggedInUser.equals(Roles.ADMINISTRATOR.name())) {
@@ -232,7 +233,7 @@ public class RequestController {
     } **/
     
     @GetMapping("/create-request")
-    public String showCreateUserPage(HttpServletRequest request, Model model) {
+    public String showCreateRequestPage(HttpServletRequest request, Model model) {
     	
         model.addAttribute("request", new Request());
         baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
@@ -240,7 +241,7 @@ public class RequestController {
         /* List<Roles> roles = Arrays.stream(Roles.values())
                 .filter(role -> role != Roles.OWNER)
                 .collect(Collectors.toList()); */
-        model.addAttribute("priorities", roles);
+        model.addAttribute("priorities", priorities);
         return "request-create";
         
     }

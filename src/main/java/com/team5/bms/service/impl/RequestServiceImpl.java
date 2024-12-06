@@ -30,6 +30,11 @@ public class RequestServiceImpl implements RequestService {
     public RequestServiceImpl(RequestRepository requestRepository) {
         this.requestRepository = requestRepository;
     }
+    
+    @Override
+    public List<Request> getRequestsByBuildingAndSuperIntendent(Long buildingId, Long assigneeId) {
+        return requestRepository.findByBuildingIdAndAssigneeId(buildingId, assigneeId);
+    }
 
     @Override
     public List<Request> getRequestsByBuildingAndUser(Long buildingId, Long userId) {
