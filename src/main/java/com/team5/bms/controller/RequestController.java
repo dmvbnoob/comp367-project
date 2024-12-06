@@ -91,31 +91,7 @@ public class RequestController {
                 model.addAttribute("message", "Error on Get Requests " + e.getMessage());
                 return "redirect:/index";
             }
-        // } 
-        
-        /* if (roleOfLoggedInUser.equals(Roles.TENANT.name())) {
-            try {
-                ResponseEntity<List> response = restTemplate.exchange(baseUrl+"/api/requests/building/" + buildingIdOfLoggedInUser + "/user/" + loggedInUser.getId(), HttpMethod.GET, null, List.class);
-                if (response.getStatusCode().is2xxSuccessful()) {
-                    List<Request> requests = response.getBody();
-                    System.out.println("RequestController - GET - getRequests -> requests -> " + requests);
-                    model.addAttribute("message", "Get Requests successful!");
-                    model.addAttribute("requests", requests);
-                    model.addAttribute("user", loggedInUser);
-                    model.addAttribute("building", buildingOfLoggedInUser);
-                    return "requests";
-                } else {
-                    model.addAttribute("message", "Get Requests failed.");
-                    return "redirect:/index";
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                model.addAttribute("message", "Error on Get Requests " + e.getMessage());
-                return "redirect:/index";
-            }
-        } */
-        
-        // return "requests";
+
     }
     
     /** @GetMapping("/delete-user/{id}")
@@ -255,19 +231,19 @@ public class RequestController {
         return "user-edited";
     } **/
     
-    /** @GetMapping("/create-user")
+    @GetMapping("/create-request")
     public String showCreateUserPage(HttpServletRequest request, Model model) {
     	
-        model.addAttribute("user", new User());
+        model.addAttribute("request", new Request());
         baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
-        // List<Roles> roles = Arrays.asList(Roles.values());
-        List<Roles> roles = Arrays.stream(Roles.values())
+        List<Priorities> priorities = Arrays.asList(Priorities.values());
+        /* List<Roles> roles = Arrays.stream(Roles.values())
                 .filter(role -> role != Roles.OWNER)
-                .collect(Collectors.toList());
-        model.addAttribute("roles", roles);
-        return "user-create";
+                .collect(Collectors.toList()); */
+        model.addAttribute("priorities", roles);
+        return "request-create";
         
-    } **/
+    }
     
     /** @PostMapping("/create-user")
     public String createUser(@Valid @ModelAttribute("user") User user, HttpSession session, BindingResult result, Model model) {
