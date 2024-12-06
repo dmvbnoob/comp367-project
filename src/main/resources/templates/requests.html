@@ -53,35 +53,37 @@
 
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">
-                <h1>Users</h1>
+                <h1>Requests</h1>
                 <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
         		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         			<span th:text="${message}"></span>
     			</div>
                 <p>
-                    <a th:href="@{/create-user}" class="btn btn-success btn-sm">Create New User</a>
+                    <a th:href="@{/create-request}" class="btn btn-success btn-sm">Create New Request</a>
                 </p>
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>Id</th>
+                            <th>Title</th>
                             <th>Username</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Priority</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Iterate over the list of users, exclude -->
-                        <tr th:each="user : ${users}" th:if="${user.role != 'OWNER'}">
-                            <td th:text="${user.username}">Username</td>
-                            <td th:text="${user.firstname}">FirstName</td>
-                            <td th:text="${user.lastname}">LastName</td>
-                            <td th:text="${user.role}">Role</td>
+                        <tr th:each="request : ${requests}" > <!-- th:if="${user.role != 'OWNER'}" -->
+                            <td th:text="${request.id}">Id</td>
+                            <td th:text="${request.title}">Title</td>
+                            <td th:text="${request.user.username}">Username</td>
+                            <td th:text="${request.status}">Status</td>
+                            <td th:text="${request.priority}">Priority</td>
                             <td>
-                                <a th:href="@{/edit-user/{id}(id=${user.id})}" class="btn btn-warning btn-sm">Edit</a>
-                                <a th:href="@{/user/{id}(id=${user.id})}" class="btn btn-info btn-sm">Details</a>
-                                <a th:href="@{/delete-user/{id}(id=${user.id})}" class="btn btn-danger btn-sm">Delete</a>
+                                <a th:href="@{/edit-request/{id}(id=${request.id})}" class="btn btn-warning btn-sm">Edit</a>
+                                <a th:href="@{/request/{id}(id=${request.id})}" class="btn btn-info btn-sm">Details</a>
+                                <a th:href="@{/delete-request/{id}(id=${request.id})}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     </tbody>

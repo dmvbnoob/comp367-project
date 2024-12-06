@@ -372,6 +372,7 @@ public class UserController {
         loginUser.setUsername(username);
         loginUser.setPassword(password);
         Building buildingOfLoggerUser = new Building();
+        session.setAttribute("baseUrl", baseUrl);
         
         try {
             HttpEntity<User> userEntity = new HttpEntity<>(loginUser, headers);

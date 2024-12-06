@@ -67,10 +67,14 @@ public class Request implements Serializable {
     @Column(name = "priority")
     private Priorities priority;
  
-    @ManyToOne(fetch = FetchType.LAZY)
+    /* @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "requests", "cards", "building" }, allowSetters = true)
+    private User user; */
+ 
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "requests", "cards", "building" }, allowSetters = true)
     private User user;
- 
+
     public Long getId() {
         return this.id;
     }

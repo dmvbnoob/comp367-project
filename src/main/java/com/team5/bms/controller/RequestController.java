@@ -340,6 +340,9 @@ public class RequestController {
     @GetMapping("/requests")
     public String getAllRequests(HttpSession session, Model model) {
     	
+    	baseUrl = (String) session.getAttribute("baseUrl");
+    	LOG.info("baseURL -> " + baseUrl);
+    	// baseUrl = ServletUriComponentsBuilder.fromContextPath(request).build().toUriString();
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         System.out.println("RequestController - GET - getAllRequests");
@@ -355,6 +358,8 @@ public class RequestController {
                 System.out.println("RequestController - GET - getAllRequests -> requests -> " + requests);
                 model.addAttribute("message", "All Requests retrieved successfully");
                 model.addAttribute("requests", requests);
+                model.addAttribute("user", loggedInUser);
+                model.addAttribute("building", buildingOfLoggedInUser);
                 return "requests";
                 
             } else {
