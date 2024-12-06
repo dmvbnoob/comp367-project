@@ -58,7 +58,8 @@
         		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         			<span th:text="${message}"></span>
     			</div>
-                <p>
+    			<!-- Creating Request is NOT for the SUPERINTENDENT Role -->
+                <p th:if="${(session.loggedInUser.role.name() != 'SUPERINTENDENT')}">
                     <a th:href="@{/create-request}" class="btn btn-success btn-sm">Create New Request</a>
                 </p>
                 <table class="table">

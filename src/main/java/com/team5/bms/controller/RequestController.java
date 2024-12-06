@@ -59,12 +59,19 @@ public class RequestController {
         Long buildingIdOfLoggedInUser = (Long) session.getAttribute("buildingIdOfLoggedInUser");
         LOG.info("RequestController - GET - getRequests -> buildingIdOfLoggedInUser -> " + buildingIdOfLoggedInUser);
         Building buildingOfLoggedInUser = (Building) session.getAttribute("buildingOfLoggedInUser");
-          
-    	
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
+        String requestUrl = "";
         
         if (roleOfLoggedInUser.equals(Roles.OWNER.name()) || roleOfLoggedInUser.equals(Roles.ADMINISTRATOR.name())) {
+        	requestUrl = baseUrl + "/api/requests/building/" + buildingIdOfLoggedInUser;
+        } else if (roleOfLoggedInUser.equals(Roles.TENANT.name())) {
+        	requestUrl = baseUrl + "/api/requests/building/" + buildingIdOfLoggedInUser + "/user/" + loggedInUser.getId();
+        } else {
+        	// SUPERINTENDENT
+        }
+        
+        // if (roleOfLoggedInUser.equals(Roles.OWNER.name()) || roleOfLoggedInUser.equals(Roles.ADMINISTRATOR.name())) {
             try {
                 ResponseEntity<List> response = restTemplate.exchange(baseUrl+"/api/requests/building/" + buildingIdOfLoggedInUser, HttpMethod.GET, null, List.class);
                 if (response.getStatusCode().is2xxSuccessful()) {
@@ -84,8 +91,31 @@ public class RequestController {
                 model.addAttribute("message", "Error on Get Requests " + e.getMessage());
                 return "redirect:/index";
             }
-        } 
-        return "requests";
+        // } 
+        
+        /* if (roleOfLoggedInUser.equals(Roles.TENANT.name())) {
+            try {
+                ResponseEntity<List> response = restTemplate.exchange(baseUrl+"/api/requests/building/" + buildingIdOfLoggedInUser + "/user/" + loggedInUser.getId(), HttpMethod.GET, null, List.class);
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    List<Request> requests = response.getBody();
+                    System.out.println("RequestController - GET - getRequests -> requests -> " + requests);
+                    model.addAttribute("message", "Get Requests successful!");
+                    model.addAttribute("requests", requests);
+                    model.addAttribute("user", loggedInUser);
+                    model.addAttribute("building", buildingOfLoggedInUser);
+                    return "requests";
+                } else {
+                    model.addAttribute("message", "Get Requests failed.");
+                    return "redirect:/index";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                model.addAttribute("message", "Error on Get Requests " + e.getMessage());
+                return "redirect:/index";
+            }
+        } */
+        
+        // return "requests";
     }
     
     /** @GetMapping("/delete-user/{id}")
