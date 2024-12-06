@@ -89,7 +89,7 @@
                     		<!-- <a href="#" th:href="@{/edit-user/{id}(id=${user.id})}">Edit</a>  -->
                     		<a th:href="@{/edit-user/{id}(id=${user.id})}" class="btn btn-warning btn-lg">Edit</a>
                     		<!-- <a href="#" th:href="@{/users}">Back to List</a>  -->
-                    		<a th:href="@{/users}" class="btn btn-secondary btn-lg">Back to List</a>
+                    		<a th:if="${(session.loggedInUser.role.name() == 'OWNER' or session.loggedInUser.role.name() == 'ADMINISTRATOR')}" th:href="@{/users}" class="btn btn-secondary btn-lg">Back to List</a>
                 		</div>
                     </div>
                 </div>
