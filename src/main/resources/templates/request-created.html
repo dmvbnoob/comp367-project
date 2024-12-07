@@ -62,37 +62,41 @@
                 <hr/>
                 <div class="row">
                     <div class="col-md-4">
-                            <h4>BMS Request Details</h4>
-                            <hr>
-                            <div class="form-floating mb-3">
+                    	<h4>BMS Request Details</h4>
+                        <hr>
+                        <div class="form-floating mb-3">
                                 <input type="text" th:value="*{request.id}" readonly class="form-control" />
                                 <label for="id">Id</label>
-                            </div>
+                        </div>
                             <div class="form-floating mb-3">
                                 <input type="text" th:value="*{request.title}" readonly class="form-control" />
                                 <label for="title">Title</label>
                             </div>
-                            <div class="form-floating mb-3">
+                        <div class="form-floating mb-3">
                                 <!-- <input type="text" th:value="*{request.description}" readonly class="form-control" />  -->
                                 <textarea class="form-control" id="description" name="description" th:text="*{request.description}" style="min-height: 200px;" readonly rows="7" maxlength="500" title="Description should be at most 500 characters long." placeholder="Description"></textarea>
                                 <label for="description">Description</label>
-                            </div>
+                       	</div>
                             <!-- <div class="form-floating mb-3" th:with="fullname=${user.firstname + ' ' + user.lastname}"> -->
                             <div class="form-floating mb-3">
                                 <!-- <input type="text" th:value="*{fullname}" readonly class="form-control" /> -->
                                 <input type="text" th:value="*{request.user.username}" readonly class="form-control" />
                                 <label for="username">Request (Username)</label>
                             </div>
-                            <div class="form-floating mb-3">
+                  		<div class="form-floating mb-3">
                                 <input type="text" th:value="*{request.priority}" readonly class="form-control" />
                                 <label for="priority">Priority</label>
-                            </div>
-                            <div class="form-floating mb-3">
+                       	</div>
+           				<div class="form-floating mb-3">
                                 <input type="text" th:value="*{request.status}" readonly class="form-control" />
                                 <label for="priority">Priority</label>
-                            </div>
-                            <a href="/requests" class="w-100 btn btn-lg btn-secondary">Back to Requests List</a>
-                            <!-- <a th:href="@{/create-user}" class="w-100 btn btn-success btn-lg">Create New User</a> -->
+               			</div>
+                        <div class="form-floating mb-3">
+                            <a href="/requests" class="w-100 btn btn-md btn-secondary">Back to Requests List</a>
+                    	</div>
+                   		<div class="form-floating mb-3">
+                            <a href="/create-request" class="w-100 btn btn-md btn-success">Create Another Request</a>
+                        </div>
                     </div>
                 </div>
             </main>
