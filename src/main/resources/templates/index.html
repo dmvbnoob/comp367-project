@@ -1,4 +1,3 @@
-<!-- @author Donalda Zhuga -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -136,11 +135,21 @@
         <main role="main" class="pb-3">
             <div class="main-content">
                 <!-- Centered and bold "Welcome" -->
-                <h1 class="display-10 text-center font-weight-bold">  Welcome</h1>
+                <h1 class="display-10 text-center font-weight-bold">Welcome</h1>
 
                 <!-- Centering the logo and making it larger -->
                 <div class="logo-container text-center">
                     <img src="/images/logo.png" alt="Logo" class="logo-img">
+                </div>
+                <!-- Stephanie added building details -->
+                <div th:if="${building != null}">
+                    <p><strong>Your Building Details:</strong></p>
+                    <p>Building Name: <span th:text="${building.buildingName}"></span></p>
+                    <p>Address: <span th:text="${building.address}"></span></p>
+                    <p>Contact: <span th:text="${building.buildingPhone}"></span></p>
+                </div>
+                <div th:if="${building == null}">
+                    <p>No building details available. Please contact the administrator.</p>
                 </div>
             </div>
         </main>
