@@ -54,7 +54,7 @@
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">  
                 <h2>Creation Successful</h2>
-                <h3>BMS User Created</h3>
+                <h3>BMS Request Created</h3>
                 <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
         		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         			<span th:text="${message}"></span>
@@ -62,57 +62,41 @@
                 <hr/>
                 <div class="row">
                     <div class="col-md-4">
-                            <h4>BMS User Details</h4>
+                            <h4>BMS Request Details</h4>
                             <hr>
                             <div class="form-floating mb-3">
-                                <input type="text" th:value="*{user.username}" readonly class="form-control" />
-                                <label for="username">Username</label>
-                            </div>
-                            <div class="form-floating mb-3" th:with="fullname=${user.firstname + ' ' + user.lastname}">
-                                <input type="text" th:value="*{fullname}" readonly class="form-control" />
-                                <label for="firstname">Full Name</label>
+                                <input type="text" th:value="*{request.id}" readonly class="form-control" />
+                                <label for="id">Id</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="text" th:value="*{user.role}" readonly class="form-control" />
-                                <label for="role">Role</label>
+                                <input type="text" th:value="*{request.title}" readonly class="form-control" />
+                                <label for="title">Title</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="text" th:value="*{user.email}" readonly class="form-control" />
-                                <label for="email">Email</label>
+                                <!-- <input type="text" th:value="*{request.description}" readonly class="form-control" />  -->
+                                <textarea class="form-control" id="description" name="description" th:text="*{request.description}" style="min-height: 200px;" readonly rows="7" maxlength="500" title="Description should be at most 500 characters long." placeholder="Description"></textarea>
+                                <label for="description">Description</label>
+                            </div>
+                            <!-- <div class="form-floating mb-3" th:with="fullname=${user.firstname + ' ' + user.lastname}"> -->
+                            <div class="form-floating mb-3">
+                                <!-- <input type="text" th:value="*{fullname}" readonly class="form-control" /> -->
+                                <input type="text" th:value="*{request.user.username}" readonly class="form-control" />
+                                <label for="username">Request (Username)</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="text" th:value="*{user.userPhone}" readonly class="form-control" />
-                                <label for="userPhone">Phone Number</label>
+                                <input type="text" th:value="*{request.priority}" readonly class="form-control" />
+                                <label for="priority">Priority</label>
                             </div>
-                            <a href="/create-user" class="w-100 btn btn-lg btn-primary">Create Another New BMS User</a>
+                            <div class="form-floating mb-3">
+                                <input type="text" th:value="*{request.status}" readonly class="form-control" />
+                                <label for="priority">Priority</label>
+                            </div>
+                            <a href="/requests" class="w-100 btn btn-lg btn-secondary">Back to Requests List</a>
                             <!-- <a th:href="@{/create-user}" class="w-100 btn btn-success btn-lg">Create New User</a> -->
                     </div>
                 </div>
             </main>
         </div>
-        
-		<!-- <div b-c7vtn5ui3n="" class="container">
-        	<main b-c7vtn5ui3n="" role="main" class="pb-3" >
-            	<h2>User Created Successfully!</h2>
-            	<div class="row">
-                	<div class="col-md-6">
-                    	<div class="alert alert-success" role="alert">
-                        	<h4 class="alert-heading">Success!</h4>
-                        	<p>Your user account has been created successfully.</p>
-                        	<hr>
-                        	<p class="mb-0">You can now <a href="/login">login</a> with your new credentials.</p>
-                    	</div>
-                	</div>
-                	<div class="col-md-6">
-                    	<h3>Next Steps</h3>
-                    	<ul>
-                        	<li><a href="/profile">View Profile</a></li>
-                        	<li><a href="/users">Manage Users (If you are an admin)</a></li>
-                    	</ul>
-                	</div>
-            	</div>
-        	</main>
-    	</div> -->
         
 
         <footer b-c7vtn5ui3n="" class="border-top footer text-muted">

@@ -76,7 +76,7 @@ public class RequestController {
         
         // if (roleOfLoggedInUser.equals(Roles.OWNER.name()) || roleOfLoggedInUser.equals(Roles.ADMINISTRATOR.name())) {
             try {
-                ResponseEntity<List> response = restTemplate.exchange(baseUrl+"/api/requests/building/" + buildingIdOfLoggedInUser, HttpMethod.GET, null, List.class);
+                ResponseEntity<List> response = restTemplate.exchange(requestUrl, HttpMethod.GET, null, List.class);
                 if (response.getStatusCode().is2xxSuccessful()) {
                     List<Request> requests = response.getBody();
                     System.out.println("RequestController - GET - getRequests -> requests -> " + requests);
