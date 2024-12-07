@@ -6,6 +6,7 @@ import com.team5.bms.model.Request;
 import com.team5.bms.model.User;
 import com.team5.bms.model.enumeration.Priorities;
 import com.team5.bms.model.enumeration.Roles;
+import com.team5.bms.model.enumeration.Statuses;
 
 import org.springframework.ui.Model;
 import com.team5.bms.model.Building;
@@ -28,6 +29,7 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -246,43 +248,47 @@ public class RequestController {
         
     }
     
-    /** @PostMapping("/create-user")
-    public String createUser(@Valid @ModelAttribute("user") User user, HttpSession session, BindingResult result, Model model) {
+    @PostMapping("/create-request")
+    public String createUser(@Valid @ModelAttribute("request") Request request, HttpSession session, BindingResult result, Model model) {
         
         if (result.hasErrors()) {
-            return "user-create"; // Returns the form view if there are validation errors
+            return "request-create"; // Returns the form view if there are validation errors
         }
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
-        Building building = (Building) session.getAttribute("buildingOfLoggedInUser");
-        user.setBuilding(building);
+        // Building building = (Building) session.getAttribute("buildingOfLoggedInUser");
+        request.setCreateDate(Instant.now());
+        request.setStatus(Statuses.CREATED);
+        request.setUpdateDate(Instant.now());
+        User loggedInUser = (User) session.getAttribute("loggedInUser"); // Should be Tenant, Owner or Administrator
+        request.setUser(loggedInUser);
 
-        // Save BMS User details
-        System.out.println("UserController - POST - createUser - request - user -> " + user);
+        // Save BMS Request details
+        System.out.println("RequestController - POST - createRequest - request -> " + request);
         try {
-            HttpEntity<User> entity = new HttpEntity<>(user, headers);
-            ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users", HttpMethod.POST, entity, User.class);
+            HttpEntity<Request> entity = new HttpEntity<>(request, headers);
+            ResponseEntity<Request> response = restTemplate.exchange(baseUrl+"/api/requests", HttpMethod.POST, entity, Request.class);
             if (response.getStatusCode().is2xxSuccessful()) {
-                User newBmsUser = response.getBody();
-                System.out.println("UserController - POST - createUser - response - newBmsUser -> " + newBmsUser);
-                user = newBmsUser;
-                System.out.println("UserController - POST - createUser - response - newBmsUser.getBuilding().getBuildingName() -> " + newBmsUser.getBuilding().getBuildingName());
+                Request newlyCreatedRequest = response.getBody();
+                System.out.println("UserController - POST - createRequest - response - newlyCreatedRequest  -> " + newlyCreatedRequest);
+                request = newlyCreatedRequest ;
+                System.out.println("UserController - POST - createUser - response - newlyCreatedRequest.getId() -> " + newlyCreatedRequest.getId() + ", newlyCreatedRequest.getTitle() -> " + newlyCreatedRequest.getTitle());
             } else {
-                model.addAttribute("message", "Failed to create BMS User.");
-                return "user-create";
+                model.addAttribute("message", "Failed to create BMS Request.");
+                return "request-create";
             }
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("message", "Error creating BMS User: " + e.getMessage());
-            return "user-create";
+            model.addAttribute("message", "Error creating BMS Request: " + e.getMessage());
+            return "request-create";
         }
 
-        model.addAttribute("user", user);
-        model.addAttribute("message", "BMS User created successful!");
-        return "user-created";
+        model.addAttribute("request", request);
+        model.addAttribute("message", "BMS Request created successful!");
+        return "request-created";
         
-    } **/
+    }
 
     @GetMapping("/requests/all")
     public String getAllRequests(HttpSession session, Model model) {
