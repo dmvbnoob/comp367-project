@@ -1,3 +1,4 @@
+<!-- @author Donalda Zhuga -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,27 +9,106 @@
         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/site.css">
         <link rel="stylesheet" href="/css/BMS.styles.css">
+        
+        <style>
+        
+         /* Global Styling */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #2C3E50 !important; /* Dark blue color */
+            border-bottom: 2px solid #1ABC9C; /* Accent color */
+        }
+        
+        .navbar-brand {
+            color: #ECF0F1 !important;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #ECF0F1 !important;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #1ABC9C !important;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #34495E;
+            color: #ECF0F1;
+            padding: 15px 0;
+            margin-top: auto;
+            text-align: center;
+        }
+        footer a {
+            color: #1ABC9C;
+        }
+        footer a:hover {
+            color: #ECF0F1;
+        }
+
+        /* Main Page Styling */
+        .main-content {
+            margin-top: 50px;
+            text-align: center;
+            color: #34495E;
+        }
+
+        /* Center Register Form */
+        .register-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 56px - 45px); /* Adjust height to center form (subtract navbar and footer heights) */
+        }
+        .register-form {
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.5em;
+            }
+            .navbar-nav .nav-link {
+                font-size: 1em;
+            }
+        }
+    </style>
     </head>
     <body>
-        <header b-c7vtn5ui3n="">
-            <nav b-c7vtn5ui3n="" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div b-c7vtn5ui3n="" class="container-fluid">
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
                     <a class="navbar-brand" href="/index">BMS</a>
-                    <button b-c7vtn5ui3n="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span b-c7vtn5ui3n="" class="navbar-toggler-icon"></span>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div b-c7vtn5ui3n="" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul b-c7vtn5ui3n="" class="navbar-nav flex-grow-1" th:if="${session.loggedInUser != null}">
-                            <li b-c7vtn5ui3n="" class="nav-item">
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1" th:if="${session.loggedInUser != null}">
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" href="/index">Home</a>
                             </li>
-                            <li b-c7vtn5ui3n="" class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" href="/privacy">Privacy</a>
                             </li>
-                            <li b-c7vtn5ui3n="" class="nav-item" th:if="${(session.loggedInUser.role.name() == 'OWNER' or session.loggedInUser.role.name() == 'ADMINISTRATOR')}">
+                            <li class="nav-item" th:if="${(session.loggedInUser.role.name() == 'OWNER' or session.loggedInUser.role.name() == 'ADMINISTRATOR')}">
                                 <a class="nav-link text-dark" href="/users">Users</a>
                             </li>
-                            <li b-c7vtn5ui3n="" class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" href="/requests">Requests</a>
                             </li>
                         </ul>
@@ -51,8 +131,8 @@
             </nav>
         </header>
 
-        <div b-c7vtn5ui3n="" class="container">
-            <main b-c7vtn5ui3n="" role="main" class="pb-3">  
+        <div class="container">
+            <main role="main" class="pb-3">  
                 <h2>Register</h2>
                 <div class="row">
                     <div class="col-md-4">
@@ -72,7 +152,7 @@
                                 <input class="form-control" id="buildingPhone" name="buildingPhone" placeholder="Building Phone" type="text" required pattern="^\+?[1-9]\d{1,14}$" title="Please enter a valid phone number (e.g., +1234567890)">
                                 <label for="buildingPhone">Building Phone</label>
                             </div>
-                            <h3>Card Details</h2>
+                            <h3>Card Details</h3>
                             <hr>
                             <!-- Card details -->
                             <div class="form-floating mb-3">
@@ -102,7 +182,6 @@
                                 <input class="form-control" id="password" name="password" placeholder="Password" type="password" required minlength="6" title="Password should be at least 6 characters long.">
                                 <label for="password">Password</label>
                             </div>
-                            <!-- TODO make another field here for CONFIRM PASSWORD-->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="firstname" name="firstname" placeholder="First Name" type="text" required pattern="^[A-Za-z\s]+$" title="First name should only contain letters and spaces.">
                                 <label for="firstname">First Name</label>
@@ -121,7 +200,6 @@
                             </div>
                             <input class="form-control" id="role" name="role" type="hidden" value="OWNER">
                             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-                            <!-- <input name="__RequestVerificationToken" type="hidden" value="CfDJ8GraB8kkNyBHl8LDMGvYFzlDqmFCmzDL5Gfa8PZQcIAQGSIGIeSbSdOGicP3ZvB8YYuN8xgKzIvwjlLTAF878KFr8CT82jYovzAXKHYLmNoqftjbF8ew9ppJ-veK8w2HKRge0wbzrFTVlmgjSR3TYRE"> -->
                         </form>
                     </div>
                     <div class="col-md-6 col-md-offset-2">
@@ -129,9 +207,7 @@
                             <h3>Building Owner User Registration</h3>
                             <hr>
                             <div>
-                                <p>
-                                Please register your Building, Credit Card and User Account details to get started!</a>.
-                                </p>
+                                <p>Please register your Building, Credit Card, and User Account details to get started!</p>
                             </div>
                         </section>
                     </div>
@@ -139,16 +215,14 @@
             </main>
         </div>
 
-        <footer b-c7vtn5ui3n="" class="border-top footer text-muted">
-            <div b-c7vtn5ui3n="" class="container">
-                © 2024 - BMS - <a href="/privacy">Privacy</a>
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                © 2024 - BMS | Team 5 Tower - <a href="/privacy">Privacy</a>
             </div>
         </footer>
         
         <script src="/lib/jquery/js/jquery.min.js"></script>
         <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="/js/site.js"></script>
-        <script type="text/javascript" src="/js/browserLink" async="async" id="__browserLink_initializationData" data-requestid="0e7f63f54dbc48649145a877fa2cd928" data-requestmappingfromserver="false" data-connecturl="@{/js/browserLink}"></script>
-        <script src="/js/aspnetcore-browser-refresh.js"></script>
     </body>
 </html>

@@ -1,3 +1,4 @@
+<!-- @author Donalda Zhuga -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,6 +9,92 @@
         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/site.css">
         <link rel="stylesheet" href="/css/BMS.styles.css">
+
+        <!-- Added CSS Styling -->
+        <style>
+            /* Global Styling */
+            html, body {
+                height: 100%;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* Navbar Styling */
+            .navbar {
+                background-color: #2C3E50 !important; /* Dark blue color */
+                border-bottom: 2px solid #1ABC9C; /* Accent color */
+            }
+            .navbar-brand {
+                color: #ECF0F1 !important;
+                font-size: 1.8em;
+                font-weight: bold;
+            }
+            .navbar-nav .nav-link {
+                color: #ECF0F1 !important;
+                font-size: 1.8em;
+                font-weight: bold;
+            }
+            .navbar-nav .nav-link:hover {
+                color: #1ABC9C !important;
+            }
+
+            /* Footer Styling */
+            footer {
+                background-color: #34495E; /* Dark footer background */
+                color: #ECF0F1;
+                padding: 15px 0;
+                margin-top: auto; /* Push footer to the bottom */
+                text-align: center;
+            }
+            footer a {
+                color: #1ABC9C;
+            }
+            footer a:hover {
+                color: #ECF0F1;
+            }
+
+            /* Main Page Styling */
+            .main-content {
+                margin-top: 50px;
+                text-align: center;
+                color: #34495E;
+            }
+
+            /* Center "Welcome" text and make it bold */
+            .main-content h1 {
+                margin-bottom: 10px; /* Reduced space between text and logo */
+                font-size: 3em;
+                color: #34495E;
+                font-weight: bold;
+            }
+
+            /* Center Login Form */
+            .login-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: calc(100vh - 56px - 45px); /* Adjust height to center form (subtract navbar and footer heights) */
+            }
+            .login-form {
+                width: 100%;
+                max-width: 450px; /* Increased max-width */
+                padding: 40px; /* Increased padding for a larger form */
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                background-color: #fff;
+            }
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .navbar-brand {
+                    font-size: 1.5em;
+                }
+                .navbar-nav .nav-link {
+                    font-size: 1em;
+                }
+            }
+        </style>
     </head>
     <body>
         <header b-c7vtn5ui3n="">
@@ -93,33 +180,19 @@
                 <p>Depending on your location, you may have the following rights:</p>
                 <ul>
                     <li>The right to access – You have the right to request copies of your personal data.</li>
-                    <li>The right to rectification – You have the right to request that we correct any information you believe is inaccurate or incomplete.</li>
+                    <li>The right to rectification – You have the right to request that we correct any information you believe is inaccurate or complete information you believe is incomplete.</li>
                     <li>The right to erasure – You have the right to request that we erase your personal data, under certain conditions.</li>
-                    <li>The right to restrict processing – You have the right to request that we restrict the processing of your personal data, under certain conditions.</li>
-                    <li>The right to object to processing – You have the right to object to our processing of your personal data, under certain conditions.</li>
-                    <li>The right to data portability – You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions.</li>
                 </ul>
                 <h2>6. Changes to This Privacy Policy</h2>
-                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
-                <h2>7. Contact Us</h2>
-                <p>If you have any questions about this Privacy Policy, please contact us at:</p>
-                <ul>
-                    <li>Email: support@leandrotech.com</li>
-                    <li>Address: 123 Technology Way Test, Toronto, Ontario, Canada</li>
-                </ul>
+                <p>We may update our Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date. We encourage you to review this policy periodically for any updates.</p>
+                <h2>Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:privacy@leandrotech.com">privacy@leandrotech.com</a></p>
             </main>
         </div>
-
-        <footer b-c7vtn5ui3n="" class="border-top footer text-muted">
-            <div b-c7vtn5ui3n="" class="container">
-                © 2024 - BMS - <a href="/privacy">Privacy</a>
-            </div>
+        <footer class="container-fluid">
+            <p>&copy; © 2024 - BMS | Team 5 Tower - <a href="/privacy">Privacy</a></p>
         </footer>
 
-        <script src="/lib/jquery/js/jquery.min.js"></script>
         <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/js/site.js"></script>
-        <script type="text/javascript" src="/js/browserLink" async="async" id="__browserLink_initializationData" data-requestid="0e7f63f54dbc48649145a877fa2cd928" data-requestmappingfromserver="false" data-connecturl="@{/js/browserLink}"></script>
-        <script src="/js/aspnetcore-browser-refresh.js"></script>
     </body>
 </html>
