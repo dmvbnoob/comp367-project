@@ -155,6 +155,7 @@ public class BmsApplication implements CommandLineRunner {
 		request1.setStatus(Statuses.ASSIGNED);
 		request1.setPriority(Priorities.LOW);
 		request1.setUpdateDate(Instant.now());
+		request1.setAssignDate(Instant.now());
 		request1.setAssigneeId(superIntendent.getId());
 		request1.setAssignee(superIntendent.getUsername());
 		requestRepository.save(request1);

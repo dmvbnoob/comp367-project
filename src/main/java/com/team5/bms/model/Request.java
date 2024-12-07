@@ -53,18 +53,21 @@ public class Request implements Serializable {
  
     @Column(name = "create_date")
     private Instant createDate;
+    
+    @Column(name = "assign_date")
+    private Instant assignDate;
+    
+    @Column(name = "assignee_id")
+    private Long assigneeId;
+    
+    @Column(name = "assignee")
+    private String assignee;
  
     @Column(name = "progress_date")
     private Instant progressDate;
  
     @Column(name = "update_date")
     private Instant updateDate;
- 
-    @Column(name = "assigneeId")
-    private Long assigneeId;
-    
-    @Column(name = "assignee")
-    private String assignee;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "priority")
@@ -155,7 +158,19 @@ public class Request implements Serializable {
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
     }
+    
+    public Instant getAssignDate() {
+        return this.assignDate;
+    }
  
+    public Request assignDate(Instant assignDate) {
+        this.setAssignDate(assignDate);
+        return this;
+    }
+ 
+    public void setAssignDate(Instant assignDate) {
+        this.assignDate = assignDate;
+    }
     public Instant getProgressDate() {
         return this.progressDate;
     }

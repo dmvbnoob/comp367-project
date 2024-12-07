@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Requests - BMS</title>
+        <title>Create Request - BMS</title>
         <link rel="icon" type="image/x-icon" href="/favicon.png">
         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/site.css">
@@ -43,7 +43,7 @@
                                 <a class="nav-link text-dark" th:href="@{/edit-user/{id}(id=${session.loggedInUser.id})}" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
                             </li>
                             <li class="nav-item" th:if="${session.loggedInUser != null}">
-                                <a class="nav-link text-dark" href="/logout">Logout</a>
+                                <a href="/logout" class="nav-link text-dark">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -52,45 +52,34 @@
         </header>
 
         <div b-c7vtn5ui3n="" class="container">
-            <main b-c7vtn5ui3n="" role="main" class="pb-3">
-                <h1>Requests</h1>
-                <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
-        		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        			<span th:text="${message}"></span>
-    			</div>
-    			<!-- Creating Request is NOT for the SUPERINTENDENT Role -->
-                <p th:if="${(session.loggedInUser.role.name() != 'SUPERINTENDENT')}">
-                    <a th:href="@{/create-request}" class="btn btn-success btn-sm">Create New Request</a>
-                </p>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Username</th>
-                            <th>Status</th>
-                            <th>Priority</th>
-                            <th>Assignee</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Iterate over the list of users, exclude -->
-                        <tr th:each="request : ${requests}" > <!-- th:if="${user.role != 'OWNER'}" -->
-                            <td th:text="${request.id}">Id</td>
-                            <td th:text="${request.title}">Title</td>
-                            <td th:text="${request.user.username}">Username</td>
-                            <td th:text="${request.status}">Status</td>
-                            <td th:text="${request.priority}">Priority</td>
-                            <td th:text="${request.assignee != null and not #strings.isEmpty(request.assignee) ? request.assignee : 'UNASSIGNED'}">Assignee</td>
-                            <td>
-                                <a th:href="@{/edit-request/{id}(id=${request.id})}" class="btn btn-warning btn-sm">Edit</a>
-                                <a th:href="@{/request/{id}(id=${request.id})}" class="btn btn-info btn-sm">Details</a>
-                                <a th:href="@{/delete-request/{id}(id=${request.id})}" class="btn btn-danger btn-sm">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <main b-c7vtn5ui3n="" role="main" class="pb-3">  
+                <h2>Create</h2>
+                <div class="row">
+                    <div class="col-md-5">
+                        <form id="createRequestForm" method="post" action="/create-request">
+                            <h3>BMS Request Details</h3>
+                            <hr>
+                            <!-- BMS Request Details -->
+                            <div class="form-floating mb-4">
+                                <input class="form-control" id="title" name="title" placeholder="Title" required type="text" maxlength="50" title="Title should be at most 50 characters long.">
+                                <label for="title">Title</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <!-- <input class="form-control" id="description" name="description" placeholder="Description"  required  type="description">  -->
+                                <textarea class="form-control" id="description" name="description" placeholder="Description" style="min-height: 200px;" required rows="7" maxlength="500" title="Description should be at most 500 characters long."></textarea>
+                                <label for="description">Description</label>
+                            </div>
+                            <div class="form-floating mb-4" th:if="${(session.loggedInUser.role.name() != 'SUPERINTENDENT')}">
+                                <select class="form-select" id="priority" name="priority" required>
+                                    <option value="" disabled selected>Select Priority</option>
+                                    <option th:each="priority : ${priorities}" th:value="${priority}" th:text="${priority.name()}"></option>
+                                </select>
+                                <label for="priority">Priority</label>
+                            </div>
+                            <button id="createRequestSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Create Request</button>
+                        </form>
+                    </div>
+                </div>
             </main>
         </div>
 

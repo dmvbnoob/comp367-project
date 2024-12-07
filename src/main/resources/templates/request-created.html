@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Requests - BMS</title>
+        <title>Request Created - BMS</title>
         <link rel="icon" type="image/x-icon" href="/favicon.png">
         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/site.css">
@@ -52,47 +52,68 @@
         </header>
 
         <div b-c7vtn5ui3n="" class="container">
-            <main b-c7vtn5ui3n="" role="main" class="pb-3">
-                <h1>Requests</h1>
+            <main b-c7vtn5ui3n="" role="main" class="pb-3">  
+                <h2>Creation Successful</h2>
+                <h3>BMS User Created</h3>
                 <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
         		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         			<span th:text="${message}"></span>
     			</div>
-    			<!-- Creating Request is NOT for the SUPERINTENDENT Role -->
-                <p th:if="${(session.loggedInUser.role.name() != 'SUPERINTENDENT')}">
-                    <a th:href="@{/create-request}" class="btn btn-success btn-sm">Create New Request</a>
-                </p>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Username</th>
-                            <th>Status</th>
-                            <th>Priority</th>
-                            <th>Assignee</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Iterate over the list of users, exclude -->
-                        <tr th:each="request : ${requests}" > <!-- th:if="${user.role != 'OWNER'}" -->
-                            <td th:text="${request.id}">Id</td>
-                            <td th:text="${request.title}">Title</td>
-                            <td th:text="${request.user.username}">Username</td>
-                            <td th:text="${request.status}">Status</td>
-                            <td th:text="${request.priority}">Priority</td>
-                            <td th:text="${request.assignee != null and not #strings.isEmpty(request.assignee) ? request.assignee : 'UNASSIGNED'}">Assignee</td>
-                            <td>
-                                <a th:href="@{/edit-request/{id}(id=${request.id})}" class="btn btn-warning btn-sm">Edit</a>
-                                <a th:href="@{/request/{id}(id=${request.id})}" class="btn btn-info btn-sm">Details</a>
-                                <a th:href="@{/delete-request/{id}(id=${request.id})}" class="btn btn-danger btn-sm">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <hr/>
+                <div class="row">
+                    <div class="col-md-4">
+                            <h4>BMS User Details</h4>
+                            <hr>
+                            <div class="form-floating mb-3">
+                                <input type="text" th:value="*{user.username}" readonly class="form-control" />
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="form-floating mb-3" th:with="fullname=${user.firstname + ' ' + user.lastname}">
+                                <input type="text" th:value="*{fullname}" readonly class="form-control" />
+                                <label for="firstname">Full Name</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" th:value="*{user.role}" readonly class="form-control" />
+                                <label for="role">Role</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" th:value="*{user.email}" readonly class="form-control" />
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" th:value="*{user.userPhone}" readonly class="form-control" />
+                                <label for="userPhone">Phone Number</label>
+                            </div>
+                            <a href="/create-user" class="w-100 btn btn-lg btn-primary">Create Another New BMS User</a>
+                            <!-- <a th:href="@{/create-user}" class="w-100 btn btn-success btn-lg">Create New User</a> -->
+                    </div>
+                </div>
             </main>
         </div>
+        
+		<!-- <div b-c7vtn5ui3n="" class="container">
+        	<main b-c7vtn5ui3n="" role="main" class="pb-3" >
+            	<h2>User Created Successfully!</h2>
+            	<div class="row">
+                	<div class="col-md-6">
+                    	<div class="alert alert-success" role="alert">
+                        	<h4 class="alert-heading">Success!</h4>
+                        	<p>Your user account has been created successfully.</p>
+                        	<hr>
+                        	<p class="mb-0">You can now <a href="/login">login</a> with your new credentials.</p>
+                    	</div>
+                	</div>
+                	<div class="col-md-6">
+                    	<h3>Next Steps</h3>
+                    	<ul>
+                        	<li><a href="/profile">View Profile</a></li>
+                        	<li><a href="/users">Manage Users (If you are an admin)</a></li>
+                    	</ul>
+                	</div>
+            	</div>
+        	</main>
+    	</div> -->
+        
 
         <footer b-c7vtn5ui3n="" class="border-top footer text-muted">
             <div b-c7vtn5ui3n="" class="container">
