@@ -33,6 +33,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.PathVariable;
 
+/** @author Stephanie Santos
+ * Handles the "/index" URL for logged-in users.
+ * Displays the user's dashboard with their building details and a welcome message.
+ * Ensures that logged-in user information is retrieved from the session.
+ */
+
 @Controller
 public class UserController {
 
@@ -44,6 +50,18 @@ public class UserController {
 
     private String baseUrl;
     
+    @GetMapping("/index") 
+    public String showIndexPage(HttpSession session, Model model) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            Building building = (Building) session.getAttribute("buildingOfLoggedInUser");
+            model.addAttribute("building", building);
+            model.addAttribute("user", loggedInUser);
+            model.addAttribute("message", "Welcome back, " + loggedInUser.getFirstname() + "!");
+        }
+        return "index";
+    }
+
     @GetMapping("/delete-user/{id}")
     public String showDeleteUserPage(@PathVariable("id") Long id, HttpServletRequest request, Model model) {
     	
