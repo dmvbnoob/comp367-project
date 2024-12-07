@@ -1,113 +1,212 @@
+<!-- /* Author: Alicia Singca 
+        updated the design */ -->
+
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Delete User - BMS</title>
-        <link rel="icon" type="image/x-icon" href="/favicon.png">
-        <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/site.css">
-        <link rel="stylesheet" href="/css/BMS.styles.css">
-    </head>
-    <body>
-        <header b-c7vtn5ui3n="">
-            <nav b-c7vtn5ui3n="" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div b-c7vtn5ui3n="" class="container-fluid">
-                    <a class="navbar-brand" href="/index">BMS</a>
-                    <button b-c7vtn5ui3n="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span b-c7vtn5ui3n="" class="navbar-toggler-icon"></span>
-                    </button>
-                    <div b-c7vtn5ui3n="" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul b-c7vtn5ui3n="" class="navbar-nav flex-grow-1" th:if="${session.loggedInUser != null}">
-                            <li b-c7vtn5ui3n="" class="nav-item">
-                                <a class="nav-link text-dark" href="/index">Home</a>
-                            </li>
-                            <li b-c7vtn5ui3n="" class="nav-item">
-                                <a class="nav-link text-dark" href="/privacy">Privacy</a>
-                            </li>
-                            <li b-c7vtn5ui3n="" class="nav-item" th:if="${(session.loggedInUser.role.name() == 'OWNER' or session.loggedInUser.role.name() == 'ADMINISTRATOR')}">
-                                <a class="nav-link text-dark" href="/users">Users</a>
-                            </li>
-                            <li b-c7vtn5ui3n="" class="nav-item">
-                                <a class="nav-link text-dark" href="/requests">Requests</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item" th:if="${session.loggedInUser == null}">
-                                <a class="nav-link text-dark" href="/register">Register</a>
-                            </li>
-                            <li class="nav-item" th:if="${session.loggedInUser == null}">
-                                <a class="nav-link text-dark" href="/login">Login</a>
-                            </li>
-                            <li class="nav-item" th:if="${session.loggedInUser != null}">
-                                <a class="nav-link text-dark" th:href="@{/edit-user/{id}(id=${session.loggedInUser.id})}" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
-                            </li>
-                            <li class="nav-item" th:if="${session.loggedInUser != null}">
-                                <a class="nav-link text-dark" href="/logout">Logout</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete User - BMS</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="/css/BMS.styles.css">
+    <style>
+        /* Global Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F7F9FA; /* Light grey background */
+            color: #34495E; /* Dark blue text color */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-        <div b-c7vtn5ui3n="" class="container">
-            <main b-c7vtn5ui3n="" role="main" class="pb-3">  
-                <h2>Delete</h2>
-                <div class="row">
-                    <div class="col-md-4">                
-                    	<form id="deleteUserForm" method="post" action="/delete-user">
-                            <h3>Delete BMS User?</h3>
-                            <hr>
-                            <div class="form-floating mb-3">
-                                <input th:value="*{user.username}" readonly class="form-control"  placeholder="Username" id="username" name="username" type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
-                                <label for="username">Username</label>
+        header {
+            margin-bottom: 20px;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #2C3E50; /* Dark blue background */
+            border-bottom: 3px solid #1ABC9C; /* Accent color */
+        }
+
+        .navbar-brand {
+            color: #ECF0F1 !important;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ECF0F1 !important;
+            font-size: 1em;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #1ABC9C !important;
+        }
+
+        /* Main Content Styling */
+        main {
+            flex-grow: 1;
+        }
+
+        .card {
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .card-header {
+            background-color: #E74C3C; /* Red background */
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .btn {
+            font-size: 1em;
+            border-radius: 5px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #34495E;
+            color: #ECF0F1;
+            padding: 15px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: #1ABC9C;
+        }
+
+        footer a:hover {
+            color: #ECF0F1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.5em;
+            }
+
+            .navbar-nav .nav-link {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/index">BMS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1" th:if="${session.loggedInUser != null}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item" th:if="${(session.loggedInUser.role.name() == 'OWNER' or session.loggedInUser.role.name() == 'ADMINISTRATOR')}">
+                            <a class="nav-link" href="/users">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/requests">Requests</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item" th:if="${session.loggedInUser == null}">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.loggedInUser == null}">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.loggedInUser != null}">
+                            <a class="nav-link" th:href="@{/edit-user/{id}(id=${session.loggedInUser.id})}" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
+                        </li>
+                        <li class="nav-item" th:if="${session.loggedInUser != null}">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-4">
+        <main role="main">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">Delete BMS User</h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Are you sure you want to delete this user? This action cannot be undone.</p>
+                    <form id="deleteUserForm" method="post" action="/delete-user">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="username" class="form-label">Username</label>
+                                <input th:value="*{user.username}" readonly class="form-control" id="username" name="username" type="text" required pattern="^[A-Za-z0-9_]{3,20}$" title="Username should be between 3 to 20 characters and only contain letters, numbers, or underscores.">
                             </div>
-                            <div class="form-floating mb-3">
-                                <input th:value="*{user.password}" readonly class="form-control"  placeholder="Password" id="password" name="password" type="password" required minlength="6" title="Password should be at least 6 characters long.">
-                                <label for="password">Password</label>
+                            <div class="col-md-6">
+                                <label for="password" class="form-label">Password</label>
+                                <input th:value="*{user.password}" readonly class="form-control" id="password" name="password" type="password" required minlength="6" title="Password should be at least 6 characters long.">
                             </div>
-                            <div class="form-floating mb-3">
-                                <input th:value="*{user.firstname}" readonly class="form-control" placeholder="First Name" id="firstname" name="firstname" type="text" required pattern="^[A-Za-z\s]+$" title="First name should only contain letters and spaces.">
-                                <label for="firstname">First Name</label>
+                            <div class="col-md-6">
+                                <label for="firstname" class="form-label">First Name</label>
+                                <input th:value="*{user.firstname}" readonly class="form-control" id="firstname" name="firstname" type="text" required pattern="^[A-Za-z\s]+$" title="First name should only contain letters and spaces.">
                             </div>
-                          	<div class="form-floating mb-3">
-                                <input th:value="*{user.lastname}" readonly class="form-control" id="lastname" name="lastname" placeholder="Last Name" type="text" required pattern="^[A-Za-z\s]+$" title="Last name should only contain letters and spaces.">
-                                <label for="lastname">Last Name</label>
+                            <div class="col-md-6">
+                                <label for="lastname" class="form-label">Last Name</label>
+                                <input th:value="*{user.lastname}" readonly class="form-control" id="lastname" name="lastname" type="text" required pattern="^[A-Za-z\s]+$" title="Last name should only contain letters and spaces.">
                             </div>
-                            <div class="form-floating mb-3">
-                                <input th:value="*{user.email}" readonly class="form-control" id="email" name="email" placeholder="Email" type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address (e.g., example@domain.com)">
-                                <label for="email">Email</label>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input th:value="*{user.email}" readonly class="form-control" id="email" name="email" type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address (e.g., example@domain.com)">
                             </div>
-                            <div class="form-floating mb-3">
-                                <input th:value="*{user.userPhone}" readonly class="form-control" id="userPhone" name="userPhone" placeholder="Phone Number" type="tel" required pattern="^\+?[0-9]{10,15}$" title="Phone number should contain 10 to 15 digits and may start with a plus sign.">
-                                <label for="userPhone">Phone Number</label>
+                            <div class="col-md-6">
+                                <label for="userPhone" class="form-label">Phone Number</label>
+                                <input th:value="*{user.userPhone}" readonly class="form-control" id="userPhone" name="userPhone" type="tel" required pattern="^\+?[0-9]{10,15}$" title="Phone number should contain 10 to 15 digits and may start with a plus sign.">
                             </div>
-                            <div class="form-floating mb-3">
+                            <div class="col-md-12">
+                                <label for="role" class="form-label">Role</label>
                                 <select class="form-select" id="role" name="role" disabled readonly required>
                                     <option value="" disabled selected>Select Role</option>
                                     <option th:each="role : ${roles}" th:value="${role}" th:text="${role.name()}" th:if="${role != 'OWNER'}" th:selected="${role == user.role}"></option>
                                 </select>
-                                <label for="role">Role</label>
                             </div>
                             <input th:value="*{user.id}" type="hidden" id="id" name="id">
-                            <button id="editSubmit" type="submit" class="w-100 btn btn-lg btn-danger">Delete BMS User</button>
-                    	</form>
-                    </div>
+                        </div>
+                        <button id="editSubmit" type="submit" class="btn btn-danger mt-3 w-100">Delete User</button>
+                    </form>
                 </div>
-            </main>
-        </div>
-       
-        <footer b-c7vtn5ui3n="" class="border-top footer text-muted">
-            <div b-c7vtn5ui3n="" class="container">
-                © 2024 - BMS - <a href="/privacy">Privacy</a>
             </div>
-        </footer>
-        
-        <script src="/lib/jquery/js/jquery.min.js"></script>
-        <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/js/site.js"></script>
-        <script type="text/javascript" src="/js/browserLink" async="async" id="__browserLink_initializationData" data-requestid="0e7f63f54dbc48649145a877fa2cd928" data-requestmappingfromserver="false" data-connecturl="@{/js/browserLink}"></script>
-        <script src="/js/aspnetcore-browser-refresh.js"></script>
-    </body>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 BMS. All rights reserved. <a href="/terms">Terms of Use</a> | <a href="/privacy">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
