@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home - BMS</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.png">
+        <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/site.css">
+        <link rel="stylesheet" href="/css/BMS.styles.css">
+    </head>
+    <body>
+        <header b-c7vtn5ui3n="">
+            <nav b-c7vtn5ui3n="" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div b-c7vtn5ui3n="" class="container-fluid">
+                    <a class="navbar-brand" href="/index">BMS</a>
+                    <button b-c7vtn5ui3n="" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span b-c7vtn5ui3n="" class="navbar-toggler-icon"></span>
+                    </button>
+                    <div b-c7vtn5ui3n="" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul b-c7vtn5ui3n="" class="navbar-nav flex-grow-1" th:if="${session.loggedInUser != null}">
+                            <li b-c7vtn5ui3n="" class="nav-item">
+                                <a class="nav-link text-dark" href="/index">Home</a>
+                            </li>
+                            <li b-c7vtn5ui3n="" class="nav-item">
+                                <a class="nav-link text-dark" href="/privacy">Privacy</a>
+                            </li>
+                            <li b-c7vtn5ui3n="" class="nav-item" th:if="${(session.loggedInUser.role.name() == 'OWNER' or session.loggedInUser.role.name() == 'ADMINISTRATOR')}">
+                                <a class="nav-link text-dark" href="/users">Users</a>
+                            </li>
+                            <li b-c7vtn5ui3n="" class="nav-item">
+                                <a class="nav-link text-dark" href="/requests">Requests</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item" th:if="${session.loggedInUser == null}">
+                                <a class="nav-link text-dark" href="/register">Register</a>
+                            </li>
+                            <li class="nav-item" th:if="${session.loggedInUser == null}">
+                                <a class="nav-link text-dark" href="/login">Login</a>
+                            </li>
+                            <li class="nav-item" th:if="${session.loggedInUser != null}">
+                                <a class="nav-link text-dark" th:href="@{/edit-user/{id}(id=${session.loggedInUser.id})}" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
+                            </li>
+                            <li class="nav-item" th:if="${session.loggedInUser != null}">
+                                <a href="/logout" class="nav-link text-dark">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div b-c7vtn5ui3n="" class="container">
+            <main b-c7vtn5ui3n="" role="main" class="pb-3">
+                <div class="text-center">
+                    <h1 class="display-4">Welcome</h1>
+                    <p>Welcome to Leandro Technologies' BMS Cloud!</p>
+                </div>
+            </main>
+        </div>
+
+        <footer b-c7vtn5ui3n="" class="border-top footer text-muted">
+            <div b-c7vtn5ui3n="" class="container">
+                © 2024 - BMS - <a href="/privacy">Privacy</a>
+            </div>
+        </footer>
+        
+        <script src="/lib/jquery/js/jquery.min.js"></script>
+        <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/site.js"></script>
+        <script type="text/javascript" src="/js/browserLink" async="async" id="__browserLink_initializationData" data-requestid="0e7f63f54dbc48649145a877fa2cd928" data-requestmappingfromserver="false" data-connecturl="@{/js/browserLink}"></script>
+        <script src="/js/aspnetcore-browser-refresh.js"></script>
+    </body>
+</html>
