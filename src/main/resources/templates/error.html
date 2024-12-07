@@ -1,12 +1,16 @@
-<!-- @author Donalda Zhuga -->
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.thymeleaf.org"
+  th:lang="${#locale.language}"
+  lang="en"
+>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="icon" href="${baseUrl}/favicon.ico" />
     <title>Your request cannot be processed</title>
     <style>
-      /* Global Styling */
       ::-moz-selection {
         background: #b3d4fc;
         text-shadow: none;
@@ -27,17 +31,21 @@
         -ms-text-size-adjust: 100%;
       }
 
-      html, input {
+      html,
+      input {
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       }
 
       body {
         max-width: 1000px;
+        _width: 500px;
         padding: 30px 20px 50px;
         border: 1px solid #b3b3b3;
         border-radius: 4px;
         margin: 0 auto;
-        box-shadow: 0 1px 10px #a7a7a7, inset 0 1px 0 #fff;
+        box-shadow:
+          0 1px 10px #a7a7a7,
+          inset 0 1px 0 #fff;
         background: #fcfcfc;
       }
 
@@ -45,8 +53,6 @@
         margin: 0 10px;
         font-size: 50px;
         text-align: center;
-        color: #34495E;
-        font-weight: bold;
       }
 
       h1 span {
@@ -55,12 +61,10 @@
 
       h3 {
         margin: 1.5em 0 0.5em;
-        color: #34495E;
       }
 
       p {
         margin: 1em 0;
-        color: #34495E;
       }
 
       ul {
@@ -70,106 +74,21 @@
 
       .container {
         max-width: 800px;
+        _width: 380px;
         margin: 0 auto;
-      }
-
-      /* Navbar Styling */
-      .navbar {
-        background-color: #2C3E50;
-        border-bottom: 2px solid #1ABC9C;
-      }
-
-      .navbar-brand {
-        color: #ECF0F1 !important;
-        font-size: 1.8em;
-        font-weight: bold;
-      }
-
-      .navbar-nav .nav-link {
-        color: #ECF0F1 !important;
-        font-size: 1.8em;
-        font-weight: bold;
-      }
-
-      .navbar-nav .nav-link:hover {
-        color: #1ABC9C !important;
-      }
-
-      /* Footer Styling */
-      footer {
-        background-color: #34495E;
-        color: #ECF0F1;
-        padding: 15px 0;
-        margin-top: auto;
-        text-align: center;
-      }
-
-      footer a {
-        color: #1ABC9C;
-      }
-
-      footer a:hover {
-        color: #ECF0F1;
       }
     </style>
   </head>
-
   <body>
-    <header>
-      <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/index">BMS</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-              <li class="nav-item">
-                <a class="nav-link text-dark" href="/index">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-dark" href="/privacy">Privacy</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-dark" href="/requests">Requests</a>
-              </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link text-dark" href="/login">Login</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-
     <div class="container">
-      <main role="main" class="pb-3">
-        <div class="main-content">
-          
-          <h1>Your request cannot be processed <span>:(</span></h1>
+      <h1 th:text="#{error.title}">Your request cannot be processed <span>:(</span></h1>
 
-       
-          <p>Sorry, an error has occurred.</p>
+      <p th:text="#{error.subtitle}">Sorry, an error has occurred.</p>
 
-          
-          <span>Status:</span>&nbsp;<span th:text="${error}"></span><br />
-          <span th:if="${!#strings.isEmpty(message)}">
-            <span>Message:</span>&nbsp;<span th:text="${message}"></span><br />
-          </span>
-        </div>
-      </main>
+      <span th:text="#{error.status}">Status:</span>&nbsp;<span th:text="${error}"></span>&nbsp;(<span th:text="${error}"></span>)<br />
+      <span th:if="${!#strings.isEmpty(message)}">
+        <span th:text="#{error.message}">Message:</span>&nbsp;<span th:text="${message}"></span><br />
+      </span>
     </div>
-
-    <footer class="border-top footer text-muted">
-      <div class="container">
-       © 2024 - BMS | Team 5 Tower - <a href="/privacy">Privacy</a>
-      </div>
-    </footer>
-
-    <script src="/lib/jquery/js/jquery.min.js"></script>
-    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/site.js"></script>
   </body>
 </html>
