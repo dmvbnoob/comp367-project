@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 /** @author Stephanie Santos
- * Handles the root URL ("/") for non-logged-in users.
+ * Handles the root URL ("/") for non-logged-in users. test
  * This is the public home page, distinct from the logged-in user's dashboard.
  * The logged-in user's dashboard is handled by UserController at "/index".
  */
