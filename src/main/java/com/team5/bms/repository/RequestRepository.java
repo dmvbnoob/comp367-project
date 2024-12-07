@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 /**
 * Spring Data JPA repository for the Request entity.
 *
-* @author Jophiel John "FullStack ChatGPT Summoner" Serrano
+* @author Jophiel John Serrano
 * @author Leandro Mananquil "The Project Manager"
 * @author Jasper Belenzo
 *
