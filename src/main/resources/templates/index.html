@@ -13,23 +13,55 @@
         html, body {
             height: 100%;
             margin: 0;
+        }
+
+        body {
             display: flex;
             flex-direction: column;
+        }
+
+        .full-screen-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background-image: url('/images/logo1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #34495E;
+            background: rgba(255, 255, 255, 0.8); /* Optional: Add a slight background for readability */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .main-content h1 {
+            margin-bottom: 10px;
+            font-size: 3em;
+            font-weight: bold;
         }
 
         /* Navbar Styling */
         .navbar {
             background-color: #2C3E50; /* Dark blue color */
-            border-bottom: 2px solid #1ABC9C; 
+            border-bottom: 2px solid #1ABC9C;
         }
         .navbar-brand {
             color: #ECF0F1 !important;
-            font-size: 1.8em;
+            font-size: 1.5em;
             font-weight: bold;
         }
         .navbar-nav .nav-link {
             color: #ECF0F1 !important;
-            font-size: 1.8em;
+            font-size: 1.5em;
             font-weight: bold;
         }
         .navbar-nav .nav-link:hover {
@@ -38,10 +70,9 @@
 
         /* Footer Styling */
         footer {
-            background-color: #34495E; 
+            background-color: #34495E;
             color: #ECF0F1;
             padding: 15px 0;
-            margin-top: auto; 
             text-align: center;
         }
         footer a {
@@ -51,33 +82,6 @@
             color: #ECF0F1;
         }
 
-        /* Logo Styling */
-        .logo-container {
-            text-align: center;
-            margin-top: 20px; 
-        }
-        .logo-container img {
-            max-width: 100%;
-            height: auto;
-            max-height: 500px; 
-        }
-
-        /* Main Page Styling */
-        .main-content {
-            margin-top: 50px;
-            text-align: center;
-            color: #34495E;
-        }
-
-        
-        .main-content h1 {
-            margin-bottom: 10px; 
-            font-size: 3em;
-            color: #34495E;
-            font-weight: bold;
-        }
-
-        
         @media (max-width: 768px) {
             .navbar-brand {
                 font-size: 1.5em;
@@ -131,28 +135,27 @@
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            <div class="main-content">
-                <!-- Centered and bold "Welcome" -->
-                <h1 class="display-10 text-center font-weight-bold">Welcome</h1>
-
-                <!-- Centering the logo and making it larger -->
-                <div class="logo-container text-center">
-                    <img src="/images/logo.png" alt="Logo" class="logo-img">
-                </div>
-                <!-- Stephanie added building details -->
-                <div th:if="${building != null}">
-                    <p><strong>Your Building Details:</strong></p>
-                    <p>Building Name: <span th:text="${building.buildingName}"></span></p>
-                    <p>Address: <span th:text="${building.address}"></span></p>
-                    <p>Contact: <span th:text="${building.buildingPhone}"></span></p>
-                </div>
-                <div th:if="${building == null}">
-                    <p>No building details available. Please contact the administrator.</p>
-                </div>
+    <div class="full-screen-container">
+        <div class="main-content">
+            <!-- Centered and bold "Welcome" with user's name -->
+            <h1 class="display-10 text-center font-weight-bold">
+                <span th:if="${session.loggedInUser != null}" th:text="'Welcome ' + ${session.loggedInUser.username} + '!'">Welcome!</span>
+                <span th:if="${session.loggedInUser == null}">Welcome!</span>
+            </h1>
+            
+            <!-- Stephanie added building details -->
+            <!-- Donalda made changes -->
+            <div th:if="${building != null}">
+                <p><strong>Building Details:</strong></p>
+                <p>Building Name: <span th:text="${building.buildingName}"></span></p>
+                <p>Building Address: <span th:text="${building.address}"></span></p>
+                <p>Building Contact: <span th:text="${building.buildingPhone}"></span></p>
+                <p>Building Email: tower5@delcondo.com</p>
             </div>
-        </main>
+            <div th:if="${building == null}">
+                <p>Login to see building information or contact the administrator.</p>
+            </div>
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
