@@ -1,6 +1,7 @@
 package com.team5.bms.web.rest;
  
 import com.team5.bms.model.User;
+import com.team5.bms.model.enumeration.Roles;
 import com.team5.bms.repository.UserRepository;
 import com.team5.bms.service.UserService;
 import com.team5.bms.web.rest.errors.BadRequestAlertException;
@@ -11,6 +12,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import javax.management.relation.Role;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -196,6 +200,13 @@ public class UserResource {
     public ResponseEntity<List<User>> getUsersByBuildingId(@PathVariable Long buildingId) {
         LOG.debug("REST request to get Users by buildingId : {}", buildingId);
         List<User> users = userService.findByBuildingId(buildingId);
+        return ResponseEntity.ok().body(users);
+    }
+    
+    @GetMapping("/building/{buildingId}/role/{role}")
+    public ResponseEntity<List<User>> getUsersByRole(@PathVariable Long buildingId, @PathVariable Roles role) {
+        LOG.debug("REST request to get Users by role : {}, {}", buildingId, role);
+        List<User> users = userService.findUsersByBuildingIdAndRole(buildingId, role);
         return ResponseEntity.ok().body(users);
     }
 

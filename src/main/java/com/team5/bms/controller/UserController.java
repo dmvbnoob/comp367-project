@@ -37,6 +37,8 @@ import org.springframework.web.bind.annotation.PathVariable;
  * Handles the "/index" URL for logged-in users.
  * Displays the user's dashboard with their building details and a welcome message.
  * Ensures that logged-in user information is retrieved from the session.
+ * 
+ * @author Jasper Belenzo
  */
 
 @Controller

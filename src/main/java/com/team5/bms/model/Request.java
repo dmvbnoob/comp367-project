@@ -5,6 +5,7 @@ import java.time.Instant;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.team5.bms.model.enumeration.Priorities;
@@ -26,6 +27,8 @@ import jakarta.validation.constraints.NotNull;
 * This class represents the domain object model for Service Requests.
 *
 * @author Alicia "Product Owner, Subject Matter Expert (SME), Software Quality" Singca
+* @author Jasper Belenzo
+* 
 */
 @Entity
 @Table(name = "Requests")
@@ -52,9 +55,11 @@ public class Request implements Serializable {
     private Statuses status;
  
     @Column(name = "create_date")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Instant createDate;
     
     @Column(name = "assign_date")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Instant assignDate;
     
     @Column(name = "assignee_id")
@@ -64,9 +69,11 @@ public class Request implements Serializable {
     private String assignee;
  
     @Column(name = "progress_date")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Instant progressDate;
  
     @Column(name = "update_date")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Instant updateDate;
     
     @Enumerated(EnumType.STRING)
@@ -267,4 +274,5 @@ public class Request implements Serializable {
             "}";
     
     }
+    
 }

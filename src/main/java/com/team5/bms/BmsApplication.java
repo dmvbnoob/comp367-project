@@ -1,6 +1,7 @@
 package com.team5.bms;
 
 import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,9 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
+/**
+ *
+ * @author Jasper Belenzo
+ * 
+ */
 @SpringBootApplication
 public class BmsApplication implements CommandLineRunner {
 	
@@ -41,6 +48,8 @@ public class BmsApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		
 		// Add TEAM 5 TOWER Building
 		Building team5Tower = new Building();
@@ -152,10 +161,16 @@ public class BmsApplication implements CommandLineRunner {
 		request1.setTitle("Kitchen Sink Repair");
 		request1.setDescription("Kitchen Sink needs repair as soon as possible. Water is leaking.");
 		request1.setCreateDate(Instant.now().minus(1, ChronoUnit.DAYS));
+		// request1.setCreateDate(Instant.from(formatter.parse(Instant.now().minus(1, ChronoUnit.DAYS).toString())));
+		// request1.setCreateDate(Instant.from(DateTimeFormatter.ISO_INSTANT.parse(Instant.now().minus(1, ChronoUnit.DAYS).toString())));
 		request1.setStatus(Statuses.ASSIGNED);
 		request1.setPriority(Priorities.LOW);
 		request1.setUpdateDate(Instant.now());
+		// request1.setUpdateDate(Instant.from(formatter.parse(Instant.now().toString())));
+		// request1.setUpdateDate(Instant.from(DateTimeFormatter.ISO_INSTANT.parse(Instant.now().toString())));
+		//request1.setAssignDate(Instant.from(formatter.parse(Instant.now().toString())));
 		request1.setAssignDate(Instant.now());
+		//request1.setAssignDate(Instant.from(DateTimeFormatter.ISO_INSTANT.parse(Instant.now().toString())));
 		request1.setAssigneeId(superIntendent.getId());
 		request1.setAssignee(superIntendent.getUsername());
 		requestRepository.save(request1);
@@ -185,6 +200,17 @@ public class BmsApplication implements CommandLineRunner {
 		Optional<User> optionalBuildingOwner = userRepository.findById(Long.valueOf(7L));
 		System.out.println("BmsApplication - run - buildingOwner - id -> " + optionalBuildingOwner.get().getId());
 		
+		// Add Credit Card of Building Owner Alicia Singca
+		Card cardOfBuildingOwner2 = new Card();
+		cardOfBuildingOwner2.setCardName("Jack Trudelle");
+		cardOfBuildingOwner2.setExpiry("2078-12");
+		cardOfBuildingOwner2.setCvv("777");
+		cardOfBuildingOwner2.setNumber("4329567890329");
+		cardOfBuildingOwner2.setUser(buildingOwner2);
+		cardRepository.save(cardOfBuildingOwner2);
+		Optional<Card> optionalCardOfBuildingOwner2 = cardRepository.findById(Long.valueOf(2L));
+		System.out.println("BmsApplication - run - cardOfBuildingOwner2 - id -> " + optionalCardOfBuildingOwner2.get().getId());
+		
 		// Add VOLTAIRE RONIO Tenant of TRUDELLE YORK
 		User tenantUser3 = new User();
 		tenantUser3.setUsername("VoltaireRonio");
@@ -204,6 +230,8 @@ public class BmsApplication implements CommandLineRunner {
 		request2.setTitle("Washroom Repair");
 		request2.setDescription("Washroom needs repair as soon as possible. Bathtub is leaking.");
 		request2.setCreateDate(Instant.now());
+		// request2.setCreateDate(Instant.from(formatter.parse(Instant.now().toString())));
+		// request2.setCreateDate(Instant.from(DateTimeFormatter.ISO_INSTANT.parse(Instant.now().toString())));
 		request2.setStatus(Statuses.CREATED);
 		request2.setPriority(Priorities.LOW);
 		requestRepository.save(request2);

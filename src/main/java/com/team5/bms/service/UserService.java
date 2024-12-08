@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.team5.bms.model.User;
+import com.team5.bms.model.enumeration.Roles;
 
 /**
 * Service Interface for managing {@link com.team5.bms.domain.User}.
@@ -12,7 +13,6 @@ import com.team5.bms.model.User;
 * @author Leandro "The Project Manager" Mananquil
 * @author Jasper Belenzo
 */
-
 public interface UserService {
 	
     /**
@@ -72,5 +72,7 @@ public interface UserService {
     Optional<User> findByUsernameAndPassword(String username, String password);
     
     List<User> findByBuildingId(Long buildingId);
+
+	List<User> findUsersByBuildingIdAndRole(Long buildingId, Roles role);
 
 }

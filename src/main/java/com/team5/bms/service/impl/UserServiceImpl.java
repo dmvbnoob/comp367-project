@@ -2,6 +2,7 @@ package com.team5.bms.service.impl;
  
 import com.team5.bms.model.User;
 import com.team5.bms.repository.UserRepository;
+import com.team5.bms.model.enumeration.Roles;
 import com.team5.bms.service.UserService;
 
 import java.util.List;
@@ -109,7 +110,14 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		// return null;
 		
-	   LOG.debug("Request to get all Users by buildingId : {}", buildingId);
+	  LOG.debug("Request to get all Users by buildingId : {}", buildingId);
 	  return userRepository.findByBuildingId(buildingId);
 	}
+	
+	@Override
+    public List<User> findUsersByBuildingIdAndRole(Long buildingId, Roles role) {
+		LOG.debug("Request to get all Users by buildingId and role : {} / {}", buildingId, role);
+        return userRepository.findByBuildingIdAndRole(buildingId, role);
+    }
+    
 }

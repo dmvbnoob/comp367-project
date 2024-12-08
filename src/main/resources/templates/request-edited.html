@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Request - BMS</title>
+        <title>Request Edited - BMS</title>
         <link rel="icon" type="image/x-icon" href="/favicon.png">
         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/site.css">
@@ -53,28 +53,75 @@
 
         <div b-c7vtn5ui3n="" class="container">
             <main b-c7vtn5ui3n="" role="main" class="pb-3">  
-                <h2>Details</h2>
-                <div>
-                    <h4>User</h4>
-                    <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
-        				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        				<span th:text="${message}"></span>
-    				</div>
-                    <hr>
+                <h2>Edit Successful</h2>
+                <h3>BMS Request Edited</h3>
+                <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
+        			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        			<span th:text="${message}"></span>
+    			</div>
+                <hr/>
+                <div class="row">
                 
-                
-       				<div class="row">         
-                        <div class="col-md-4">
+                    <div class="col-md-4" th:if="${(session.loggedInUser.role.name() == 'TENANT')}">
                     	<h4>BMS Request Details</h4>
                         <hr>
 						<div class="form-floating mb-3">
-                         	<input th:value="*{request.id}" class="form-control" id="id" name="id" placeholder="Id" readonly type="text">
-                            <label for="id">Id</label>
+                                <input th:value="*{request.id}" class="form-control" id="id" name="id" placeholder="Id" readonly type="text">
+                                <label for="id">Id</label>
                         </div>
-                        <div class="form-floating mb-3">
-                        	<input th:value="*{request.title}" class="form-control" id="title" name="title" placeholder="Title" readonly type="text">
+                            <div class="form-floating mb-3">
+                                <input th:value="*{request.title}" class="form-control" id="title" name="title" placeholder="Title" readonly type="text">
                                 <label for="title">Title</label>
-                         </div>
+                            </div>
+						<div class="form-floating mb-3">
+                                <textarea th:text="*{request.description}" class="form-control" id="description" name="description" placeholder="Description" style="min-height: 200px;" readonly rows="7" maxlength="500" title="Description should be at most 500 characters long."></textarea>
+                                <label for="description">Description</label>
+						</div>
+						<div th:if="${request.createDate != null}" class="form-floating mb-3">
+                         	<input th:value="${#dates.format(request.createDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="createDate" name="createDate" placeholder="createDate" readonly type="text">
+                        	<label for="createDate">Date Created</label>
+                  		</div>
+                        <div class="form-floating mb-3">
+                            <input th:value="*{request.priority}" class="form-control" id="priority" name="priority" placeholder="priority" readonly type="text">
+                      		<label for="prioriy">Priority</label>
+                        </div>
+         				<div class="form-floating mb-3">
+                            <input th:value="*{request.status}" class="form-control" id="status" name="status" placeholder="Status" readonly type="text">
+                      		<label for="status">Status</label>
+                        </div>
+	            		<div th:if="${request.assignDate != null}" class="form-floating mb-3">
+	          				<input th:value="${#dates.format(request.assignDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="assignDate" name="assignDate" placeholder="assignDate" readonly type="text">
+	                 		<label for="assignDate">Date Assigned</label>
+	       				</div>
+	       				<div th:if="${request.assignee != null}" class="form-floating mb-3">
+	          				<input th:value="${request.assignee}" class="form-control" id="assignee" name="assignee" placeholder="assignee" readonly type="text">
+	                 		<label for="assignee">Assignee (Username)</label>
+	       				</div>
+        				<div th:if="${request.progressDate != null}" class="form-floating mb-3">
+                        	<input th:value="${#dates.format(request.progressDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="progressDate" name="progressDate" placeholder="progressDate" readonly type="text">
+                          	<label for="progressDate">Date Progressed</label>
+       					</div>
+           				<div th:if="${request.updateDate != null}" class="form-floating mb-3">
+                          	<input th:value="${#dates.format(request.updateDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="updateDate" name="updateDate" placeholder="updateDate" readonly type="text">
+                       		<label for="updateDate">Date Updated</label>
+       					</div>
+                   		<div>
+            				<a th:href="@{/edit-request/{id}(id=${request.id})}" class="btn btn-warning btn-lg">Edit</a>
+                    		<a th:href="@{/requests}" class="btn btn-secondary btn-lg">Back to List</a>
+                		</div>
+                    </div>
+                    
+                    <div class="col-md-4" th:if="${(session.loggedInUser.role.name() == 'OWNER' or session.loggedInUser.role.name() == 'ADMINISTRATOR')}">
+                    	<h4>BMS Request Details</h4>
+                        <hr>
+						<div class="form-floating mb-3">
+                                <input th:value="*{request.id}" class="form-control" id="id" name="id" placeholder="Id" readonly type="text">
+                                <label for="id">Id</label>
+                        </div>
+                            <div class="form-floating mb-3">
+                                <input th:value="*{request.title}" class="form-control" id="title" name="title" placeholder="Title" readonly type="text">
+                                <label for="title">Title</label>
+                            </div>
 						<div class="form-floating mb-3">
                                 <textarea th:text="*{request.description}" class="form-control" id="description" name="description" placeholder="Description" style="min-height: 200px;" readonly rows="7" maxlength="500" title="Description should be at most 500 characters long."></textarea>
                                 <label for="description">Description</label>
@@ -114,9 +161,9 @@
                     </div>
                     
                 </div>
-                </div>
             </main>
         </div>
+        
 
         <footer b-c7vtn5ui3n="" class="border-top footer text-muted">
             <div b-c7vtn5ui3n="" class="container">
@@ -129,5 +176,5 @@
         <script src="/js/site.js"></script>
         <script type="text/javascript" src="/js/browserLink" async="async" id="__browserLink_initializationData" data-requestid="0e7f63f54dbc48649145a877fa2cd928" data-requestmappingfromserver="false" data-connecturl="@{/js/browserLink}"></script>
         <script src="/js/aspnetcore-browser-refresh.js"></script>
-    </body>
+    </body>
 </html>
