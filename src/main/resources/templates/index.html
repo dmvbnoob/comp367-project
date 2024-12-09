@@ -1,3 +1,4 @@
+ <!-- @author Donalda Zhuga -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +39,7 @@
             z-index: 1;
             text-align: center;
             color: #34495E;
-            background: rgba(255, 255, 255, 0.8); /* Optional: Add a slight background for readability */
+            background: rgba(255, 255, 255, 0.8); 
             padding: 20px;
             border-radius: 10px;
         }
@@ -51,7 +52,7 @@
 
         /* Navbar Styling */
         .navbar {
-            background-color: #2C3E50; /* Dark blue color */
+            background-color: #2C3E50; 
             border-bottom: 2px solid #1ABC9C;
         }
         .navbar-brand {
@@ -80,6 +81,8 @@
         }
         footer a:hover {
             color: #ECF0F1;
+            
+            
         }
 
         @media (max-width: 768px) {
@@ -90,6 +93,8 @@
                 font-size: 1em;
             }
         }
+        
+        
     </style>
 </head>
 <body>
@@ -144,7 +149,9 @@
             </h1>
             
             <!-- Stephanie added building details -->
-            <!-- Donalda made changes -->
+            
+            <!-- Donalda made some changes -->
+            
             <div th:if="${building != null}">
                 <p><strong>Building Details:</strong></p>
                 <p>Building Name: <span th:text="${building.buildingName}"></span></p>
@@ -153,17 +160,12 @@
                 <p>Building Email: tower5@delcondo.com</p>
             </div>
             <div th:if="${building == null}">
-                <p>Login to see building information or contact the administrator.</p>
+                <p>Please log in to view building information or contact the building administrator. Thank you!</p>
             </div>
         </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-           © 2024 - BMS | Team 5 Tower - <a href="/privacy">Privacy</a>
-        </div>
-    </footer>
-
+   
     <script src="/lib/jquery/js/jquery.min.js"></script>
     <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/js/site.js"></script>

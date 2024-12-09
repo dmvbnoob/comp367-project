@@ -1,3 +1,4 @@
+<!-- @author Donalda Zhuga - Design Updated  -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,6 +9,94 @@
         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/site.css">
         <link rel="stylesheet" href="/css/BMS.styles.css">
+        
+        
+        
+         <style>
+        /* Global Styling */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #2C3E50 !important; 
+            border-bottom: 2px solid #1ABC9C; 
+        }
+        .navbar-brand {
+            color: #ECF0F1 !important;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #ECF0F1 !important;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #1ABC9C !important;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #34495E; /* Dark footer background */
+            color: #ECF0F1;
+            padding: 15px 0;
+            margin-top: auto; /* Push footer to the bottom */
+            text-align: center;
+        }
+        footer a {
+            color: #1ABC9C;
+        }
+        footer a:hover {
+            color: #ECF0F1;
+        }
+
+        /* Main Page Styling */
+        .main-content {
+            margin-top: 50px;
+            text-align: center;
+            color: #34495E;
+        }
+
+        .main-content h1 {
+            margin-bottom: 10px; 
+            font-size: 3em;
+            color: #34495E;
+            font-weight: bold;
+        }
+
+        /* Center Login Form */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 56px - 45px); 
+        }
+        .login-form {
+            width: 100%;
+            max-width: 450px; 
+            padding: 40px; 
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.5em;
+            }
+            .navbar-nav .nav-link {
+                font-size: 1em;
+            }
+        }
+    </style>
+    
+    
     </head>
     <body>
         <header b-c7vtn5ui3n="">
@@ -118,12 +207,11 @@
             </main>
         </div>
 
-        <footer b-c7vtn5ui3n="" class="border-top footer text-muted">
-            <div b-c7vtn5ui3n="" class="container">
-                © 2024 - BMS - <a href="/privacy">Privacy</a>
-            </div>
-        </footer>
-        
+     <footer class="border-top footer text-muted">
+        <div class="container">
+            © 2024 - BMS | Team 5 Tower - <a href="/privacy">Privacy</a>
+        </div>
+    </footer>
         <script src="/lib/jquery/js/jquery.min.js"></script>
         <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="/js/site.js"></script>
