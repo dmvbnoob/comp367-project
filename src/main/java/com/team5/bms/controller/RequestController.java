@@ -240,7 +240,7 @@ public class RequestController {
             HttpEntity<User> entity = new HttpEntity<>(userWithTheRequest, headers);
             ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users/"+userWithTheRequest.getId(), HttpMethod.GET, entity, User.class);
             if (response.getStatusCode().is2xxSuccessful()) {
-            	userWithTheRequest= response.getBody();
+            	userWithTheRequest = response.getBody();
                 System.out.println("UserController - GET - editRequest - response -> userWithTheRequest -> " + userWithTheRequest);
             } else {
                 model.addAttribute("message", "Failed to Get User Details By Id");
@@ -260,15 +260,33 @@ public class RequestController {
 	        User assignedSuperIntendent = new User();
 	        assignedSuperIntendent.setId(Long.valueOf(request.getAssigneeId()));
 	        try {
-	            HttpEntity<User> entity = new HttpEntity<>(userWithTheRequest, headers);
+	            HttpEntity<User> entity = new HttpEntity<>(assignedSuperIntendent, headers);
 	            ResponseEntity<User> response = restTemplate.exchange(baseUrl+"/api/users/"+ assignedSuperIntendent.getId(), HttpMethod.GET, entity, User.class);
 	            if (response.getStatusCode().is2xxSuccessful()) {
 	            	assignedSuperIntendent = response.getBody();
 	                System.out.println("UserController - GET - editRequest - response -> assignedSuperIntendent -> " + assignedSuperIntendent);
 	                request.setAssignee(assignedSuperIntendent.getUsername());
 	                request.setAssigneeId(assignedSuperIntendent.getId());
-	                request.setAssignDate(Instant.now());
-	                request.setStatus(Statuses.ASSIGNED);
+	                if ((loggedInUser.getRole() == Roles.OWNER) || (loggedInUser.getRole() == Roles.ADMINISTRATOR)){
+	                	System.out.println("OWNER and ADMIN can only ASSIGN or RE-ASSIGN");
+	                	request.setAssignDate(Instant.now());
+	                	request.setStatus(Statuses.ASSIGNED);
+	                }
+	                if ((loggedInUser.getRole() == Roles.SUPERINTENDENT) && (request.getStatus() == Statuses.ASSIGNED)){
+	                	System.out.println("SUPERINTENDENT can only transition from ASSIGNED to IN_PROGRESS");
+	                	request.progressDate(Instant.now());
+	                	request.setStatus(Statuses.IN_PROGRESS);
+	                } else if ((loggedInUser.getRole() == Roles.SUPERINTENDENT) && (request.getStatus() == Statuses.IN_PROGRESS)){
+	                	System.out.println("SUPERINTENDENT can =transition Status from IN_PROGRESS to COMPLETED");
+	                	request.setUpdateDate(Instant.now());
+	                	request.setStatus(Statuses.COMPLETED);
+	                } else if ((loggedInUser.getRole() == Roles.SUPERINTENDENT) && (request.getStatus() == Statuses.COMPLETED)){
+	                	System.out.println("SUPERINTENDENT can transition status from COMPLETED to IN_PROGRESS"); // Assuming SUPER made a mistake and is still not finish (or case of rework).
+	                	request.setUpdateDate(Instant.now());
+	                	request.progressDate(Instant.now());
+	                	request.setStatus(Statuses.IN_PROGRESS);
+	                }
+	                
 	            } else {
 	                model.addAttribute("message", "Failed to Get User Details By Id");
 	                return "request-edit";
