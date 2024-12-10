@@ -28,6 +28,7 @@ import jakarta.validation.constraints.NotNull;
 *
 * @author Alicia "Product Owner, Subject Matter Expert (SME), Software Quality" Singca
 * @author Jasper Belenzo
+* @author Jophiel Serrano
 * 
 */
 @Entity
@@ -47,7 +48,7 @@ public class Request implements Serializable {
     private String title;
  
     @NotNull
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 5000, nullable = false)
     private String description;
  
     @Enumerated(EnumType.STRING)
