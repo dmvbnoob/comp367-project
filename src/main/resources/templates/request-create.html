@@ -146,12 +146,12 @@
                             <hr>
                             <!-- BMS Request Details -->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="title" name="title" placeholder="Title" required type="text" maxlength="50" title="Title should be at most 50 characters long.">
+                                <input class="form-control" id="title" name="title" placeholder="Title" required type="text" maxlength="5000" title="Title should be at most 5000 characters long.">
                                 <label for="title">Title</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <!-- <input class="form-control" id="description" name="description" placeholder="Description"  required  type="description">  -->
-                                <textarea class="form-control" id="description" name="description" placeholder="Description" style="min-height: 200px;" required rows="7" maxlength="500" title="Description should be at most 500 characters long."></textarea>
+                                <textarea class="form-control" id="description" name="description" placeholder="Description" style="min-height: 200px;" required rows="7" maxlength="5000" title="Description should be at most 5000 characters long."></textarea>
                                 <label for="description">Description</label>
                             </div>
                             <div class="form-floating mb-3" th:if="${(session.loggedInUser.role.name() != 'SUPERINTENDENT')}">

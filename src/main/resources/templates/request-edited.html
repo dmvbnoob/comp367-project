@@ -1,234 +1,235 @@
 <!-- Author: Alicia Singca 
      Request Edited Design Updated -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Edited - BMS</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.png">
-    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/site.css">
-    <link rel="stylesheet" href="/css/BMS.styles.css">
-    <style>
-        /* Global Styling */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #F7F9FA; /* Light grey background */
-            color: #34495E; /* Dark blue text color */
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            margin-bottom: 20px;
-        }
-
-        /* Navbar Styling */
-        .navbar {
-            background-color: #2C3E50; /* Dark blue background */
-            border-bottom: 3px solid #1ABC9C; /* Accent color */
-        }
-
-        .navbar-brand {
-            color: #ECF0F1 !important;
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        .navbar-nav .nav-link {
-            color: #ECF0F1 !important;
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #1ABC9C !important;
-        }
-
-        /* Main Content Styling */
-        main {
-            flex-grow: 1;
-            padding: 20px;
-        }
-
-        .main-content h1, .main-content h2, .main-content h3 {
-            color: #2C3E50;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .form-floating {
-            margin-bottom: 15px;
-        }
-
-        .form-control {
-            background-color: #FFFFFF;
-            border: 1px solid #D3D3D3;
-            border-radius: 5px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn {
-            font-size: 1em;
-            margin: 5px;
-        }
-
-        .btn-lg {
-            font-size: 1.1em;
-        }
-
-        /* Footer Styling */
-        footer {
-            background-color: #34495E;
-            color: #ECF0F1;
-            padding: 15px 0;
-            text-align: center;
-            margin-top: auto;
-        }
-
-        footer a {
-            color: #1ABC9C;
-        }
-
-        footer a:hover {
-            color: #ECF0F1;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .navbar-brand {
-                font-size: 1.5em;
-            }
-
-            .navbar-nav .nav-link {
-                font-size: 1em;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/index">BMS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1" th:if="${session.loggedInUser != null}">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item" th:if="${(session.loggedInUser.role.name() == 'OWNER' or session.loggedInUser.role.name() == 'ADMINISTRATOR')}">
-                            <a class="nav-link" href="/users">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/requests">Requests</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item" th:if="${session.loggedInUser == null}">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
-                        <li class="nav-item" th:if="${session.loggedInUser == null}">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item" th:if="${session.loggedInUser != null}">
-                            <a class="nav-link" th:href="@{/edit-user/{id}(id=${session.loggedInUser.id})}" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
-                        </li>
-                        <li class="nav-item" th:if="${session.loggedInUser != null}">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            <div class="main-content">
-                <h1>Request Edited</h1>
-                <h3>BMS Request Edited</h3>
-                <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <span th:text="${message}"></span>
-                </div>
-                <hr/>
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <h4>BMS Request Details</h4>
-                        <hr>
-                        <!-- Form Inputs for Request Details -->
-                        <form th:action="@{/edit-request}" method="post" th:object="${request}">
-                            <div class="form-floating mb-3">
-                                <input th:value="*{id}" class="form-control" id="id" name="id" placeholder="Id" readonly type="text">
-                                <label for="id">Id</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input th:value="*{title}" class="form-control" id="title" name="title" placeholder="Title" readonly type="text">
-                                <label for="title">Title</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <textarea th:text="*{description}" class="form-control" id="description" name="description" placeholder="Description" style="min-height: 200px;" readonly rows="7" maxlength="500" title="Description should be at most 500 characters long."></textarea>
-                                <label for="description">Description</label>
-                            </div>
-                            <div th:if="${request.createDate != null}" class="form-floating mb-3">
-                                <input th:value="${#dates.format(request.createDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="createDate" name="createDate" placeholder="createDate" readonly type="text">
-                                <label for="createDate">Date Created</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input th:value="*{priority}" class="form-control" id="priority" name="priority" placeholder="priority" readonly type="text">
-                                <label for="priority">Priority</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input th:value="*{status}" class="form-control" id="status" name="status" placeholder="Status" readonly type="text">
-                                <label for="status">Status</label>
-                            </div>
-                            <div th:if="${request.assignDate != null}" class="form-floating mb-3">
-                                <input th:value="${#dates.format(request.assignDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="assignDate" name="assignDate" placeholder="assignDate" readonly type="text">
-                                <label for="assignDate">Date Assigned</label>
-                            </div>
-                            <div th:if="${request.assignee != null}" class="form-floating mb-3">
-                                <input th:value="${request.assignee}" class="form-control" id="assignee" name="assignee" placeholder="assignee" readonly type="text">
-                                <label for="assignee">Assignee (Username)</label>
-                            </div>
-                            <div th:if="${request.progressDate != null}" class="form-floating mb-3">
-                                <input th:value="${#dates.format(request.progressDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="progressDate" name="progressDate" placeholder="progressDate" readonly type="text">
-                                <label for="progressDate">Date Progressed</label>
-                            </div>
-                            <div th:if="${request.updateDate != null}" class="form-floating mb-3">
-                                <input th:value="${#dates.format(request.updateDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="updateDate" name="updateDate" placeholder="updateDate" readonly type="text">
-                                <label for="updateDate">Date Edited</label>
-                            </div>
-
-                            <!-- Buttons to Edit or Go Back -->
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-lg">Edit</button>
-                                <a href="/requests" class="btn btn-secondary btn-lg">Back to List</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <footer>
-        <div class="container">
-            <p>&copy; <a href="https://bms.com" target="_blank">BMS Inc.</a> | All Rights Reserved</p>
-        </div>
-    </footer>
-
-    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/scripts.js"></script>
-</body>
-</html>
-
+     <!DOCTYPE html>
+     <html lang="en">
+     <head>
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>Request Edited - BMS</title>
+         <link rel="icon" type="image/x-icon" href="/favicon.png">
+         <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+         <link rel="stylesheet" href="/css/site.css">
+         <link rel="stylesheet" href="/css/BMS.styles.css">
+         <style>
+             /* Global Styling */
+             body {
+                 font-family: Arial, sans-serif;
+                 background-color: #F7F9FA; /* Light grey background */
+                 color: #34495E; /* Dark blue text color */
+                 margin: 0;
+                 display: flex;
+                 flex-direction: column;
+                 min-height: 100vh;
+             }
+     
+             header {
+                 margin-bottom: 20px;
+             }
+     
+             /* Navbar Styling */
+             .navbar {
+                 background-color: #2C3E50; /* Dark blue background */
+                 border-bottom: 3px solid #1ABC9C; /* Accent color */
+             }
+     
+             .navbar-brand {
+                 color: #ECF0F1 !important;
+                 font-size: 1.5em;
+                 font-weight: bold;
+             }
+     
+             .navbar-nav .nav-link {
+                 color: #ECF0F1 !important;
+                 font-size: 1.5em;
+                 font-weight: bold;
+             }
+     
+             .navbar-nav .nav-link:hover {
+                 color: #1ABC9C !important;
+             }
+     
+             /* Main Content Styling */
+             main {
+                 flex-grow: 1;
+                 padding: 20px;
+             }
+     
+             .main-content h1, .main-content h2, .main-content h3 {
+                 color: #2C3E50;
+                 font-weight: bold;
+                 text-align: center;
+             }
+     
+             .form-floating {
+                 margin-bottom: 15px;
+             }
+     
+             .form-control {
+                 background-color: #FFFFFF;
+                 border: 1px solid #D3D3D3;
+                 border-radius: 5px;
+                 box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+             }
+     
+             .btn {
+                 font-size: 1em;
+                 margin: 5px;
+             }
+     
+             .btn-lg {
+                 font-size: 1.1em;
+             }
+     
+             /* Footer Styling */
+             footer {
+                 background-color: #34495E;
+                 color: #ECF0F1;
+                 padding: 15px 0;
+                 text-align: center;
+                 margin-top: auto;
+             }
+     
+             footer a {
+                 color: #1ABC9C;
+             }
+     
+             footer a:hover {
+                 color: #ECF0F1;
+             }
+     
+             /* Responsive Design */
+             @media (max-width: 768px) {
+                 .navbar-brand {
+                     font-size: 1.5em;
+                 }
+     
+                 .navbar-nav .nav-link {
+                     font-size: 1em;
+                 }
+             }
+         </style>
+     </head>
+     <body>
+         <header>
+             <nav class="navbar navbar-expand-sm navbar-toggleable-sm">
+                 <div class="container-fluid">
+                     <a class="navbar-brand" href="/index">BMS</a>
+                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                         <span class="navbar-toggler-icon"></span>
+                     </button>
+                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                         <ul class="navbar-nav flex-grow-1" th:if="${session.loggedInUser != null}">
+                             <li class="nav-item">
+                                 <a class="nav-link" href="/index">Home</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a class="nav-link" href="/privacy">Privacy</a>
+                             </li>
+                             <li class="nav-item" th:if="${(session.loggedInUser.role.name() == 'OWNER' or session.loggedInUser.role.name() == 'ADMINISTRATOR')}">
+                                 <a class="nav-link" href="/users">Users</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a class="nav-link" href="/requests">Requests</a>
+                             </li>
+                         </ul>
+                         <ul class="navbar-nav">
+                             <li class="nav-item" th:if="${session.loggedInUser == null}">
+                                 <a class="nav-link" href="/register">Register</a>
+                             </li>
+                             <li class="nav-item" th:if="${session.loggedInUser == null}">
+                                 <a class="nav-link" href="/login">Login</a>
+                             </li>
+                             <li class="nav-item" th:if="${session.loggedInUser != null}">
+                                 <a class="nav-link" th:href="@{/edit-user/{id}(id=${session.loggedInUser.id})}" th:text="'Hello ' + ${session.loggedInUser.username} + '!'">Hello User!</a>
+                             </li>
+                             <li class="nav-item" th:if="${session.loggedInUser != null}">
+                                 <a class="nav-link" href="/logout">Logout</a>
+                             </li>
+                         </ul>
+                     </div>
+                 </div>
+             </nav>
+         </header>
+     
+         <div class="container">
+             <main role="main" class="pb-3">
+                 <div class="main-content">
+                     <h1>Request Edited</h1>
+                     <h3>BMS Request Edited</h3>
+                     <div th:if="${message != null}" class="alert alert-success alert-dismissible" role="alert">
+                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                         <span th:text="${message}"></span>
+                     </div>
+                     <hr/>
+                     <div class="row">
+                         <div class="col-md-8 offset-md-2">
+                             <h4>BMS Request Details</h4>
+                             <hr>
+                             <!-- Form Inputs for Request Details -->
+                             <form th:action="@{/edit-request}" method="post" th:object="${request}">
+                                 <div class="form-floating mb-3">
+                                     <input th:value="*{id}" class="form-control" id="id" name="id" placeholder="Id" readonly type="text">
+                                     <label for="id">Id</label>
+                                 </div>
+                                 <div class="form-floating mb-3">
+                                     <input th:value="*{title}" class="form-control" id="title" name="title" placeholder="Title" readonly type="text">
+                                     <label for="title">Title</label>
+                                 </div>
+                                 <div class="form-floating mb-3">
+                                     <textarea th:text="*{description}" class="form-control" id="description" name="description" placeholder="Description" style="min-height: 200px;" readonly rows="7" maxlength="5000" title="Description should be at most 5000 characters long."></textarea>
+                                     <label for="description">Description</label>
+                                 </div>
+                                 <div th:if="${request.createDate != null}" class="form-floating mb-3">
+                                     <input th:value="${#dates.format(request.createDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="createDate" name="createDate" placeholder="createDate" readonly type="text">
+                                     <label for="createDate">Date Created</label>
+                                 </div>
+                                 <div class="form-floating mb-3">
+                                     <input th:value="*{priority}" class="form-control" id="priority" name="priority" placeholder="priority" readonly type="text">
+                                     <label for="priority">Priority</label>
+                                 </div>
+                                 <div class="form-floating mb-3">
+                                     <input th:value="*{status}" class="form-control" id="status" name="status" placeholder="Status" readonly type="text">
+                                     <label for="status">Status</label>
+                                 </div>
+                                 <div th:if="${request.assignDate != null}" class="form-floating mb-3">
+                                     <input th:value="${#dates.format(request.assignDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="assignDate" name="assignDate" placeholder="assignDate" readonly type="text">
+                                     <label for="assignDate">Date Assigned</label>
+                                 </div>
+                                 <div th:if="${request.assignee != null}" class="form-floating mb-3">
+                                     <input th:value="${request.assignee}" class="form-control" id="assignee" name="assignee" placeholder="assignee" readonly type="text">
+                                     <label for="assignee">Assignee (Username)</label>
+                                 </div>
+                                 <div th:if="${request.progressDate != null}" class="form-floating mb-3">
+                                     <input th:value="${#dates.format(request.progressDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="progressDate" name="progressDate" placeholder="progressDate" readonly type="text">
+                                     <label for="progressDate">Date Progressed</label>
+                                 </div>
+                                 <div th:if="${request.updateDate != null}" class="form-floating mb-3">
+                                     <input th:value="${#dates.format(request.updateDate, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" id="updateDate" name="updateDate" placeholder="updateDate" readonly type="text">
+                                     <label for="updateDate">Date Edited</label>
+                                 </div>
+     
+                                 <!-- Buttons to Edit or Go Back -->
+                                 <div class="text-center">
+                                     <button type="submit" class="btn btn-primary btn-lg">Edit</button>
+                                     <a href="/requests" class="btn btn-secondary btn-lg">Back to List</a>
+                                 </div>
+                             </form>
+                         </div>
+                     </div>
+                 </div>
+             </main>
+         </div>
+     
+         <footer>
+             <div class="container">
+                 <p>&copy; <a href="https://bms.com" target="_blank">BMS Inc.</a> | All Rights Reserved</p>
+             </div>
+         </footer>
+     
+         <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+         <script src="/js/scripts.js"></script>
+     </body>
+     </html>
+     
+     
