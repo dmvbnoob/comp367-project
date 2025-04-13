@@ -25,7 +25,6 @@ steps:
     inputs:
       mavenPomFile: 'pom.xml'
       goals: 'clean verify'
-      options: '-Xmx3072m'
       javaHomeOption: 'Path'
       jdkDirectory: '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home'
       mavenVersionOption: 'Default'
