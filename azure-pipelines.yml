@@ -20,6 +20,8 @@ steps:
       configMode: 'manual'
       cliProjectKey: 'dmvbnoob_comp367-project'
       cliProjectName: 'comp367-project'
+	  extraProperties: |
+        sonar.java.binaries=target/classes
 
   - task: Maven@3
     inputs:
