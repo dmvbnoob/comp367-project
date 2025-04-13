@@ -48,9 +48,13 @@ stages:
                 - download: ciPipeline
                   artifact: drop
                 - script: |
+                    echo "Killing any existing Java process on port 8081"
+                    lsof -ti:8081 | xargs kill -9 || true
+                  displayName: 'Clean up port 8081 before running app'
+                - script: |
                     echo "Launching app on Dev environment"
-                    java -jar target/*.jar --server.port=8081
-                  displayName: 'Run JAR on Dev port 8081'
+                    nohup java -jar target/*.jar --server.port=8081 > dev.log 2>&1 &
+                  displayName: 'Run JAR on Dev port 8081 in background'
 
   - stage: Deploy_QAT
     displayName: 'Deploy to QAT Env (Mocked)'
