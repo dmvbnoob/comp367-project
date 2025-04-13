@@ -12,7 +12,7 @@ pool:
 steps:
   - task: SonarCloudPrepare@1
     inputs:
-      SonarCloud: 'Donna PAT'
+      SonarCloud: 'donna-sonar-pat'
       organization: 'dmvbnoob'
       scannerMode: 'CLI'
       configMode: 'manual'
