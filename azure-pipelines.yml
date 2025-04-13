@@ -21,19 +21,13 @@ steps:
       cliProjectKey: 'dmvbnoob_comp367-project'
       cliProjectName: 'comp367-project'
 
-  - task: JavaToolInstaller@0
-    inputs:
-      versionSpec: '21'
-      jdkArchitectureOption: 'x64'
-      jdkSourceOption: 'PreInstalled'
-
   - task: Maven@3
     inputs:
       mavenPomFile: 'pom.xml'
       goals: 'clean verify'
       options: '-Xmx3072m'
       javaHomeOption: 'Path'
-      jdkDirectory: '$(JAVA_HOME)'
+      jdkDirectory: '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home'
       mavenVersionOption: 'Default'
       mavenAuthenticateFeed: false
 
