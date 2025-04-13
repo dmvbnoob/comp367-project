@@ -7,7 +7,9 @@ trigger:
   - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: comp367-mac
+  demands:
+    - agent.name -equals MacBookPro
 
 steps:
   - task: SonarCloudPrepare@1
