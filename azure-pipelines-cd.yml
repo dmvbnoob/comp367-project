@@ -49,22 +49,15 @@ stages:
                   artifact: drop
 
                 - script: |
-                    echo "Cleaning up existing Dev app process (if any)..."
-                    if [ -f dev_app.pid ]; then
-                    		kill -9 $(cat dev_app.pid) || true
-                    		rm dev_app.pid
-                    		echo "Old app process terminated."
-                    else
-                    		echo "No previous PID file found."
-                    fi
-                  displayName: 'Clean up old Dev app'
+                    echo "Copying new JAR to app directory..."
+                    mkdir -p /Users/donnabrar/myagent/_work/apps/dev
+                    cp $(Pipeline.Workspace)/ciPipeline/drop/target/*.jar /Users/donnabrar/myagent/_work/apps/dev/
+                  displayName: 'Copy artifact to Dev app directory'
 
                 - script: |
-                    echo "Launching app on Dev environment in background..."
-                    nohup java -jar $(Pipeline.Workspace)/ciPipeline/drop/target/*.jar --server.port=8081 > dev.log 2>&1 &
-                    echo $! > dev_app.pid
-                    echo "Dev app started with PID $(cat dev_app.pid)"
-                  displayName: 'Run Dev app in background (with PID)'
+                    echo "Running deployment script..."
+                    /Users/donnabrar/scripts/run_dev_app.sh
+                  displayName: 'Execute run_dev_app.sh script'
 
                 - script: |
                     echo "Waiting for app to boot..."
