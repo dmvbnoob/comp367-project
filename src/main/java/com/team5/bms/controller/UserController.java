@@ -378,14 +378,9 @@ public class UserController {
 
     @PostMapping("/login")
     public String loginUser(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model/* , BindingResult result*/) {
-        
-        // if (result.hasErrors()) {
-            // return "login";
-        //}
-
+        // jbelenzo updated this Java file
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
-
         System.out.println("UserController - POST - login - request - username -> " + username);
         System.out.println("UserController - POST - login - request - password -> " + password);
         User loginUser = new User();
@@ -421,7 +416,6 @@ public class UserController {
         model.addAttribute("building", buildingOfLoggerUser);
         model.addAttribute("message", "Login Successful!");
         return "logged";
-        
     }
 
     @GetMapping("/user/{id}")
