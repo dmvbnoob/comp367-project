@@ -49,7 +49,7 @@ stages:
                   artifact: drop
                 - script: |
                     echo "Listing files after artifact download:"
-                    ls -R $(Pipeline.Workspace)/drop
+                    ls -R $(Pipeline.Workspace)/ciPipeline/drop
                   displayName: 'Verify downloaded artifact'
                 - script: |
                     echo "Killing any existing Java process on port 8081"
@@ -57,7 +57,7 @@ stages:
                   displayName: 'Clean up port 8081 before running app'
                 - script: |
                     echo "Launching app on Dev environment"
-                    nohup java -jar $(Pipeline.Workspace)/drop/*.jar --server.port=8081 > dev.log 2>&1 &
+                    nohup java -jar $(Pipeline.Workspace)/ciPipeline/drop/target/*.jar --server.port=8081 > dev.log 2>&1 &
                   displayName: 'Run JAR on Dev port 8081 in background'
                 - script: |
                     echo "Waiting for app to start..."
