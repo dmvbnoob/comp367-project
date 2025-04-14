@@ -1,0 +1,100 @@
+# This is the CD Pipeline
+# this is a test comment to see is the CI/CD pipeline works
+
+resources:
+  pipelines:
+    - pipeline: ciPipeline          
+      source: dmvbnoob.comp367-project
+      trigger: true
+
+stages:
+  - stage: Deliver
+    displayName: 'Build & Package'
+    jobs:
+      - job: Build
+        dependsOn: []
+        displayName: 'Build Spring Boot JAR'
+        pool:
+          name: comp367-mac
+          demands:
+            - agent.name -equals MacBookPro
+        steps:
+          - task: Maven@3
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'package'
+              javaHomeOption: 'Path'
+              jdkDirectory: '/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home'
+              mavenVersionOption: 'Default'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: 'target'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+
+  - stage: Deploy_Dev
+    displayName: 'Deploy to Dev Env'
+    dependsOn: Deliver
+    jobs:
+      - deployment: DeployDev
+        environment: dev
+        pool:
+          name: comp367-mac
+          demands:
+            - agent.name -equals MacBookPro
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: ciPipeline
+                  artifact: drop
+
+                - script: |
+                    echo "Copying new JAR to app directory..."
+                    mkdir -p /Users/donnabrar/myagent/_work/apps/dev
+                    cp /Users/donnabrar/myagent/_work/5/ciPipeline/drop/bms-0.0.1-SNAPSHOT.jar /Users/donnabrar/myagent/_work/apps/dev/
+                  displayName: 'Copy artifact to Dev app directory'
+
+                - script: |
+                    echo "Running deployment script..."
+                    /Users/donnabrar/scripts/run_dev_app.sh
+                  displayName: 'Execute run_dev_app.sh script'
+
+                - script: |
+                    echo "Waiting for app to boot..."
+                    sleep 5
+                    curl -I http://localhost:8081 || echo "App not reachable"
+                  displayName: 'Health check on port 8081'
+
+  - stage: Deploy_QAT
+    displayName: 'Deploy to QAT Env (Mocked)'
+    dependsOn: Deliver
+    jobs:
+      - job: QAT
+        pool:
+          name: comp367-mac
+        steps:
+          - script: echo "Mocked deployment to QAT environment"
+            displayName: 'Mock QAT Deploy'
+
+  - stage: Deploy_Staging
+    displayName: 'Deploy to Staging Env (Mocked)'
+    dependsOn: Deliver
+    jobs:
+      - job: Staging
+        pool:
+          name: comp367-mac
+        steps:
+          - script: echo "Mocked deployment to Staging environment"
+            displayName: 'Mock Staging Deploy'
+
+  - stage: Deploy_Prod
+    displayName: 'Deploy to Production Env (Mocked)'
+    dependsOn: Deliver
+    jobs:
+      - job: Prod
+        pool:
+          name: comp367-mac
+        steps:
+          - script: echo "Mocked deployment to Production environment"
+            displayName: 'Mock Prod Deploy'
