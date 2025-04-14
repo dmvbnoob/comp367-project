@@ -51,7 +51,7 @@ stages:
                 - script: |
                     echo "Copying new JAR to app directory..."
                     mkdir -p /Users/donnabrar/myagent/_work/apps/dev
-                    cp $(Pipeline.Workspace)/ciPipeline/drop/*.jar /Users/donnabrar/myagent/_work/apps/dev/
+                    cp /Users/donnabrar/myagent/_work/5/ciPipeline/drop/bms-0.0.1-SNAPSHOT.jar /Users/donnabrar/myagent/_work/apps/dev/
                   displayName: 'Copy artifact to Dev app directory'
 
                 - script: |
